@@ -9,8 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import ua.dimaevseenko.format_player.R
-import ua.dimaevseenko.format_player.appComponent
+import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentSplashBinding
 import ua.dimaevseenko.format_player.fragments.main.login.LoginFragment
 import ua.dimaevseenko.format_player.replaceFragment
@@ -37,7 +36,8 @@ class SplashFragment @Inject constructor(): Fragment() {
         CoroutineScope(Dispatchers.Default).launch {
             delay(2000)
             launch(Dispatchers.Main) {
-                parentFragment?.replaceFragment(
+                parentFragment?.removeFragment(this@SplashFragment, true)
+                parentFragment?.addFragment(
                     R.id.mainFragmentContainer,
                     loginFragment,
                     LoginFragment.TAG,

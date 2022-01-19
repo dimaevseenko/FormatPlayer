@@ -7,6 +7,7 @@
         <entry key="app/src/main/res/drawable/borders.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/drawable/ic_iconoir_eye_alt.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.23489583333333333" />
+        <entry key="app/src/main/res/drawable/outlined_edittext_focus.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/layout-land/fragment_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19067028985507245" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.335" />
