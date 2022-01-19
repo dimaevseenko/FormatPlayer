@@ -1,13 +1,14 @@
 package ua.dimaevseenko.format_player.fragments.main.login
 
+import android.net.Uri
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
-import android.text.method.ReplacementTransformationMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.R
+import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentLoginBinding
 import ua.dimaevseenko.format_player.isTV
 import javax.inject.Inject
@@ -28,6 +29,7 @@ class LoginFragment @Inject constructor(): Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        requireContext().appComponent.inject(this)
         if(requireContext().isTV)
             binding.loginEditText.requestFocus()
 
