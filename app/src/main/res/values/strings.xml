@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Format Player</string>
+    <string name="login">Вход</string>
 </resources>

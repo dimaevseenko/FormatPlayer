@@ -1,7 +1,9 @@
 package ua.dimaevseenko.format_player
 
 import android.app.Application
+import android.app.UiModeManager
 import android.content.Context
+import android.content.res.Configuration
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
@@ -48,8 +50,13 @@ fun Fragment.addFragment(container: Int, fragment: Fragment, tag: String, animat
     }
 }
 
-fun Fragment.replaceFragment(container: Int, fragment: Fragment, tag: String){
-    childFragmentManager.beginTransaction().replace(container, fragment, tag).commit()
+fun Fragment.replaceFragment(container: Int, fragment: Fragment, tag: String, animated: Boolean = false){
+    childFragmentManager.beginTransaction().apply {
+        if(animated)
+            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        replace(container, fragment, tag)
+        commit()
+    }
 }
 
 fun <T: Fragment> Fragment.getFragment(tag: String): T?{
@@ -59,3 +66,7 @@ fun <T: Fragment> Fragment.getFragment(tag: String): T?{
 fun Fragment.removeFragment(fragment: Fragment){
     childFragmentManager.beginTransaction().remove(fragment).commit()
 }
+
+val Context.isTV: Boolean
+    get() = (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager)
+        .currentModeType == Configuration.UI_MODE_TYPE_TELEVISION

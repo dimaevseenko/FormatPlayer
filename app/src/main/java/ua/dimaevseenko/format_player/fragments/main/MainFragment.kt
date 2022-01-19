@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.addFragment
 import ua.dimaevseenko.format_player.databinding.FragmentMainBinding
-import ua.dimaevseenko.format_player.fragments.splash.SplashFragment
+import ua.dimaevseenko.format_player.fragments.main.splash.SplashFragment
 import javax.inject.Inject
 
 class MainFragment @Inject constructor(): Fragment() {

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/black">
+
+    <androidx.cardview.widget.CardView
+        style="@style/Theme.FormatPlayer.EditTextCardView"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/loginEditText"
+                style="@style/Theme.FormatPlayer.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:hint="Логин"
+                android:inputType="number"
+                android:nextFocusLeft="@id/loginEditText"
+                android:nextFocusRight="@id/loginEditText"
+                android:nextFocusUp="@id/loginEditText"
+                android:nextFocusDown="@id/passwordEditText" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        style="@style/Theme.FormatPlayer.EditTextCardView"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/loginButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/passwordEditText"
+                    style="@style/Theme.FormatPlayer.EditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ems="10"
+                    android:hint="Пароль"
+                    android:inputType="textPassword"
+                    android:nextFocusLeft="@id/passwordEditText"
+                    android:nextFocusRight="@id/showPasswordButton"
+                    android:nextFocusUp="@id/loginEditText"
+                    android:nextFocusDown="@id/loginButton" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center|right"
+                android:orientation="vertical">
+
+                <ImageButton
+                    android:id="@+id/showPasswordButton"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/transparent"
+                    android:nextFocusLeft="@id/passwordEditText"
+                    android:nextFocusRight="@id/showPasswordButton"
+                    android:nextFocusUp="@id/loginEditText"
+                    android:nextFocusDown="@id/loginButton"
+                    android:scaleType="center"
+                    android:src="@drawable/ic_hide_password"
+                    app:tint="@color/show_password_selector" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/loginButton"
+        style="@style/Theme.FormatPlayer.OutlinedButton"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="48dp"
+        android:nextFocusLeft="@id/loginButton"
+        android:nextFocusRight="@id/loginButton"
+        android:nextFocusUp="@id/passwordEditText"
+        android:nextFocusDown="@id/loginButton"
+        android:text="@string/login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
