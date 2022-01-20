@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentLoginBinding
+import ua.dimaevseenko.format_player.fragment.main.auth.AuthorizationFragment
 import ua.dimaevseenko.format_player.isTV
 import javax.inject.Inject
 
@@ -33,6 +34,7 @@ class LoginFragment @Inject constructor(): Fragment() {
             binding.loginEditText.requestFocus()
 
         binding.showPasswordButton.setOnClickListener { showPassword() }
+        binding.registerButton.setOnClickListener { (parentFragment as AuthorizationFragment).registerFragment() }
     }
 
     private fun showPassword(){

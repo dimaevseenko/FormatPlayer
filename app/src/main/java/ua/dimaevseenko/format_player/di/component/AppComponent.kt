@@ -8,6 +8,7 @@ import ua.dimaevseenko.format_player.di.module.AppModule
 import ua.dimaevseenko.format_player.fragment.main.MainFragment
 import ua.dimaevseenko.format_player.fragment.main.auth.AuthorizationFragment
 import ua.dimaevseenko.format_player.fragment.main.auth.login.LoginFragment
+import ua.dimaevseenko.format_player.fragment.main.auth.register.RegisterFragment
 import ua.dimaevseenko.format_player.fragment.main.splash.SplashFragment
 
 @Component(modules = [AppModule::class])
@@ -17,6 +18,7 @@ interface AppComponent {
     fun inject(splashFragment: SplashFragment)
     fun inject(authorizationFragment: AuthorizationFragment)
     fun inject(loginFragment: LoginFragment)
+    fun inject(registerFragment: RegisterFragment)
 
     @Component.Builder
     interface Builder{

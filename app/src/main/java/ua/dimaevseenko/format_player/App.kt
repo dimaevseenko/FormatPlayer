@@ -37,7 +37,7 @@ fun FragmentActivity.addFragment(container: Int, fragment: Fragment, tag: String
 fun FragmentActivity.replaceFragment(container: Int, fragment: Fragment, tag: String, animated: Boolean = false){
     supportFragmentManager.beginTransaction().apply {
         if(animated)
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
         replace(container, fragment, tag)
         commit()
     }

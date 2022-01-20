@@ -20,4 +20,9 @@ class MainActivity : AppCompatActivity() {
         else
             mainFragment = getFragment(MainFragment.TAG)!!
     }
+
+    override fun onBackPressed() {
+        if(!mainFragment.onBackPressed())
+            super.onBackPressed()
+    }
 }

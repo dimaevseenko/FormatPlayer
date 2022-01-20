@@ -6,12 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import ua.dimaevseenko.format_player.R
-import ua.dimaevseenko.format_player.addFragment
-import ua.dimaevseenko.format_player.appComponent
+import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentAuthBinding
 import ua.dimaevseenko.format_player.fragment.main.auth.login.LoginFragment
+import ua.dimaevseenko.format_player.fragment.main.auth.register.RegisterFragment
 import javax.inject.Inject
+import kotlin.math.log
 
 class AuthorizationFragment @Inject constructor(): Fragment() {
 
@@ -22,6 +22,8 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
     private lateinit var binding: FragmentAuthBinding
 
     @Inject lateinit var loginFragment: LoginFragment
+    @Inject lateinit var registerFragment: RegisterFragment
+
     @Inject lateinit var presentationPlayerFactory: PresentationPlayer.Factory
     lateinit var presentationPlayer: PresentationPlayer
 
@@ -38,6 +40,18 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
         presentationPlayer = presentationPlayerFactory.createPresentationPlayer(binding.player).apply { play() }
     }
 
+    fun registerFragment(){
+        loginFragment = getFragment(LoginFragment.TAG)!!
+        removeFragment(loginFragment, true)
+        addFragment(R.id.authContainer, registerFragment, RegisterFragment.TAG,true)
+    }
+
+    fun loginFragment(){
+        registerFragment = getFragment(RegisterFragment.TAG)!!
+        removeFragment(registerFragment, true)
+        addFragment(R.id.authContainer, loginFragment, LoginFragment.TAG, true)
+    }
+
     override fun onResume() {
         presentationPlayer.play()
         super.onResume()
@@ -51,5 +65,13 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
     override fun onDestroy() {
         presentationPlayer.stop()
         super.onDestroy()
+    }
+
+    fun onBackPressed(): Boolean{
+        getFragment<RegisterFragment>(RegisterFragment.TAG)?.let {
+            loginFragment()
+            return true
+        }
+        return false
     }
 }

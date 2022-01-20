@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@color/black"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        style="@style/Theme.FormatPlayer.EditTextCardView"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextFio"
+                style="@style/Theme.FormatPlayer.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:hint="@string/fio"
+                android:inputType="textPersonName"
+                android:nextFocusLeft="@id/editTextFio"
+                android:nextFocusRight="@id/editTextFio"
+                android:nextFocusUp="@id/editTextFio"
+                android:nextFocusDown="@id/editTextPhoneNumber" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView3"
+        style="@style/Theme.FormatPlayer.EditTextCardView"
+        android:layout_width="350dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonSend"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editTextPhoneNumber"
+                style="@style/Theme.FormatPlayer.EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:hint="@string/phone_number"
+                android:inputType="number"
+                android:nextFocusLeft="@id/editTextPhoneNumber"
+                android:nextFocusRight="@id/editTextPhoneNumber"
+                android:nextFocusUp="@id/editTextFio"
+                android:nextFocusDown="@id/buttonSend" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/buttonSend"
+        style="@style/Theme.FormatPlayer.OutlinedButton"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="8dp"
+        android:nextFocusLeft="@id/buttonSend"
+        android:nextFocusRight="@id/buttonSend"
+        android:nextFocusUp="@id/editTextPhoneNumber"
+        android:nextFocusDown="@id/buttonBack"
+        android:text="@string/send"
+        app:layout_constraintBottom_toTopOf="@+id/buttonBack"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonBack"
+        style="@style/Theme.FormatPlayer.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="16dp"
+        android:nextFocusLeft="@id/buttonBack"
+        android:nextFocusRight="@id/buttonBack"
+        android:nextFocusUp="@id/buttonSend"
+        android:nextFocusDown="@id/buttonBack"
+        android:text="@string/back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="TouchTargetSizeCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>

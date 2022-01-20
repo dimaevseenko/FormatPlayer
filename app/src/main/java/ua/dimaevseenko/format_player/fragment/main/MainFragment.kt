@@ -37,4 +37,9 @@ class MainFragment @Inject constructor(): Fragment() {
     fun authFragment(){
         replaceFragment(R.id.mainFragmentContainer, authorizationFragment, AuthorizationFragment.TAG, true)
     }
+
+    fun onBackPressed(): Boolean{
+        getFragment<AuthorizationFragment>(AuthorizationFragment.TAG)?.let { return it.onBackPressed() }
+        return false
+    }
 }
