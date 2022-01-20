@@ -68,7 +68,7 @@ fun Fragment.addFragment(container: Int, fragment: Fragment, tag: String, animat
 fun Fragment.replaceFragment(container: Int, fragment: Fragment, tag: String, animated: Boolean = false){
     childFragmentManager.beginTransaction().apply {
         if(animated)
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
         replace(container, fragment, tag)
         commit()
     }

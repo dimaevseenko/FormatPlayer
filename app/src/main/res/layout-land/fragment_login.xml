@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black">
+    tools:background="@color/black"
+    android:layout_height="match_parent">
 
     <androidx.cardview.widget.CardView
         style="@style/Theme.FormatPlayer.EditTextCardView"
@@ -27,11 +27,12 @@
                 android:layout_height="match_parent"
                 android:ems="10"
                 android:hint="@string/login"
-                android:inputType="number"
+                android:inputType="textWebEditText|number"
                 android:nextFocusLeft="@id/loginEditText"
                 android:nextFocusRight="@id/loginEditText"
                 android:nextFocusUp="@id/loginEditText"
-                android:nextFocusDown="@id/passwordEditText" />
+                android:nextFocusDown="@id/passwordEditText"
+                android:numeric="integer" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
@@ -87,7 +88,8 @@
                     android:nextFocusDown="@id/loginButton"
                     android:scaleType="center"
                     android:src="@drawable/ic_hide_password"
-                    app:tint="@color/show_password_selector" />
+                    app:tint="@color/show_password_selector"
+                    tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
             </LinearLayout>
 
         </FrameLayout>
