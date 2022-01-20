@@ -139,15 +139,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
                     android:layout_marginBottom="16dp"
-                    android:text="@string/not_registred"
+                    android:nextFocusLeft="@id/registerButton"
+                    android:nextFocusRight="@id/registerButton"
+                    android:nextFocusUp="@id/loginButton"
+                    android:nextFocusDown="@id/registerButton"
+                    android:text="@string/not_registered"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    tools:ignore="TouchTargetSizeCheck"
-                    android:nextFocusDown="@id/registerButton"
-                    android:nextFocusLeft="@id/registerButton"
-                    android:nextFocusRight="@id/registerButton"
-                    android:nextFocusUp="@id/loginButton"/>
+                    tools:ignore="TouchTargetSizeCheck" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

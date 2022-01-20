@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.alert
+package ua.dimaevseenko.format_player.dialog
 
 import android.app.Dialog
 import android.os.Bundle

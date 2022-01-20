@@ -2,6 +2,7 @@ package ua.dimaevseenko.format_player
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.fragment.main.MainFragment
 import javax.inject.Inject
@@ -15,6 +16,8 @@ class MainActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         appComponent.inject(this)
         setContentView(R.layout.activity_main)
+
+        Config.Values.load(this)
 
         if(savedInstanceState == null)
             addFragment(R.id.mainContainer, mainFragment, MainFragment.TAG)

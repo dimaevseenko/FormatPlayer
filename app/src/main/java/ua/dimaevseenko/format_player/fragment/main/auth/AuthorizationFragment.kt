@@ -1,6 +1,5 @@
 package ua.dimaevseenko.format_player.fragment.main.auth
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import ua.dimaevseenko.format_player.databinding.FragmentAuthBinding
 import ua.dimaevseenko.format_player.fragment.main.auth.login.LoginFragment
 import ua.dimaevseenko.format_player.fragment.main.auth.register.RegisterFragment
 import javax.inject.Inject
-import kotlin.math.log
 
 class AuthorizationFragment @Inject constructor(): Fragment() {
 

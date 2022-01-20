@@ -3,7 +3,7 @@
     <string name="sign_in">Вход</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
-    <string name="not_registred">Не зарегестрирован?</string>
+    <string name="not_registered">Не зарегистрирован?</string>
     <string name="back">Назад</string>
     <string name="send">Отправить</string>
     <string name="fio">Ф.И.О.</string>
