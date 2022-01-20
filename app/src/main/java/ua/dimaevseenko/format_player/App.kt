@@ -25,6 +25,10 @@ class App: Application() {
 val Context.appComponent: AppComponent
     get() = if(this is App) appComponent else applicationContext.appComponent
 
+val Context.isTV: Boolean
+    get() = (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager)
+        .currentModeType == Configuration.UI_MODE_TYPE_TELEVISION
+
 fun FragmentActivity.addFragment(container: Int, fragment: Fragment, tag: String, animated: Boolean = false){
     supportFragmentManager.beginTransaction().apply {
         if(animated)
@@ -86,7 +90,3 @@ fun Fragment.removeFragment(fragment: Fragment, animated: Boolean = false){
         commit()
     }
 }
-
-val Context.isTV: Boolean
-    get() = (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager)
-        .currentModeType == Configuration.UI_MODE_TYPE_TELEVISION

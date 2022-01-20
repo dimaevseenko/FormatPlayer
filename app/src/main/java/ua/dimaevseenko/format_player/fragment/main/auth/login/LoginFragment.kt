@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
+import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.databinding.FragmentLoginBinding
 import ua.dimaevseenko.format_player.fragment.main.auth.AuthorizationFragment
 import ua.dimaevseenko.format_player.isTV
@@ -35,6 +36,7 @@ class LoginFragment @Inject constructor(): Fragment() {
 
         binding.showPasswordButton.setOnClickListener { showPassword() }
         binding.registerButton.setOnClickListener { (parentFragment as AuthorizationFragment).registerFragment() }
+        binding.loginButton.setOnClickListener { (requireActivity() as BaseActivity).showProgressDialog() }
     }
 
     private fun showPassword(){

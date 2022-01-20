@@ -2,10 +2,11 @@ package ua.dimaevseenko.format_player
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.fragment.main.MainFragment
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     @Inject
     lateinit var mainFragment: MainFragment

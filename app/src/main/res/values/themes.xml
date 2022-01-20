@@ -47,4 +47,8 @@
         <item name="backgroundTint">@color/outlined_textbutton_selector</item>
         <item name="rippleColor">@color/lightGreen</item>
     </style>
+
+    <style name="Theme.FormatPlayer.DialogFragment" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
 </resources>
