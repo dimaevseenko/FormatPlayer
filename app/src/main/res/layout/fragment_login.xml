@@ -123,15 +123,31 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="32dp"
                     android:layout_marginEnd="32dp"
-                    android:layout_marginBottom="48dp"
+                    android:layout_marginBottom="8dp"
                     android:nextFocusLeft="@id/loginButton"
                     android:nextFocusRight="@id/loginButton"
                     android:nextFocusUp="@id/passwordEditText"
-                    android:nextFocusDown="@id/loginButton"
+                    android:nextFocusDown="@id/registerButton"
                     android:text="@string/sign_in"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/registerButton"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
+
+                <Button
+                    android:id="@+id/registerButton"
+                    style="@style/Theme.FormatPlayer.TextButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/not_registred"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:ignore="TouchTargetSizeCheck"
+                    android:nextFocusDown="@id/registerButton"
+                    android:nextFocusLeft="@id/registerButton"
+                    android:nextFocusRight="@id/registerButton"
+                    android:nextFocusUp="@id/loginButton"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>

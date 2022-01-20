@@ -22,6 +22,8 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
     private lateinit var binding: FragmentAuthBinding
 
     @Inject lateinit var loginFragment: LoginFragment
+    @Inject lateinit var presentationPlayerFactory: PresentationPlayer.Factory
+    lateinit var presentationPlayer: PresentationPlayer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentAuthBinding.bind(inflater.inflate(R.layout.fragment_auth, container, false))
@@ -33,5 +35,21 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
 
         if(savedInstanceState == null)
             addFragment(R.id.authContainer, loginFragment, LoginFragment.TAG)
+        presentationPlayer = presentationPlayerFactory.createPresentationPlayer(binding.player).apply { play() }
+    }
+
+    override fun onResume() {
+        presentationPlayer.play()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        presentationPlayer.pause()
+        super.onPause()
+    }
+
+    override fun onDestroy() {
+        presentationPlayer.stop()
+        super.onDestroy()
     }
 }

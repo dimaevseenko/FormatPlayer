@@ -22,6 +22,7 @@
         <item name="backgroundTint">@color/outlined_button_selector</item>
         <item name="cornerRadius">6dp</item>
         <item name="android:fontFamily">@font/inter</item>
+        <item name="rippleColor">@color/lightGreen</item>
     </style>
 
     <style name="Theme.FormatPlayer.EditTextCardView" parent="Widget.MaterialComponents.CardView">
@@ -36,5 +37,14 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColorHint">@color/hint</item>
         <item name="android:textColor">@color/hint</item>
+    </style>
+
+    <style name="Theme.FormatPlayer.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textSize">14sp</item>
+        <item name="backgroundTint">@color/outlined_textbutton_selector</item>
+        <item name="rippleColor">@color/lightGreen</item>
     </style>
 </resources>

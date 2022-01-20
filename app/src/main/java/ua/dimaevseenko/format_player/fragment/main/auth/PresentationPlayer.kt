@@ -16,11 +16,9 @@ class PresentationPlayer @AssistedInject constructor(
 ) {
 
     init {
+        player.setMediaItem(MediaItem.fromUri(Uri.parse("asset:///tv-presentation.mp4")))
         player.repeatMode = ExoPlayer.REPEAT_MODE_ALL
-        player.setMediaItem(MediaItem.fromUri(Uri.parse("asset:///...")))
         playerView.player = player
-        playerView.resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
-        playerView.useController = false
     }
 
     fun play(){
