@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragments.main.login
+package ua.dimaevseenko.format_player.fragment.main.auth
 
 import android.net.Uri
 import com.google.android.exoplayer2.ExoPlayer

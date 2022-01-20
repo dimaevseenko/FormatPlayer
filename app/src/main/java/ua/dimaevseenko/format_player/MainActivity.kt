@@ -2,9 +2,7 @@ package ua.dimaevseenko.format_player
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import ua.dimaevseenko.format_player.fragments.main.MainFragment
+import ua.dimaevseenko.format_player.fragment.main.MainFragment
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {

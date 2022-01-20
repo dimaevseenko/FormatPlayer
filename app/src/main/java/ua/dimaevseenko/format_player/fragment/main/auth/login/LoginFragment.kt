@@ -1,6 +1,5 @@
-package ua.dimaevseenko.format_player.fragments.main.login
+package ua.dimaevseenko.format_player.fragment.main.auth.login
 
-import android.net.Uri
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater

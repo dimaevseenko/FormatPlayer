@@ -7,8 +7,8 @@ import android.content.res.Configuration
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
-import ua.dimaevseenko.format_player.di.components.AppComponent
-import ua.dimaevseenko.format_player.di.components.DaggerAppComponent
+import ua.dimaevseenko.format_player.di.component.AppComponent
+import ua.dimaevseenko.format_player.di.component.DaggerAppComponent
 
 class App: Application() {
 

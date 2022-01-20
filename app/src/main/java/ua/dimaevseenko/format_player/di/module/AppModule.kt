@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.di.modules
+package ua.dimaevseenko.format_player.di.module
 
 import android.content.Context
 import com.google.android.exoplayer2.ExoPlayer
