@@ -26,7 +26,7 @@ class RegisterFragment @Inject constructor(): Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireContext().appComponent.inject(this)
+        appComponent.inject(this)
         if(requireContext().isTV)
             binding.buttonBack.requestFocus()
 

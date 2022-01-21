@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentTransaction
+import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.di.component.AppComponent
 import ua.dimaevseenko.format_player.di.component.DaggerAppComponent
 
@@ -24,6 +25,9 @@ class App: Application() {
 
 val Context.appComponent: AppComponent
     get() = if(this is App) appComponent else applicationContext.appComponent
+
+val Fragment.appComponent: AppComponent
+    get() = requireContext().appComponent
 
 val Context.isTV: Boolean
     get() = (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager)
@@ -89,4 +93,12 @@ fun Fragment.removeFragment(fragment: Fragment, animated: Boolean = false){
         remove(fragment)
         commit()
     }
+}
+
+fun Fragment.showProgressDialog(){
+    (requireActivity() as BaseActivity).showProgressDialog()
+}
+
+fun Fragment.dismissProgressDialog(){
+    (requireActivity() as BaseActivity).dismissProgressDialog()
 }

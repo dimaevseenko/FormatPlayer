@@ -31,7 +31,7 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireContext().appComponent.inject(this)
+        appComponent.inject(this)
         if(savedInstanceState == null)
             addFragment(R.id.authContainer, loginFragment, LoginFragment.TAG)
 

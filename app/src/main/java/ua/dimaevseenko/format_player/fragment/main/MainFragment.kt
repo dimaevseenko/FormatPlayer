@@ -1,5 +1,6 @@
 package ua.dimaevseenko.format_player.fragment.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,7 @@ class MainFragment @Inject constructor(): Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireContext().appComponent.inject(this)
+        appComponent.inject(this)
 
         if(savedInstanceState == null)
             addFragment(R.id.mainFragmentContainer, splashFragment, SplashFragment.TAG, true)
@@ -36,6 +37,11 @@ class MainFragment @Inject constructor(): Fragment() {
 
     fun authFragment(){
         replaceFragment(R.id.mainFragmentContainer, authorizationFragment, AuthorizationFragment.TAG, true)
+    }
+
+    fun playerActivity(){
+        requireActivity().finish()
+        requireActivity().startActivity(Intent(requireContext(), PlayerActivity::class.java))
     }
 
     fun onBackPressed(): Boolean{

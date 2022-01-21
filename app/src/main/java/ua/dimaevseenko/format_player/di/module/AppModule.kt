@@ -8,6 +8,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.network.RUser
+import javax.inject.Qualifier
 
 @Module(includes = [PlayerModule::class, NetworkModule::class])
 object AppModule
@@ -25,20 +26,8 @@ object PlayerModule{
 object NetworkModule{
 
     @Provides
-    fun provideRUser(retrofit: Retrofit): RUser{
+    fun provideRUser(@EdgeServer retrofit: Retrofit): RUser{
         return retrofit
             .create(RUser::class.java)
-    }
-}
-
-@Module
-object RetrofitModule{
-
-    @Provides
-    fun provideRetrofit(): Retrofit{
-        return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(Config.SERVER_ADDRESS)
-            .build()
     }
 }

@@ -1,5 +1,6 @@
 package ua.dimaevseenko.format_player.fragment.main.auth.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -8,13 +9,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import dagger.Lazy
-import ua.dimaevseenko.format_player.R
+import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.app.Config
-import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.databinding.FragmentLoginBinding
 import ua.dimaevseenko.format_player.fragment.main.auth.AuthorizationFragment
-import ua.dimaevseenko.format_player.isTV
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.LoginResult
 import javax.inject.Inject
@@ -38,7 +37,7 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireContext().appComponent.inject(this)
+        appComponent.inject(this)
 
         viewModel = ViewModelProvider(viewModelStore, loginViewModelFactory).get(LoginViewModel::class.java)
         viewModel.listener = this
@@ -64,8 +63,7 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
     }
 
     private fun login(){
-        (requireActivity() as BaseActivity).showProgressDialog()
-
+        showProgressDialog()
         viewModel.login(
             binding.loginEditText.editableText.toString(),
             binding.passwordEditText.editableText.toString()
@@ -78,15 +76,20 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
     }
 
     override fun onResponse(result: LoginResult) {
-        (requireActivity() as BaseActivity).dismissProgressDialog()
-        if(result.status == 0){
-            Config.Values.login = binding.loginEditText.editableText.toString()
-            Config.Values.mToken = result.mToken
-            Config.Values.save(requireContext())
-        }
+        dismissProgressDialog()
+        if(result.status == 0)
+            loginSuccess(result.mToken)
+    }
+
+    private fun loginSuccess(token: String){
+        Config.Values.login = binding.loginEditText.editableText.toString()
+        Config.Values.mToken = token
+        Config.Values.save(requireContext())
+        requireActivity().finish()
+        requireActivity().startActivity(Intent(requireContext(), PlayerActivity::class.java))
     }
 
     override fun onFailure(t: Throwable) {
-        (requireActivity() as BaseActivity).dismissProgressDialog()
+        dismissProgressDialog()
     }
 }

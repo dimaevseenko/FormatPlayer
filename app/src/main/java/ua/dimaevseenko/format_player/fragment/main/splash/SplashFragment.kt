@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
 import ua.dimaevseenko.format_player.*
+import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentSplashBinding
 import ua.dimaevseenko.format_player.fragment.main.MainFragment
 import ua.dimaevseenko.format_player.fragment.main.auth.login.LoginFragment
@@ -30,12 +31,15 @@ class SplashFragment @Inject constructor(): Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        requireContext().appComponent.inject(this)
+        appComponent.inject(this)
 
         job = CoroutineScope(Dispatchers.Default).launch {
             delay(2000)
             launch(Dispatchers.Main) {
-                (parentFragment as MainFragment).authFragment()
+                if(Config.Values.login != null && Config.Values.mToken != null)
+                    (parentFragment as MainFragment).playerActivity()
+                else
+                    (parentFragment as MainFragment).authFragment()
             }
         }
     }
