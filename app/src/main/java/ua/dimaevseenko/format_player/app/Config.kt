@@ -4,6 +4,9 @@ import android.content.Context
 import android.os.Build
 import android.provider.Settings
 import android.util.Base64
+import ua.dimaevseenko.format_player.app.Config.Utils.toHex
+import java.security.MessageDigest
+import kotlin.text.Charsets.UTF_8
 
 object Config {
 
@@ -41,14 +44,17 @@ object Config {
                 "; MDL: " + Build.MODEL
 
         fun getUniqueDeviceID(context: Context): String {
-            return Utils.encodeBase64(
+            return Utils.md5(
                 Settings.Secure.getString(context.contentResolver, Settings.Secure.ANDROID_ID) + Build.DEVICE + Build.DISPLAY + Build.BOARD + Build.HARDWARE + Build.ID +
                         Build.MANUFACTURER + Build.MODEL + Build.BRAND + Build.HOST + Build.PRODUCT + Build.TAGS + Build.TYPE
-            )
+            ).toHex()
         }
     }
 
     object Utils{
+        fun md5(str: String): ByteArray = MessageDigest.getInstance("MD5").digest(str.toByteArray(UTF_8))
+        fun ByteArray.toHex() = joinToString(separator = "") { byte -> "%02x".format(byte) }
+
         fun encodeBase64(string: String): String{
             return Base64.encodeToString(string.toByteArray(), Base64.DEFAULT)
         }

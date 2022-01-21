@@ -11,6 +11,7 @@ import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.network.request.RUser
 import ua.dimaevseenko.format_player.network.result.LoginResult
 import ua.dimaevseenko.format_player.network.result.RegisterResult
+import ua.dimaevseenko.format_player.network.result.UnLoginResult
 import javax.inject.Inject
 
 object Server {
@@ -24,11 +25,13 @@ object Server {
 
         @Inject lateinit var login: Lazy<Login>
         @Inject lateinit var register: Lazy<Register>
+        @Inject lateinit var unLogin: Lazy<UnLogin>
 
         fun<T> request(bundle: Bundle, callback: Callback<T>){
             when(bundle.getString("action")){
                 "jadddevice"->{ login.get().login(bundle, callback = callback as Callback<LoginResult>) }
                 "jadduser" -> { register.get().register(bundle, callback = callback as Callback<RegisterResult>) }
+                "jdeldevice" -> { unLogin.get().unLogin(callback = callback as Callback<UnLoginResult>) }
             }
         }
     }
@@ -57,6 +60,22 @@ object Server {
             CoroutineScope(Dispatchers.Default).launch {
                 rUser.register(phone = bundle.getString("phone")!!, name = bundle.getString("name")!!).enqueue(callback)
             }
+        }
+    }
+
+    class UnLogin @Inject constructor(){
+        private lateinit var authmac: String
+        @Inject lateinit var rUser: RUser
+
+        fun unLogin(callback: Callback<UnLoginResult>){
+            CoroutineScope(Dispatchers.Default).launch {
+                rUser.unLogin(authmac = authmac).enqueue(callback)
+            }
+        }
+
+        @Inject
+        fun inject(context: Context){
+            authmac = Config.getFullToken(context)
         }
     }
 }

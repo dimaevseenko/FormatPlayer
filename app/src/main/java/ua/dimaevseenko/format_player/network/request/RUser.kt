@@ -7,6 +7,7 @@ import retrofit2.http.POST
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.network.result.LoginResult
 import ua.dimaevseenko.format_player.network.result.RegisterResult
+import ua.dimaevseenko.format_player.network.result.UnLoginResult
 
 interface RUser{
     @FormUrlEncoded
@@ -26,4 +27,11 @@ interface RUser{
         @Field("userid") phone: String,
         @Field("username") name: String
     ): Call<RegisterResult>
+
+    @FormUrlEncoded
+    @POST(".")
+    fun unLogin(
+        @Field("action") action: String = "jdeldevice",
+        @Field("authmac") authmac: String
+    ): Call<UnLoginResult>
 }
