@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.main.auth
+package ua.dimaevseenko.format_player.fragment.auth
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,8 +8,9 @@ import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentAuthBinding
 import ua.dimaevseenko.format_player.fragment.main.PresentationPlayer
-import ua.dimaevseenko.format_player.fragment.main.auth.login.LoginFragment
-import ua.dimaevseenko.format_player.fragment.main.auth.register.RegisterFragment
+import ua.dimaevseenko.format_player.fragment.auth.login.LoginFragment
+import ua.dimaevseenko.format_player.fragment.auth.register.RegisterFragment
+import ua.dimaevseenko.format_player.fragment.main.MainFragment
 import javax.inject.Inject
 
 class AuthorizationFragment @Inject constructor(): Fragment() {
@@ -49,6 +50,10 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
         registerFragment = getFragment(RegisterFragment.TAG)!!
         removeFragment(registerFragment, true)
         addFragment(R.id.authContainer, loginFragment, LoginFragment.TAG, true)
+    }
+
+    fun loginSuccess(){
+        (parentFragment as MainFragment).playerFragment()
     }
 
     override fun onResume() {

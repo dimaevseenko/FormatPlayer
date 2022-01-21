@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.main.splash
+package ua.dimaevseenko.format_player.fragment.splash
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentSplashBinding
 import ua.dimaevseenko.format_player.fragment.main.MainFragment
 import ua.dimaevseenko.format_player.fragment.main.PresentationPlayer
-import ua.dimaevseenko.format_player.fragment.main.auth.login.LoginFragment
+import ua.dimaevseenko.format_player.fragment.auth.login.LoginFragment
 import javax.inject.Inject
 
 class SplashFragment @Inject constructor(): Fragment() {
@@ -41,11 +41,8 @@ class SplashFragment @Inject constructor(): Fragment() {
     }
 
     private fun checkLogin(){
-        presentationPlayer.stop()
-        presentationPlayer.release()
-
         if(Config.Values.login != null && Config.Values.mToken != null)
-            (parentFragment as MainFragment).playerActivity()
+            (parentFragment as MainFragment).playerFragment()
         else
             (parentFragment as MainFragment).authFragment()
     }

@@ -8,8 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentMainBinding
-import ua.dimaevseenko.format_player.fragment.main.auth.AuthorizationFragment
-import ua.dimaevseenko.format_player.fragment.main.splash.SplashFragment
+import ua.dimaevseenko.format_player.fragment.auth.AuthorizationFragment
+import ua.dimaevseenko.format_player.fragment.player.PlayerFragment
+import ua.dimaevseenko.format_player.fragment.splash.SplashFragment
 import javax.inject.Inject
 
 class MainFragment @Inject constructor(): Fragment() {
@@ -22,6 +23,7 @@ class MainFragment @Inject constructor(): Fragment() {
 
     @Inject lateinit var splashFragment: SplashFragment
     @Inject lateinit var authorizationFragment: AuthorizationFragment
+    @Inject lateinit var playerFragment: PlayerFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentMainBinding.bind(inflater.inflate(R.layout.fragment_main, container, false))
@@ -39,9 +41,8 @@ class MainFragment @Inject constructor(): Fragment() {
         replaceFragment(R.id.mainFragmentContainer, authorizationFragment, AuthorizationFragment.TAG, true)
     }
 
-    fun playerActivity(){
-        requireActivity().finish()
-        requireActivity().startActivity(Intent(requireContext(), PlayerActivity::class.java))
+    fun playerFragment(){
+        replaceFragment(R.id.mainFragmentContainer, playerFragment, PlayerFragment.TAG, true)
     }
 
     fun onBackPressed(): Boolean{

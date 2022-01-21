@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.main.auth.login
+package ua.dimaevseenko.format_player.fragment.auth.login
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,12 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import dagger.Lazy
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.app.Config
-import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.databinding.FragmentLoginBinding
-import ua.dimaevseenko.format_player.fragment.main.auth.AuthorizationFragment
+import ua.dimaevseenko.format_player.fragment.auth.AuthorizationFragment
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.LoginResult
 import javax.inject.Inject
@@ -87,8 +85,7 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
         Config.Values.login = binding.loginEditText.editableText.toString()
         Config.Values.mToken = token
         Config.Values.save(requireContext())
-        requireActivity().finish()
-        requireActivity().startActivity(Intent(requireContext(), PlayerActivity::class.java))
+        (parentFragment as AuthorizationFragment).loginSuccess()
     }
 
     private fun loginFailed(reason: String){

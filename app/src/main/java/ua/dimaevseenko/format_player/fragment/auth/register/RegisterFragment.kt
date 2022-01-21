@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.main.auth.register
+package ua.dimaevseenko.format_player.fragment.auth.register
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentRegisterBinding
-import ua.dimaevseenko.format_player.fragment.main.auth.AuthorizationFragment
+import ua.dimaevseenko.format_player.fragment.auth.AuthorizationFragment
 import ua.dimaevseenko.format_player.isTV
 import javax.inject.Inject
 

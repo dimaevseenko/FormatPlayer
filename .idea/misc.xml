@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_main.xml" value="0.13677536231884058" />
+        <entry key="app/src/main/res/layout/fragment_player.xml" value="0.17708333333333334" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.165" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.23489583333333333" />

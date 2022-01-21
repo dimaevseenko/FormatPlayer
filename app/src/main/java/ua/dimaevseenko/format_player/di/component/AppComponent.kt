@@ -4,14 +4,14 @@ import android.content.Context
 import dagger.BindsInstance
 import dagger.Component
 import ua.dimaevseenko.format_player.MainActivity
-import ua.dimaevseenko.format_player.PlayerActivity
 import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.di.module.AppModule
 import ua.dimaevseenko.format_player.fragment.main.MainFragment
-import ua.dimaevseenko.format_player.fragment.main.auth.AuthorizationFragment
-import ua.dimaevseenko.format_player.fragment.main.auth.login.LoginFragment
-import ua.dimaevseenko.format_player.fragment.main.auth.register.RegisterFragment
-import ua.dimaevseenko.format_player.fragment.main.splash.SplashFragment
+import ua.dimaevseenko.format_player.fragment.auth.AuthorizationFragment
+import ua.dimaevseenko.format_player.fragment.auth.login.LoginFragment
+import ua.dimaevseenko.format_player.fragment.auth.register.RegisterFragment
+import ua.dimaevseenko.format_player.fragment.splash.SplashFragment
+import ua.dimaevseenko.format_player.fragment.player.PlayerFragment
 
 @Component(modules = [AppModule::class])
 interface AppComponent {
@@ -23,8 +23,7 @@ interface AppComponent {
     fun inject(authorizationFragment: AuthorizationFragment)
     fun inject(loginFragment: LoginFragment)
     fun inject(registerFragment: RegisterFragment)
-
-    fun inject(playerActivity: PlayerActivity)
+    fun inject(playerFragment: PlayerFragment)
 
     @Component.Builder
     interface Builder{
