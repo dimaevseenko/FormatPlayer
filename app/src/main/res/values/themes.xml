@@ -28,6 +28,8 @@
     <style name="Theme.FormatPlayer.EditTextCardView" parent="Widget.MaterialComponents.CardView">
         <item name="cardCornerRadius">6dp</item>
         <item name="cardBackgroundColor">@color/dark</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardMaxElevation">0dp</item>
     </style>
 
     <style name="Theme.FormatPlayer.EditText" parent="Widget.AppCompat.EditText">

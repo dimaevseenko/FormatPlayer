@@ -79,6 +79,8 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
         dismissProgressDialog()
         if(result.status == 0)
             loginSuccess(result.mToken)
+        else
+            loginFailed(result.msg)
     }
 
     private fun loginSuccess(token: String){
@@ -89,7 +91,15 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
         requireActivity().startActivity(Intent(requireContext(), PlayerActivity::class.java))
     }
 
+    private fun loginFailed(reason: String){
+       if(getString(R.string.no_iptv).contains(reason)){
+           println("sss")
+       }else if(getString(R.string.invalid_password).contains(reason))
+           println("invalid")
+    }
+
     override fun onFailure(t: Throwable) {
         dismissProgressDialog()
+        t.printStackTrace()
     }
 }

@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.coroutines.*
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentSplashBinding
 import ua.dimaevseenko.format_player.fragment.main.MainFragment
+import ua.dimaevseenko.format_player.fragment.main.PresentationPlayer
 import ua.dimaevseenko.format_player.fragment.main.auth.login.LoginFragment
 import javax.inject.Inject
 
@@ -23,7 +23,8 @@ class SplashFragment @Inject constructor(): Fragment() {
 
     @Inject lateinit var loginFragment: LoginFragment
 
-    private var job: Job? = null
+    @Inject lateinit var presentationPlayerFactory: PresentationPlayer.Factory
+    private lateinit var presentationPlayer: PresentationPlayer
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentSplashBinding.bind(inflater.inflate(R.layout.fragment_splash, container, false))
@@ -33,19 +34,34 @@ class SplashFragment @Inject constructor(): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
 
-        job = CoroutineScope(Dispatchers.Default).launch {
-            delay(2000)
-            launch(Dispatchers.Main) {
-                if(Config.Values.login != null && Config.Values.mToken != null)
-                    (parentFragment as MainFragment).playerActivity()
-                else
-                    (parentFragment as MainFragment).authFragment()
-            }
+        presentationPlayer = presentationPlayerFactory.createPresentationPlayer(binding.player, false, "intro.mp4"){
+           checkLogin()
         }
+        presentationPlayer.play()
+    }
+
+    private fun checkLogin(){
+        presentationPlayer.stop()
+        presentationPlayer.release()
+
+        if(Config.Values.login != null && Config.Values.mToken != null)
+            (parentFragment as MainFragment).playerActivity()
+        else
+            (parentFragment as MainFragment).authFragment()
+    }
+
+    override fun onResume() {
+        presentationPlayer.play()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        presentationPlayer.pause()
+        super.onPause()
     }
 
     override fun onDestroy() {
-        job?.cancel()
+        presentationPlayer.stop()
         super.onDestroy()
     }
 }

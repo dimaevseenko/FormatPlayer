@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentAuthBinding
+import ua.dimaevseenko.format_player.fragment.main.PresentationPlayer
 import ua.dimaevseenko.format_player.fragment.main.auth.login.LoginFragment
 import ua.dimaevseenko.format_player.fragment.main.auth.register.RegisterFragment
 import javax.inject.Inject
@@ -35,7 +36,7 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
         if(savedInstanceState == null)
             addFragment(R.id.authContainer, loginFragment, LoginFragment.TAG)
 
-        presentationPlayer = presentationPlayerFactory.createPresentationPlayer(binding.player).apply { play() }
+        presentationPlayer = presentationPlayerFactory.createPresentationPlayer(binding.player, true, "tv-presentation.mp4").apply { play() }
     }
 
     fun registerFragment(){

@@ -8,4 +8,6 @@
     <string name="send">Отправить</string>
     <string name="fio">Ф.И.О.</string>
     <string name="phone_number">Номер телефона</string>
+    <string name="no_iptv">У Вас не подключена услуга IPTV</string>
+    <string name="invalid_password">Неверный лицевой счет или пароль</string>
 </resources>
