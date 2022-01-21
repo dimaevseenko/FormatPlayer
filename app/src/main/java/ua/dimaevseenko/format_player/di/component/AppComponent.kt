@@ -6,7 +6,7 @@ import dagger.Component
 import ua.dimaevseenko.format_player.MainActivity
 import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.di.module.AppModule
-import ua.dimaevseenko.format_player.fragment.main.MainFragment
+import ua.dimaevseenko.format_player.fragment.MainFragment
 import ua.dimaevseenko.format_player.fragment.auth.AuthorizationFragment
 import ua.dimaevseenko.format_player.fragment.auth.login.LoginFragment
 import ua.dimaevseenko.format_player.fragment.auth.register.RegisterFragment

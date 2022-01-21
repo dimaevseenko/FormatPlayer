@@ -9,7 +9,7 @@ import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerBinding
-import ua.dimaevseenko.format_player.fragment.main.MainFragment
+import ua.dimaevseenko.format_player.fragment.MainFragment
 import javax.inject.Inject
 
 class PlayerFragment @Inject constructor(): Fragment() {

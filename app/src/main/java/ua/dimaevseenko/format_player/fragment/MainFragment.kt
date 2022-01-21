@@ -1,6 +1,5 @@
-package ua.dimaevseenko.format_player.fragment.main
+package ua.dimaevseenko.format_player.fragment
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

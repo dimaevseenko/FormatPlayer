@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentSplashBinding
-import ua.dimaevseenko.format_player.fragment.main.MainFragment
-import ua.dimaevseenko.format_player.fragment.main.PresentationPlayer
+import ua.dimaevseenko.format_player.fragment.MainFragment
+import ua.dimaevseenko.format_player.fragment.PresentationPlayer
 import ua.dimaevseenko.format_player.fragment.auth.login.LoginFragment
 import javax.inject.Inject
 
