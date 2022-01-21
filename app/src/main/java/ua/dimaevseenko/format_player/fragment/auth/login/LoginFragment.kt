@@ -12,6 +12,7 @@ import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentLoginBinding
 import ua.dimaevseenko.format_player.fragment.auth.AuthorizationFragment
+import ua.dimaevseenko.format_player.fragment.auth.RequestViewModel
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.LoginResult
 import javax.inject.Inject
@@ -26,8 +27,8 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
 
     private var isShowingPassword = false
 
-    @Inject lateinit var loginViewModelFactory: LoginViewModel.Factory
-    private lateinit var viewModel: LoginViewModel
+    @Inject lateinit var loginViewModelFactory: RequestViewModel.Factory<LoginResult>
+    private lateinit var viewModel: RequestViewModel<LoginResult>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.bind(inflater.inflate(R.layout.fragment_login, container, false))
@@ -37,7 +38,7 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
 
-        viewModel = ViewModelProvider(viewModelStore, loginViewModelFactory).get(LoginViewModel::class.java)
+        viewModel = ViewModelProvider(viewModelStore, loginViewModelFactory).get(RequestViewModel::class.java) as RequestViewModel<LoginResult>
         viewModel.listener = this
 
         if(requireContext().isTV)
@@ -62,9 +63,12 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
 
     private fun login(){
         showProgressDialog()
-        viewModel.login(
-            binding.loginEditText.editableText.toString(),
-            binding.passwordEditText.editableText.toString()
+        viewModel.request(
+            Bundle().apply {
+                putString("action", "jadddevice")
+                putString("login", binding.loginEditText.editableText.toString())
+                putString("password", binding.passwordEditText.editableText.toString())
+            }
         )
     }
 
@@ -97,6 +101,5 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
 
     override fun onFailure(t: Throwable) {
         dismissProgressDialog()
-        t.printStackTrace()
     }
 }

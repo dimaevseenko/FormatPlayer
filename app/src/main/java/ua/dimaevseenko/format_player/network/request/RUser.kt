@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.network
+package ua.dimaevseenko.format_player.network.request
 
 import retrofit2.Call
 import retrofit2.http.Field
@@ -6,6 +6,7 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.network.result.LoginResult
+import ua.dimaevseenko.format_player.network.result.RegisterResult
 
 interface RUser{
     @FormUrlEncoded
@@ -17,4 +18,12 @@ interface RUser{
         @Field("userpwd") password: String,
         @Field("device") device: String = Config.Device.info
     ): Call<LoginResult>
+
+    @FormUrlEncoded
+    @POST(".")
+    fun register(
+        @Field("action") action: String = "jadduser",
+        @Field("userid") phone: String,
+        @Field("username") name: String
+    ): Call<RegisterResult>
 }

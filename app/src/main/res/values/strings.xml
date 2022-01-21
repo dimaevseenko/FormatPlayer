@@ -10,4 +10,10 @@
     <string name="phone_number">Номер телефона</string>
     <string name="no_iptv">У Вас не подключена услуга IPTV</string>
     <string name="invalid_password">Неверный лицевой счет или пароль</string>
+    <string name="invalid_number">Неверный номер телефона или имя</string>
+    <string name="number_already_exits">Учетная запись с таким номером телефона уже существует. Обратитесь в техническую поддержку для восстановления пароля</string>
+    <string name="app_in_test">Приложение работает в тестовом режиме.
+    Ваша заявка на регистрацию принята.
+    С Вами свяжется оператор.
+    Спасибо за обращение!</string>
 </resources>
