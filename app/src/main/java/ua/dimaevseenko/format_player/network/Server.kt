@@ -3,9 +3,6 @@ package ua.dimaevseenko.format_player.network
 import android.content.Context
 import android.os.Bundle
 import dagger.Lazy
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

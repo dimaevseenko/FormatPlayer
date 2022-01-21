@@ -61,4 +61,6 @@ class SplashFragment @Inject constructor(): Fragment() {
         presentationPlayer.stop()
         super.onDestroy()
     }
+
+    fun onBackPressed(): Boolean = true
 }
