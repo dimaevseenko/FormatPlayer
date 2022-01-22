@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/youdi/AndroidStudioProjects/FormatPlayer-master/app/src/main/res/drawable/borders.xml" value="0.37864583333333335" />
+        <entry key="..\:/Users/youdi/AndroidStudioProjects/FormatPlayer-master/app/src/main/res/drawable/outlined_edittext_focus.xml" value="0.37864583333333335" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.23489583333333333" />
         <entry key="app/src/main/res/drawable/borders.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/drawable/ic_back.xml" value="0.23645833333333333" />

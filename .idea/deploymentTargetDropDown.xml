@@ -6,12 +6,12 @@
         <type value="RUNNING_DEVICE_TARGET" />
         <deviceKey>
           <Key>
-            <type value="SERIAL_NUMBER" />
-            <value value="192.168.1.4:5555" />
+            <type value="VIRTUAL_DEVICE_PATH" />
+            <value value="C:\Users\youdi\.android\avd\Android_TV_1080p_API_29.avd" />
           </Key>
         </deviceKey>
       </Target>
     </runningDeviceTargetSelectedWithDropDown>
-    <timeTargetWasSelectedWithDropDown value="2022-01-21T16:29:13.685982Z" />
+    <timeTargetWasSelectedWithDropDown value="2022-01-22T20:07:28.631049200Z" />
   </component>
 </project>

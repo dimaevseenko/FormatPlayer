@@ -40,9 +40,7 @@ class PlayerFragment @Inject constructor(): Fragment(), Server.Listener<UnLoginR
         requestViewModel = ViewModelProvider(viewModelStore, requestViewModelFactory).get(RequestViewModel::class.java) as RequestViewModel<UnLoginResult>
         requestViewModel.listener = this
 
-        binding.button.setOnClickListener {
-            unLogin()
-        }
+        binding.button.setOnClickListener { unLogin() }
     }
 
     private fun unLogin(){

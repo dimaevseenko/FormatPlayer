@@ -29,7 +29,7 @@ object Server {
 
         fun<T> request(bundle: Bundle, callback: Callback<T>){
             when(bundle.getString("action")){
-                "jadddevice"->{ login.get().login(bundle, callback = callback as Callback<LoginResult>) }
+                "jadddevice" -> { login.get().login(bundle, callback = callback as Callback<LoginResult>) }
                 "jadduser" -> { register.get().register(bundle, callback = callback as Callback<RegisterResult>) }
                 "jdeldevice" -> { unLogin.get().unLogin(callback = callback as Callback<UnLoginResult>) }
             }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentAuthBinding
 import ua.dimaevseenko.format_player.fragment.PresentationPlayer
@@ -42,14 +43,12 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
 
     fun registerFragment(){
         loginFragment = getFragment(LoginFragment.TAG)!!
-        removeFragment(loginFragment, true)
-        addFragment(R.id.authContainer, registerFragment, RegisterFragment.TAG,true)
+        replaceFragment(R.id.authContainer, registerFragment, RegisterFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
     }
 
     fun loginFragment(){
         registerFragment = getFragment(RegisterFragment.TAG)!!
-        removeFragment(registerFragment, true)
-        addFragment(R.id.authContainer, loginFragment, LoginFragment.TAG, true)
+        replaceFragment(R.id.authContainer, loginFragment, LoginFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
     }
 
     fun loginSuccess(){
