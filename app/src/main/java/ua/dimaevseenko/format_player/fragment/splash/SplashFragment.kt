@@ -10,7 +10,6 @@ import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentSplashBinding
 import ua.dimaevseenko.format_player.fragment.MainFragment
 import ua.dimaevseenko.format_player.fragment.PresentationPlayer
-import ua.dimaevseenko.format_player.fragment.auth.login.LoginFragment
 import javax.inject.Inject
 
 class SplashFragment @Inject constructor(): Fragment() {
@@ -20,8 +19,6 @@ class SplashFragment @Inject constructor(): Fragment() {
     }
 
     private lateinit var binding: FragmentSplashBinding
-
-    @Inject lateinit var loginFragment: LoginFragment
 
     @Inject lateinit var presentationPlayerFactory: PresentationPlayer.Factory
     private lateinit var presentationPlayer: PresentationPlayer
