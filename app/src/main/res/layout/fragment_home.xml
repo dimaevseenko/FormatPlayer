@@ -10,10 +10,11 @@
         android:id="@+id/channelsCardView"
         style="@style/Theme.FormatPlayer.PlayerNavCardView"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
+        app:layout_constraintBottom_toTopOf="@id/cinemaTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -69,16 +70,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/channelsCardView" />
+        app:layout_constraintTop_toBottomOf="@+id/channelsCardView"
+        app:layout_constraintBottom_toTopOf="@id/megogoCardView"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/megogoCardView"
         style="@style/Theme.FormatPlayer.PlayerNavCardView"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toTopOf="@id/camerasCardView"
         app:layout_constraintEnd_toStartOf="@id/ollTvCardView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cinemaTextView">
@@ -94,7 +97,7 @@
             <ImageView
                 android:id="@+id/megogoImageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:srcCompat="@drawable/ic_megogo" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -103,7 +106,7 @@
         android:id="@+id/ollTvCardView"
         style="@style/Theme.FormatPlayer.PlayerNavCardView"
         android:layout_width="0dp"
-        android:layout_height="150dp"
+        android:layout_height="0dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/megogoCardView"
@@ -122,7 +125,7 @@
             <ImageView
                 android:id="@+id/ollTvImageView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 app:srcCompat="@drawable/ic_olltv" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -131,15 +134,15 @@
         android:id="@+id/camerasCardView"
         style="@style/Theme.FormatPlayer.PlayerNavCardView"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/megogoCardView"
-        app:layout_constraintVertical_bias="0">
+        app:layout_constraintTop_toBottomOf="@+id/megogoCardView">
 
         <LinearLayout
             android:id="@+id/camerasLayout"
