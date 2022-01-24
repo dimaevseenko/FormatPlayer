@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.auth
+package ua.dimaevseenko.format_player.fragment
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModel

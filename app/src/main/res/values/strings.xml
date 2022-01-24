@@ -16,4 +16,9 @@
     Ваша заявка на регистрацию принята.
     С Вами свяжется оператор.
     Спасибо за обращение!</string>
+    <string name="home">Главная</string>
+    <string name="search">Поиск</string>
+    <string name="favourite">Избранное</string>
+    <string name="profile">Профиль</string>
+    <string name="format_player">ФОРМАТ PLAYER</string>
 </resources>

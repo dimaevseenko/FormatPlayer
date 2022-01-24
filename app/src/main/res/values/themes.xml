@@ -54,4 +54,14 @@
     <style name="Theme.FormatPlayer.DialogFragment" parent="Theme.MaterialComponents.Dialog">
         <item name="android:windowBackground">@color/transparent</item>
     </style>
+
+    <style name="Theme.FormatPlayer.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="elevation">0dp</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="android:background">@color/playerNavBackground</item>
+        <item name="itemRippleColor">@color/lightGreen</item>
+        <item name="itemIconTint">@color/player_nav_item_selector</item>
+        <item name="itemTextColor">@color/player_nav_text_selector</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
 </resources>

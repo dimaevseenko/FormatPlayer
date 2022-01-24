@@ -1,6 +1,5 @@
 package ua.dimaevseenko.format_player.fragment.auth.login
 
-import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.view.LayoutInflater
@@ -12,7 +11,7 @@ import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentLoginBinding
 import ua.dimaevseenko.format_player.fragment.auth.AuthorizationFragment
-import ua.dimaevseenko.format_player.fragment.auth.RequestViewModel
+import ua.dimaevseenko.format_player.fragment.RequestViewModel
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.LoginResult
 import javax.inject.Inject
