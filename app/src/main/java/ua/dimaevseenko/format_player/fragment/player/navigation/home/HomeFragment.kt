@@ -8,6 +8,7 @@ import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.FragmentHomeBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.NavFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.PlayerNavFragment
+import ua.dimaevseenko.format_player.isTV
 import javax.inject.Inject
 
 class HomeFragment @Inject constructor(): NavFragment() {
@@ -26,6 +27,9 @@ class HomeFragment @Inject constructor(): NavFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.channelsLayout.setOnClickListener { (parentFragment as PlayerNavFragment).addVideoFragment() }
+
+        if(requireContext().isTV)
+            binding.channelsLayout.requestFocus()
     }
 
     override fun tag(): String {

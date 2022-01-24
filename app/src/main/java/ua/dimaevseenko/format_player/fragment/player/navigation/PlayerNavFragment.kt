@@ -7,13 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
-import ua.dimaevseenko.format_player.R
-import ua.dimaevseenko.format_player.addFragment
-import ua.dimaevseenko.format_player.appComponent
+import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerNavigationBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import ua.dimaevseenko.format_player.fragment.player.video.VideoFragment
-import ua.dimaevseenko.format_player.replaceFragment
 import javax.inject.Inject
 
 class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnItemSelectedListener {

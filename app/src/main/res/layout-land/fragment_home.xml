@@ -25,7 +25,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:ignore="SpeakableTextPresentCheck">
+            tools:ignore="SpeakableTextPresentCheck"
+            android:nextFocusUp="@id/channelsLayout"
+            android:nextFocusLeft="@id/channelsLayout"
+            android:nextFocusRight="@id/megogoLayout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -74,7 +77,11 @@
             style="@style/Theme.FormatPlayer.PlayerNavLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:nextFocusUp="@id/camerasLayout"
+            android:nextFocusRight="@id/camerasLayout"
+            android:nextFocusLeft="@id/channelsLayout"
+            android:nextFocusDown="@id/megogoLayout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -124,7 +131,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:ignore="SpeakableTextPresentCheck">
+            tools:ignore="SpeakableTextPresentCheck"
+            android:nextFocusLeft="@id/channelsLayout"
+            android:nextFocusUp="@id/camerasLayout"
+            android:nextFocusRight="@id/ollTvLayout">
 
             <ImageView
                 android:id="@+id/megogoImageView"
@@ -153,7 +163,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            tools:ignore="SpeakableTextPresentCheck">
+            tools:ignore="SpeakableTextPresentCheck"
+            android:nextFocusUp="@id/camerasLayout"
+            android:nextFocusLeft="@id/megogoLayout"
+            android:nextFocusRight="@id/ollTvLayout">
 
             <ImageView
                 android:id="@+id/ollTvImageView"
