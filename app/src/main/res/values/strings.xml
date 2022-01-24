@@ -22,4 +22,8 @@
     <string name="profile">Профиль</string>
     <string name="format_player">ФОРМАТ PLAYER</string>
     <string name="channels">Телеканалы</string>
+    <string name="cinema">Кинозал</string>
+    <string name="mariupol_online">Мариуполь Online</string>
+    <string name="cameras">Камеры</string>
+    <string name="all_list">Весь список</string>
 </resources>

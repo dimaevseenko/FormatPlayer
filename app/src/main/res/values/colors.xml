@@ -14,4 +14,5 @@
     <color name="hint">#535353</color>
     <color name="transparent">#00FFFFFF</color>
     <color name="playerNavBackground">#26303030</color>
+    <color name="subtext">#80EEEEEE</color>
 </resources>
