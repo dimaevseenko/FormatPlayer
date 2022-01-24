@@ -126,6 +126,8 @@
                 android:id="@+id/ollTvImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
                 app:srcCompat="@drawable/ic_olltv" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
