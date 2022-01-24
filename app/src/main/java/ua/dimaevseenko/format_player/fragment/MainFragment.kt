@@ -45,6 +45,7 @@ class MainFragment @Inject constructor(): Fragment() {
     }
 
     fun onBackPressed(): Boolean{
+        getFragment<PlayerFragment>(PlayerFragment.TAG)?.let { return it.onBackPressed() }
         getFragment<SplashFragment>(SplashFragment.TAG)?.let { return it.onBackPressed() }
         getFragment<AuthorizationFragment>(AuthorizationFragment.TAG)?.let { return it.onBackPressed() }
         return false

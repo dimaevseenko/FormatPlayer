@@ -12,6 +12,7 @@ import ua.dimaevseenko.format_player.fragment.auth.login.LoginFragment
 import ua.dimaevseenko.format_player.fragment.auth.register.RegisterFragment
 import ua.dimaevseenko.format_player.fragment.splash.SplashFragment
 import ua.dimaevseenko.format_player.fragment.player.PlayerFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.PlayerNavFragment
 
 @Component(modules = [AppModule::class])
 interface AppComponent {
@@ -24,6 +25,7 @@ interface AppComponent {
     fun inject(loginFragment: LoginFragment)
     fun inject(registerFragment: RegisterFragment)
     fun inject(playerFragment: PlayerFragment)
+    fun inject(playerNavFragment: PlayerNavFragment)
 
     @Component.Builder
     interface Builder{

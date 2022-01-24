@@ -1,13 +1,13 @@
-package ua.dimaevseenko.format_player.fragment.player.home
+package ua.dimaevseenko.format_player.fragment.player.navigation.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.FragmentHomeBinding
-import ua.dimaevseenko.format_player.fragment.player.NavFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.NavFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.PlayerNavFragment
 import javax.inject.Inject
 
 class HomeFragment @Inject constructor(): NavFragment() {
@@ -25,6 +25,7 @@ class HomeFragment @Inject constructor(): NavFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.channelsLayout.setOnClickListener { (parentFragment as PlayerNavFragment).addVideoFragment() }
     }
 
     override fun tag(): String {

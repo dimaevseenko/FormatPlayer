@@ -64,4 +64,17 @@
         <item name="itemTextColor">@color/player_nav_text_selector</item>
         <item name="labelVisibilityMode">labeled</item>
     </style>
+
+    <style name="Theme.FormatPlayer.PlayerNavCardView" parent="Widget.MaterialComponents.CardView">
+        <item name="cardElevation">0dp</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="cardCornerRadius">12dp</item>
+    </style>
+
+    <style name="Theme.FormatPlayer.PlayerNavLinearLayout">
+        <item name="android:background">@drawable/player_nav_linear_layout_selector</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="rippleColor">@color/lightGreen</item>
+    </style>
 </resources>
