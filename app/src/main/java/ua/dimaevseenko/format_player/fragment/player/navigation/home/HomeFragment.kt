@@ -19,6 +19,7 @@ class HomeFragment @Inject constructor(): AnimatedFragment() {
 
     @Inject lateinit var homeWaysFragment: HomeWaysFragment
     @Inject lateinit var channelsFragment: ChannelsFragment
+    @Inject lateinit var camerasFragment: CamerasFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHomeBinding.bind(inflater.inflate(R.layout.fragment_home, container, false))
@@ -44,8 +45,16 @@ class HomeFragment @Inject constructor(): AnimatedFragment() {
         replaceFragment(R.id.homeContainer, homeWaysFragment, HomeWaysFragment.TAG, true)
     }
 
+    fun camerasFragment(){
+        replaceFragment(R.id.homeContainer, camerasFragment, CamerasFragment.TAG, true)
+    }
+
     fun onBackPressed(): Boolean{
         getFragment<ChannelsFragment>(ChannelsFragment.TAG)?.let {
+            it.dismiss()
+            return true
+        }
+        getFragment<CamerasFragment>(CamerasFragment.TAG)?.let {
             it.dismiss()
             return true
         }

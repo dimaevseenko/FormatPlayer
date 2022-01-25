@@ -32,11 +32,17 @@ class HomeWaysFragment @Inject constructor(): AnimatedFragment() {
         if(requireContext().isTV)
             binding.channelsLayout.requestFocus()
 
-        binding.channelsLayout.setOnClickListener { dismiss() }
+        binding.channelsLayout.setOnClickListener {
+            dismiss()
+            (parentFragment as HomeFragment).channelsFragment()
+        }
+        binding.camerasLayout.setOnClickListener {
+            dismiss()
+            (parentFragment as HomeFragment).camerasFragment()
+        }
     }
 
     private fun dismiss(){
         animateEndX(reverse = true)
-        (parentFragment as HomeFragment).channelsFragment()
     }
 }
