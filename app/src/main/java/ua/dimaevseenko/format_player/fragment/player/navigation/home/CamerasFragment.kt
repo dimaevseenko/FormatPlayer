@@ -27,7 +27,7 @@ class CamerasFragment @Inject constructor(): AnimatedFragment() {
         if(savedInstanceState == null)
             animateStartX()
 
-        binding.button3.setOnClickListener { dismiss() }
+        binding.backCard.setOnClickListener { dismiss() }
     }
 
     fun dismiss(){

@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment
+package ua.dimaevseenko.format_player.viewmodel
 
 import android.os.Bundle
 import androidx.lifecycle.ViewModel

@@ -11,7 +11,7 @@ import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentProfileBinding
 import ua.dimaevseenko.format_player.dismissProgressDialog
 import ua.dimaevseenko.format_player.fragment.MainFragment
-import ua.dimaevseenko.format_player.fragment.RequestViewModel
+import ua.dimaevseenko.format_player.viewmodel.RequestViewModel
 import ua.dimaevseenko.format_player.fragment.player.navigation.AnimatedFragment
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.UnLoginResult
@@ -40,7 +40,8 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(), Server.Listener
 
         appComponent.inject(this)
 
-        requestViewModel = ViewModelProvider(viewModelStore, requestViewModelFactory).get(RequestViewModel::class.java) as RequestViewModel<UnLoginResult>
+        requestViewModel = ViewModelProvider(viewModelStore, requestViewModelFactory).get(
+            RequestViewModel::class.java) as RequestViewModel<UnLoginResult>
         requestViewModel.listener = this
 
         binding.button.setOnClickListener { unLogin() }

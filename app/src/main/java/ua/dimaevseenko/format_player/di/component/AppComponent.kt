@@ -13,6 +13,7 @@ import ua.dimaevseenko.format_player.fragment.auth.register.RegisterFragment
 import ua.dimaevseenko.format_player.fragment.splash.SplashFragment
 import ua.dimaevseenko.format_player.fragment.player.PlayerFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.PlayerNavFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.home.ChannelsFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.ProfileFragment
 
@@ -30,6 +31,7 @@ interface AppComponent {
     fun inject(playerNavFragment: PlayerNavFragment)
     fun inject(homeFragment: HomeFragment)
     fun inject(profileFragment: ProfileFragment)
+    fun inject(channelsFragment: ChannelsFragment)
 
     @Component.Builder
     interface Builder{

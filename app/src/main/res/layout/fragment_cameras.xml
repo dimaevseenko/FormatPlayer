@@ -2,16 +2,45 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:background="@drawable/background_land">
 
-    <Button
-        android:id="@+id/button3"
-        style="@style/Theme.FormatPlayer.OutlinedButton"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/backCard"
+        style="@style/Theme.FormatPlayer.ClickableCardView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="30dp"
+                android:paddingLeft="4dp"
+                android:paddingEnd="4dp"
+                app:srcCompat="@drawable/ic_arrow_reverse" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Cameras"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="16dp"
+        android:fontFamily="@font/inter"
+        android:text="@string/cameras"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/backCard"
+        app:layout_constraintStart_toEndOf="@+id/backCard"
+        app:layout_constraintTop_toTopOf="@+id/backCard" />
 </androidx.constraintlayout.widget.ConstraintLayout>

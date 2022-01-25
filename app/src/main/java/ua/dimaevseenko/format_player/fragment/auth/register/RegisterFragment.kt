@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentRegisterBinding
 import ua.dimaevseenko.format_player.fragment.auth.AuthorizationFragment
-import ua.dimaevseenko.format_player.fragment.RequestViewModel
+import ua.dimaevseenko.format_player.viewmodel.RequestViewModel
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.RegisterResult
 import javax.inject.Inject

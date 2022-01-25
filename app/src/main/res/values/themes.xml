@@ -77,4 +77,29 @@
         <item name="android:clickable">true</item>
         <item name="rippleColor">@color/lightGreen</item>
     </style>
+
+    <style name="Theme.FormatPlayer.ClickableCardView">
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="cardCornerRadius">8dp</item>
+        <item name="cardBackgroundColor">@color/outlined_textbutton_selector</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="Theme.FormatPlayer.ChannelsTabLayout" parent="Widget.MaterialComponents.TabLayout">
+        <item name="android:background">@color/transparent</item>
+        <item name="tabTextColor">@color/subtext</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="tabIndicatorColor">@color/transparent</item>
+        <item name="tabMode">scrollable</item>
+        <item name="tabRippleColor">@color/lightGreen</item>
+        <item name="fontFamily">@font/inter</item>
+        <item name="tabTextAppearance">@style/Theme.FormatPlayer.ChannelsTextAppearance</item>
+    </style>
+
+    <style name="Theme.FormatPlayer.ChannelsTextAppearance">
+        <item name="android:textSize">15sp</item>
+        <item name="fontFamily">@font/inter</item>
+    </style>
 </resources>
