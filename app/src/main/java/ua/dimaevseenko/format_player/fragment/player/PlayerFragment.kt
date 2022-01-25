@@ -34,10 +34,7 @@ class PlayerFragment @Inject constructor(): Fragment() {
     }
 
     fun onBackPressed(): Boolean{
-        getFragment<VideoFragment>(VideoFragment.TAG)?.let {
-            removeFragment(it, true)
-            return true
-        }
+        getFragment<PlayerNavFragment>(PlayerNavFragment.TAG)?.let { return it.onBackPressed() }
         return false
     }
 }

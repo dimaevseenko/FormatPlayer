@@ -10,6 +10,7 @@ import com.google.android.material.navigation.NavigationBarView
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerNavigationBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.profile.ProfileFragment
 import ua.dimaevseenko.format_player.fragment.player.video.VideoFragment
 import javax.inject.Inject
 
@@ -21,7 +22,8 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
 
     private lateinit var binding: FragmentPlayerNavigationBinding
 
-    @Inject lateinit var videoFragment: VideoFragment
+    @Inject lateinit var homeFragment: HomeFragment
+    @Inject lateinit var profileFragment: ProfileFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPlayerNavigationBinding.bind(inflater.inflate(R.layout.fragment_player_navigation, container, false))
@@ -37,22 +39,24 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
             onNavigationItemSelected(binding.playerNavigationView.menu.findItem(R.id.navMain))
     }
 
-    fun addVideoFragment(){
-        parentFragment?.addFragment(R.id.playerContainer, videoFragment, VideoFragment.TAG, true)
-    }
-
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.navMain -> { onNavItemSelected(HomeFragment()) }
-            R.id.navSearch -> { onNavItemSelected(HomeFragment()) }
-            R.id.navFavourite -> { onNavItemSelected(HomeFragment()) }
-            R.id.navProfile -> { onNavItemSelected(HomeFragment()) }
+            R.id.navMain -> { onNavItemSelected(homeFragment) }
+            R.id.navSearch -> { onNavItemSelected(homeFragment) }
+            R.id.navFavourite -> { onNavItemSelected(homeFragment) }
+            R.id.navProfile -> { onNavItemSelected(profileFragment) }
         }
         return true
     }
 
-    private fun onNavItemSelected(fragment: NavFragment): Boolean{
-        replaceFragment(R.id.playerNavContainer, fragment, fragment.tag(), true)
+    fun onBackPressed(): Boolean{
+        getFragment<HomeFragment>(HomeFragment.TAG)?.let { return it.onBackPressed() }
+        return false
+    }
+
+    private fun onNavItemSelected(fragment: AnimatedFragment): Boolean{
+        if(getFragment<AnimatedFragment>(fragment.tag()) == null)
+            replaceFragment(R.id.playerNavContainer, fragment, fragment.tag(), true)
         return false
     }
 }

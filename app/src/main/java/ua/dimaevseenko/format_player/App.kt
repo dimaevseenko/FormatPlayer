@@ -42,26 +42,8 @@ fun FragmentActivity.addFragment(container: Int, fragment: Fragment, tag: String
     }
 }
 
-fun FragmentActivity.replaceFragment(container: Int, fragment: Fragment, tag: String, animated: Boolean = false){
-    supportFragmentManager.beginTransaction().apply {
-        if(animated)
-            setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
-        replace(container, fragment, tag)
-        commit()
-    }
-}
-
 fun <T: Fragment> FragmentActivity.getFragment(tag: String): T?{
     return supportFragmentManager.findFragmentByTag(tag) as? T
-}
-
-fun FragmentActivity.removeFragment(fragment: Fragment, animated: Boolean = false){
-    supportFragmentManager.beginTransaction().apply {
-        if(animated)
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-        remove(fragment)
-        commit()
-    }
 }
 
 fun Fragment.addFragment(container: Int, fragment: Fragment, tag: String, animated: Boolean = false){
@@ -76,7 +58,10 @@ fun Fragment.addFragment(container: Int, fragment: Fragment, tag: String, animat
 fun Fragment.replaceFragment(container: Int, fragment: Fragment, tag: String, animated: Boolean = false, transaction: Int = FragmentTransaction.TRANSIT_FRAGMENT_FADE){
     childFragmentManager.beginTransaction().apply {
         if(animated)
-            setTransition(transaction)
+            if(transaction == FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out)
+            else
+                setTransition(transaction)
         replace(container, fragment, tag)
         commit()
     }
