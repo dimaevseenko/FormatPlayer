@@ -14,7 +14,8 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toTopOf="@id/cinemaTextView"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@id/camerasCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -37,22 +38,32 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom|left"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/textViewChannels"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginBottom="24dp"
                     android:fontFamily="@font/inter"
                     android:foregroundGravity="bottom"
                     android:text="@string/all_list"
-                    android:textColor="@color/subtext" />
-            </LinearLayout>
+                    android:textColor="@color/subtext"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewChannels"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewChannels"
+                    app:srcCompat="@drawable/ic_arrow_1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
@@ -70,18 +81,19 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/channelsCardView"
+        app:layout_constraintTop_toBottomOf="@+id/camerasCardView"
         app:layout_constraintBottom_toTopOf="@id/megogoCardView"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/megogoCardView"
         style="@style/Theme.FormatPlayer.PlayerNavCardView"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="100dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        app:layout_constraintBottom_toTopOf="@id/camerasCardView"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/ollTvCardView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cinemaTextView">
@@ -138,13 +150,11 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cinemaTextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/megogoCardView">
+        app:layout_constraintTop_toBottomOf="@id/channelsCardView">
 
         <LinearLayout
             android:id="@+id/camerasLayout"
@@ -163,21 +173,31 @@
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="bottom|left"
-                android:orientation="vertical">
+                android:layout_height="match_parent">
 
                 <TextView
+                    android:id="@+id/textViewCameras"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginBottom="24dp"
                     android:fontFamily="@font/inter"
                     android:text="@string/cameras"
-                    android:textColor="@color/subtext" />
-            </LinearLayout>
+                    android:textColor="@color/subtext"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <ImageView
+                    android:layout_width="64dp"
+                    android:layout_height="16dp"
+                    android:layout_marginEnd="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/textViewCameras"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textViewCameras"
+                    app:srcCompat="@drawable/ic_arrow_1" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
