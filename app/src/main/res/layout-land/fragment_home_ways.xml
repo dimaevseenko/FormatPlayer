@@ -136,12 +136,12 @@
         android:id="@+id/megogoCardView"
         style="@style/Theme.FormatPlayer.PlayerNavCardView"
         android:layout_width="0dp"
-        android:layout_height="100dp"
+        android:layout_height="0dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toBottomOf="@+id/channelsCardView"
-        app:layout_constraintEnd_toStartOf="@id/ollTvCardView"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/channelsCardView"
         app:layout_constraintTop_toBottomOf="@+id/camerasCardView">
 
@@ -151,50 +151,38 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:nextFocusLeft="@id/channelsLayout"
-            android:nextFocusRight="@id/ollTvLayout"
+            android:nextFocusRight="@id/megogoLayout"
             android:nextFocusUp="@id/camerasLayout"
             android:orientation="vertical"
             tools:ignore="SpeakableTextPresentCheck">
 
-            <ImageView
-                android:id="@+id/megogoImageView"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_megogo" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+                android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/ollTvCardView"
-        style="@style/Theme.FormatPlayer.PlayerNavCardView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintBottom_toBottomOf="@+id/channelsCardView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/megogoCardView"
-        app:layout_constraintTop_toBottomOf="@+id/camerasCardView">
+                <TextView
+                    android:id="@+id/cinemaTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:fontFamily="@font/inter"
+                    android:text="@string/cinema"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-        <LinearLayout
-            android:id="@+id/ollTvLayout"
-            style="@style/Theme.FormatPlayer.PlayerNavLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:nextFocusLeft="@id/megogoLayout"
-            android:nextFocusRight="@id/ollTvLayout"
-            android:nextFocusUp="@id/camerasLayout"
-            android:orientation="vertical"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            tools:ignore="SpeakableTextPresentCheck">
+                <ImageView
+                    android:id="@+id/megogoImageView"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_megogo" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <ImageView
-                android:id="@+id/ollTvImageView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/ic_olltv" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
