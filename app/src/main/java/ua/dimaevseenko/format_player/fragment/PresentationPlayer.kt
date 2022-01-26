@@ -24,6 +24,7 @@ class PresentationPlayer @AssistedInject constructor(
     @Assisted("completion")
     private var completion: (()->Unit)?
 ): Player.Listener {
+
     init {
         player.setMediaItem(MediaItem.fromUri(Uri.parse("asset:///$name")))
         if(repeat)

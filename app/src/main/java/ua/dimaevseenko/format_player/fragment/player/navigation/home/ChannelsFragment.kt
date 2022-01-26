@@ -11,6 +11,7 @@ import ua.dimaevseenko.format_player.databinding.FragmentChannelsBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.AnimatedFragment
 import ua.dimaevseenko.format_player.network.result.PlaylistResult
 import ua.dimaevseenko.format_player.replaceFragment
+import ua.dimaevseenko.format_player.viewmodel.PlaylistViewModel
 import javax.inject.Inject
 
 class ChannelsFragment @Inject constructor(): AnimatedFragment() {
@@ -21,6 +22,8 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment() {
 
     private lateinit var binding: FragmentChannelsBinding
 
+    private lateinit var playlistViewModel: PlaylistViewModel
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.bind(inflater.inflate(R.layout.fragment_channels, container, false))
         return binding.root
@@ -30,6 +33,8 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment() {
         appComponent.inject(this)
         if(savedInstanceState == null)
             animateStartX()
+
+        playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
 
         binding.backCard.setOnClickListener { dismiss() }
     }

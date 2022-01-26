@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.PlayerNavFragment
-import ua.dimaevseenko.format_player.fragment.player.video.VideoFragment
 import javax.inject.Inject
 
 class PlayerFragment @Inject constructor(): Fragment() {
