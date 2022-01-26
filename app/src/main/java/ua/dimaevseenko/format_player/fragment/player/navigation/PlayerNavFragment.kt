@@ -21,6 +21,8 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
 
     private lateinit var binding: FragmentPlayerNavigationBinding
 
+    @Inject lateinit var loaderFragment: LoaderFragment
+
     @Inject lateinit var homeFragment: HomeFragment
     @Inject lateinit var profileFragment: ProfileFragment
 
@@ -35,7 +37,11 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
         binding.playerNavigationView.setOnItemSelectedListener(this)
 
         if(savedInstanceState == null)
-            onNavigationItemSelected(binding.playerNavigationView.menu.findItem(R.id.navMain))
+            addFragment(R.id.playerNavContainer, loaderFragment, LoaderFragment.TAG, true)
+    }
+
+    fun playlistLoaded(){
+        replaceFragment(R.id.playerNavContainer, homeFragment, HomeFragment.TAG, true)
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -54,7 +60,7 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
     }
 
     private fun onNavItemSelected(fragment: AnimatedFragment): Boolean{
-        if(getFragment<AnimatedFragment>(fragment.tag()) == null)
+        if(getFragment<AnimatedFragment>(fragment.tag()) == null && getFragment<LoaderFragment>(LoaderFragment.TAG) == null)
             replaceFragment(R.id.playerNavContainer, fragment, fragment.tag(), true)
         return false
     }

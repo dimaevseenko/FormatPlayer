@@ -18,13 +18,13 @@ class PlaylistViewModel @Inject constructor(): ViewModel(), Callback<PlaylistRes
 
     private val playlistLiveData = MutableLiveData<PlaylistResult>()
 
-    private var listener: Server.Listener<PlaylistResult>? = null
+    var listener: Server.Listener<PlaylistResult>? = null
 
     fun getGenres(): Genres {
         return playlistLiveData.value!!.genres
     }
 
-    fun loadPlaylist(listener: Server.Listener<PlaylistResult>){
+    fun loadPlaylist(){
         this.listener = listener
 
         serverRequest.request(
