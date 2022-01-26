@@ -10,10 +10,7 @@ import retrofit2.Callback
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.network.request.RPlaylist
 import ua.dimaevseenko.format_player.network.request.RUser
-import ua.dimaevseenko.format_player.network.result.LoginResult
-import ua.dimaevseenko.format_player.network.result.PlaylistResult
-import ua.dimaevseenko.format_player.network.result.RegisterResult
-import ua.dimaevseenko.format_player.network.result.UnLoginResult
+import ua.dimaevseenko.format_player.network.result.*
 import javax.inject.Inject
 
 object Server {
@@ -29,6 +26,7 @@ object Server {
         @Inject lateinit var register: Lazy<Register>
         @Inject lateinit var unLogin: Lazy<UnLogin>
         @Inject lateinit var playlist: Lazy<Playlist>
+        @Inject lateinit var icons: Lazy<Icons>
 
         fun<T> request(bundle: Bundle, callback: Callback<T>){
             when(bundle.getString("action")){
@@ -36,6 +34,7 @@ object Server {
                 "jadduser" -> { register.get().register(bundle, callback = callback as Callback<RegisterResult>) }
                 "jdeldevice" -> { unLogin.get().unLogin(callback = callback as Callback<UnLoginResult>) }
                 "jgetchannellist" -> { playlist.get().getPlaylist(callback = callback as Callback<PlaylistResult>) }
+                "jgetjsoniconschannels" -> { icons.get().getIcons(callback = callback as Callback<IconsResult>) }
             }
         }
     }
@@ -97,6 +96,14 @@ object Server {
         @Inject
         fun inject(context: Context){
             authmac = Config.getFullToken(context)
+        }
+    }
+
+    class Icons @Inject constructor(){
+        @Inject lateinit var rPlaylist: RPlaylist
+
+        fun getIcons(callback: Callback<IconsResult>){
+            rPlaylist.getIcons().enqueue(callback)
         }
     }
 }

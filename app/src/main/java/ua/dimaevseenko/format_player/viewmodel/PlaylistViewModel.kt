@@ -4,15 +4,21 @@ import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import ua.dimaevseenko.format_player.model.Cams
+import ua.dimaevseenko.format_player.model.Channels
 import ua.dimaevseenko.format_player.model.Genres
 import ua.dimaevseenko.format_player.network.Server
+import ua.dimaevseenko.format_player.network.result.IconsResult
 import ua.dimaevseenko.format_player.network.result.PlaylistResult
 import javax.inject.Inject
 
-class PlaylistViewModel @Inject constructor(): ViewModel(), Callback<PlaylistResult> {
+class PlaylistViewModel @Inject constructor(): ViewModel(){
 
     @Inject lateinit var serverRequest: Server.Request
 
@@ -24,6 +30,14 @@ class PlaylistViewModel @Inject constructor(): ViewModel(), Callback<PlaylistRes
         return playlistLiveData.value?.genres
     }
 
+    fun getChannels(): Channels?{
+        return playlistLiveData.value?.channels
+    }
+
+    fun getCameras(): Cams?{
+        return playlistLiveData.value?.cams
+    }
+
     fun loadPlaylist(){
         this.listener = listener
 
@@ -31,19 +45,50 @@ class PlaylistViewModel @Inject constructor(): ViewModel(), Callback<PlaylistRes
             Bundle().apply {
                 putString("action", "jgetchannellist")
             },
-            this
+            object : Callback<PlaylistResult>{
+                override fun onResponse(call: Call<PlaylistResult>, response: Response<PlaylistResult>) {
+                    onResponsePlaylist(response)
+                }
+
+                override fun onFailure(call: Call<PlaylistResult>, t: Throwable) {
+                    listener?.onFailure(t)
+                }
+            }
         )
     }
 
-    override fun onResponse(call: Call<PlaylistResult>, response: Response<PlaylistResult>) {
+    private fun onResponsePlaylist(response: Response<PlaylistResult>){
         response.body()?.let {
             playlistLiveData.value = it
-            listener?.onResponse(it)
+            loadIcons()
         }
     }
 
-    override fun onFailure(call: Call<PlaylistResult>, t: Throwable) {
-        listener?.onFailure(t)
+    private fun loadIcons(){
+        serverRequest.request(
+            Bundle().apply {
+                putString("action", "jgetjsoniconschannels")
+            },
+            object : Callback<IconsResult>{
+                override fun onResponse(call: Call<IconsResult>, response: Response<IconsResult>) {
+                    onResponseIcons(response)
+                }
+
+                override fun onFailure(call: Call<IconsResult>, t: Throwable) {
+                    listener?.onFailure(t)
+                }
+            }
+        )
+    }
+
+    private fun onResponseIcons(response: Response<IconsResult>){
+        response.body()?.let {
+            CoroutineScope(Dispatchers.Default).launch {
+                playlistLiveData.value!!.channels.setIcons(it.icons)
+                playlistLiveData.value!!.cams.setIcons(it.icons)
+                launch(Dispatchers.Default) { listener?.onResponse(playlistLiveData.value!!) }
+            }
+        }
     }
 
     class Factory @Inject constructor(): ViewModelProvider.Factory{

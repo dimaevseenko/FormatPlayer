@@ -1,10 +1,12 @@
 package ua.dimaevseenko.format_player.fragment.player.navigation.home.channels
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentChannelsBinding
@@ -24,6 +26,9 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment() {
 
     private lateinit var playlistViewModel: PlaylistViewModel
 
+    @Inject lateinit var verticalChannelsAdapterFactory: VerticalChannelsAdapter.Factory
+    @Inject lateinit var horizontalChannelsAdapterFactory: HorizontalChannelsAdapter.Factory
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.bind(inflater.inflate(R.layout.fragment_channels, container, false))
         return binding.root
@@ -31,6 +36,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
+
         if(savedInstanceState == null)
             animateStartX()
 
@@ -38,6 +44,23 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment() {
         loadGenres()
 
         binding.backCard.setOnClickListener { dismiss() }
+
+        binding.recyclerView.layoutManager = getLinearLayoutManager()
+        binding.recyclerView.adapter = getRecyclerAdapter()
+    }
+
+    private fun getLinearLayoutManager(): LinearLayoutManager{
+        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+            return LinearLayoutManager(requireContext())
+        else
+            return LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun getRecyclerAdapter(): RecyclerChannelsAdapter{
+        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+            return verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!)
+        else
+            return horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!)
     }
 
     private fun loadGenres(){

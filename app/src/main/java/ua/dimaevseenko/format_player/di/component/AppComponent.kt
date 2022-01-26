@@ -16,6 +16,7 @@ import ua.dimaevseenko.format_player.fragment.player.navigation.LoaderFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.PlayerNavFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.channels.ChannelsFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.home.cameras.CamerasFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.ProfileFragment
 
 @Component(modules = [AppModule::class])
@@ -34,6 +35,7 @@ interface AppComponent {
     fun inject(profileFragment: ProfileFragment)
     fun inject(channelsFragment: ChannelsFragment)
     fun inject(loaderFragment: LoaderFragment)
+    fun inject(camerasFragment: CamerasFragment)
 
     @Component.Builder
     interface Builder{

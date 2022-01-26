@@ -33,6 +33,7 @@
     </androidx.cardview.widget.CardView>
 
     <TextView
+        android:id="@+id/camerasTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -43,4 +44,15 @@
         app:layout_constraintBottom_toBottomOf="@+id/backCard"
         app:layout_constraintStart_toEndOf="@+id/backCard"
         app:layout_constraintTop_toTopOf="@+id/backCard" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backCard" />
 </androidx.constraintlayout.widget.ConstraintLayout>

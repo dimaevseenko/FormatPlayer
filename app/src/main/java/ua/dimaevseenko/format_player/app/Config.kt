@@ -1,6 +1,8 @@
 package ua.dimaevseenko.format_player.app
 
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Build
 import android.provider.Settings
 import android.util.Base64
@@ -57,6 +59,14 @@ object Config {
 
         fun encodeBase64(string: String): String{
             return Base64.encodeToString(string.toByteArray(), Base64.DEFAULT)
+        }
+
+        fun encodeBase64ToBitmap(byteArray: ByteArray): Bitmap {
+           return BitmapFactory.decodeByteArray(
+               byteArray,
+               0,
+               byteArray.size
+           )
         }
     }
 }
