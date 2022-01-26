@@ -38,6 +38,9 @@ android {
 
 dependencies {
 
+    //Shimmer
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
     //Custom Progress Bar
     implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
 

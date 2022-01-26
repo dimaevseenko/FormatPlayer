@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.player.navigation.home
+package ua.dimaevseenko.format_player.fragment.player.navigation.home.channels
 
 import android.os.Bundle
 import android.view.LayoutInflater

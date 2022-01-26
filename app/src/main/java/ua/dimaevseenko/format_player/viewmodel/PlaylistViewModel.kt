@@ -20,8 +20,8 @@ class PlaylistViewModel @Inject constructor(): ViewModel(), Callback<PlaylistRes
 
     var listener: Server.Listener<PlaylistResult>? = null
 
-    fun getGenres(): Genres {
-        return playlistLiveData.value!!.genres
+    fun getGenres(): Genres? {
+        return playlistLiveData.value?.genres
     }
 
     fun loadPlaylist(){

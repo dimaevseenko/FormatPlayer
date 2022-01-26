@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.DialogFragmentProgressBinding
+import ua.dimaevseenko.format_player.databinding.FragmentLoaderBinding
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.PlaylistResult
 import ua.dimaevseenko.format_player.removeFragment
@@ -21,13 +22,13 @@ class LoaderFragment @Inject constructor(): Fragment(), Server.Listener<Playlist
         const val TAG = "LoaderFragment"
     }
 
-    private lateinit var binding: DialogFragmentProgressBinding
+    private lateinit var binding: FragmentLoaderBinding
 
     @Inject lateinit var playlistViewModelFactory: PlaylistViewModel.Factory
     private lateinit var playlistViewModel: PlaylistViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = DialogFragmentProgressBinding.bind(inflater.inflate(R.layout.dialog_fragment_progress, container, false))
+        binding = FragmentLoaderBinding.bind(inflater.inflate(R.layout.fragment_loader, container, false))
         return binding.root
     }
 

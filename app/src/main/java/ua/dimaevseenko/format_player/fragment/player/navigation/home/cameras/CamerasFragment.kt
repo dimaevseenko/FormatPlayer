@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.player.navigation.home
+package ua.dimaevseenko.format_player.fragment.player.navigation.home.cameras
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.FragmentCamerasBinding
-import ua.dimaevseenko.format_player.databinding.FragmentChannelsBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.AnimatedFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import javax.inject.Inject
 
 class CamerasFragment @Inject constructor(): AnimatedFragment() {
