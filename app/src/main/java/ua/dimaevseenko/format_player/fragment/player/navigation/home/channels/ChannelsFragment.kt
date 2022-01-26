@@ -16,7 +16,7 @@ import ua.dimaevseenko.format_player.model.Genre
 import ua.dimaevseenko.format_player.viewmodel.PlaylistViewModel
 import javax.inject.Inject
 
-class ChannelsFragment @Inject constructor(): AnimatedFragment() {
+class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTabSelectedListener {
 
     companion object{
         const val TAG = "ChannelsFragment"
@@ -28,6 +28,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment() {
 
     @Inject lateinit var verticalChannelsAdapterFactory: VerticalChannelsAdapter.Factory
     @Inject lateinit var horizontalChannelsAdapterFactory: HorizontalChannelsAdapter.Factory
+    private var recyclerChannelsAdapter: RecyclerChannelsAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.bind(inflater.inflate(R.layout.fragment_channels, container, false))
@@ -43,6 +44,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment() {
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
         loadGenres()
 
+        binding.channelsGenresTabLayout.addOnTabSelectedListener(this)
         binding.backCard.setOnClickListener { dismiss() }
         loadRecycler()
     }
@@ -60,10 +62,13 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment() {
     }
 
     private fun getRecyclerAdapter(): RecyclerChannelsAdapter{
-        return if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-            verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!)
-        else
-            horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!)
+        if(recyclerChannelsAdapter == null)
+            recyclerChannelsAdapter = if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+                verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!)
+            else
+                horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!)
+
+        return recyclerChannelsAdapter!!
     }
 
     private fun loadGenres(){
@@ -79,6 +84,16 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment() {
             this.id = genre.id.toInt()
         }
     }
+
+    override fun onTabSelected(tab: TabLayout.Tab?) {
+        if(tab?.id == 0)
+            return getRecyclerAdapter().updateChannels(playlistViewModel.getChannels()!!)
+        getRecyclerAdapter().updateChannels(playlistViewModel.getChannels()!!.getChannelsForGenre(tab!!.id.toString()))
+    }
+
+    override fun onTabUnselected(tab: TabLayout.Tab?) {}
+
+    override fun onTabReselected(tab: TabLayout.Tab?) {}
 
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)

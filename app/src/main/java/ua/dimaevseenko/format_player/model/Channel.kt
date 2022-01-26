@@ -46,4 +46,13 @@ class Channels: ArrayList<Channel>(){
             }
         }
     }
+
+    fun getChannelsForGenre(genreId: String): Channels{
+        val channels = Channels()
+        forEach { channel ->
+            if(channel.genreId.equals(genreId))
+                channels.add(channel)
+        }
+        return channels
+    }
 }
