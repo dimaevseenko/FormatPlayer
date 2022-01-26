@@ -28,6 +28,7 @@ class CamerasFragment @Inject constructor(): AnimatedFragment() {
     private lateinit var playlistViewModel: PlaylistViewModel
 
     @Inject lateinit var recyclerCamerasAdapterFactory: RecyclerCamerasAdapter.Factory
+    private var recyclerCamerasAdapter: RecyclerCamerasAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCamerasBinding.bind(inflater.inflate(R.layout.fragment_cameras, container, false))
@@ -43,16 +44,25 @@ class CamerasFragment @Inject constructor(): AnimatedFragment() {
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
 
         binding.backCard.setOnClickListener { dismiss() }
-
-        binding.recyclerView.layoutManager = getLayoutManager()
-        binding.recyclerView.adapter = recyclerCamerasAdapterFactory.createCamerasRecyclerAdapter(playlistViewModel.getCameras()!!)
+        loadRecycler()
     }
 
-    fun getLayoutManager(): RecyclerView.LayoutManager{
-        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-            return LinearLayoutManager(requireContext())
+    private fun loadRecycler(){
+        binding.recyclerView.layoutManager = getLayoutManager()
+        binding.recyclerView.adapter = getAdapter()
+    }
+
+    private fun getAdapter(): RecyclerCamerasAdapter{
+        if(recyclerCamerasAdapter == null)
+            recyclerCamerasAdapter = recyclerCamerasAdapterFactory.createCamerasRecyclerAdapter(playlistViewModel.getCameras()!!)
+        return recyclerCamerasAdapter!!
+    }
+
+    private fun getLayoutManager(): RecyclerView.LayoutManager{
+        return if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+            LinearLayoutManager(requireContext())
         else
-            return GridLayoutManager(requireContext(), 2)
+            GridLayoutManager(requireContext(), 2)
     }
 
     fun dismiss(){

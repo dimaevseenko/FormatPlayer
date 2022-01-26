@@ -44,23 +44,26 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment() {
         loadGenres()
 
         binding.backCard.setOnClickListener { dismiss() }
+        loadRecycler()
+    }
 
+    private fun loadRecycler(){
         binding.recyclerView.layoutManager = getLinearLayoutManager()
         binding.recyclerView.adapter = getRecyclerAdapter()
     }
 
     private fun getLinearLayoutManager(): LinearLayoutManager{
-        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-            return LinearLayoutManager(requireContext())
+        return if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+            LinearLayoutManager(requireContext())
         else
-            return LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
     }
 
     private fun getRecyclerAdapter(): RecyclerChannelsAdapter{
-        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-            return verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!)
+        return if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+            verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!)
         else
-            return horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!)
+            horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!)
     }
 
     private fun loadGenres(){
