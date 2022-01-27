@@ -38,9 +38,10 @@ class PlayerFragment @Inject constructor(): Fragment() {
     }
 
     fun startStream(stream: Stream){
-        addFragment(R.id.playerContainer, streamFragment.get().apply {
-            arguments = Bundle().apply { putParcelable("stream", stream) }
-        }, StreamFragment.TAG, true)
+        if(getFragment<StreamFragment>(StreamFragment.TAG) == null)
+            addFragment(R.id.playerContainer, streamFragment.get().apply {
+                arguments = Bundle().apply { putParcelable("stream", stream) }
+            }, StreamFragment.TAG, true)
     }
 
     fun onBackPressed(): Boolean{

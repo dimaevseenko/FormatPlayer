@@ -4,21 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSource
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentStreamBinding
-import ua.dimaevseenko.format_player.model.Channel
+import ua.dimaevseenko.format_player.fragment.player.AnimatedFragment
 import ua.dimaevseenko.format_player.model.Stream
 import ua.dimaevseenko.format_player.removeFragment
 import javax.inject.Inject
 
-class StreamFragment @Inject constructor(): Fragment() {
+class StreamFragment @Inject constructor(): AnimatedFragment() {
 
     companion object{
         const val TAG = "StreamFragment"
@@ -38,6 +36,10 @@ class StreamFragment @Inject constructor(): Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
+
+        if(savedInstanceState == null)
+            animateStartY()
+
         stream = arguments?.getParcelable("stream")!!
         startPlayer()
     }
@@ -71,8 +73,14 @@ class StreamFragment @Inject constructor(): Fragment() {
         )
     }
 
+    private fun dismiss(){
+        animateEndY {
+            parentFragment?.removeFragment(this, true)
+        }
+    }
+
     fun onBackPressed(): Boolean{
-        parentFragment?.removeFragment(this, true)
+        dismiss()
         return true
     }
 }

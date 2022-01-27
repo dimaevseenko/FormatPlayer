@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.player.navigation
+package ua.dimaevseenko.format_player.fragment.player
 
 import android.animation.ObjectAnimator
 import android.util.Property

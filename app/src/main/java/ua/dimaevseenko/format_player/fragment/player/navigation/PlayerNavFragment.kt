@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerNavigationBinding
+import ua.dimaevseenko.format_player.fragment.player.AnimatedFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.ProfileFragment
 import javax.inject.Inject
