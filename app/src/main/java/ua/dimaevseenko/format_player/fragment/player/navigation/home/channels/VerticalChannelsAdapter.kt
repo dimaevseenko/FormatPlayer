@@ -29,7 +29,7 @@ class VerticalChannelsAdapter @AssistedInject constructor(
 
         override fun bind(channel: Channel) {
             binding.channelImageView.setImageBitmap(channel.imageBitmap)
-            binding.channelNameTextView.text = channel.name
+            binding.channelNameTextView.text = "${channel.id} | ${channel.name}"
         }
     }
 

@@ -45,20 +45,14 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
             Bundle().apply {
                 putString("action", "jgetchannellist")
             },
-            object : Callback<PlaylistResult>{
-                override fun onResponse(call: Call<PlaylistResult>, response: Response<PlaylistResult>) {
-                    onResponsePlaylist(response)
-                }
-
-                override fun onFailure(call: Call<PlaylistResult>, t: Throwable) {
-                    listener?.onFailure(t)
-                }
-            }
+            PlaylistCallback()
         )
     }
 
     private fun onResponsePlaylist(response: Response<PlaylistResult>){
-        response.body()?.let {
+        response.body()?.let { it ->
+            it.channels.sortBy { channel -> channel.id.toInt() }
+            it.cams.sortBy { cam -> cam.id.toInt() }
             playlistLiveData.value = it
             loadIcons()
         }
@@ -69,15 +63,7 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
             Bundle().apply {
                 putString("action", "jgetjsoniconschannels")
             },
-            object : Callback<IconsResult>{
-                override fun onResponse(call: Call<IconsResult>, response: Response<IconsResult>) {
-                    onResponseIcons(response)
-                }
-
-                override fun onFailure(call: Call<IconsResult>, t: Throwable) {
-                    listener?.onFailure(t)
-                }
-            }
+            IconsCallback()
         )
     }
 
@@ -88,6 +74,26 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
                 playlistLiveData.value!!.cams.setIcons(it.icons)
                 launch(Dispatchers.Default) { listener?.onResponse(playlistLiveData.value!!) }
             }
+        }
+    }
+
+    inner class PlaylistCallback: Callback<PlaylistResult>{
+        override fun onResponse(call: Call<PlaylistResult>, response: Response<PlaylistResult>) {
+            onResponsePlaylist(response)
+        }
+
+        override fun onFailure(call: Call<PlaylistResult>, t: Throwable) {
+            listener?.onFailure(t)
+        }
+    }
+
+    inner class IconsCallback: Callback<IconsResult>{
+        override fun onResponse(call: Call<IconsResult>, response: Response<IconsResult>) {
+            onResponseIcons(response)
+        }
+
+        override fun onFailure(call: Call<IconsResult>, t: Throwable) {
+            listener?.onFailure(t)
         }
     }
 
