@@ -36,15 +36,18 @@ class HomeFragment @Inject constructor(): AnimatedFragment() {
     }
 
     fun channelsFragment(){
+        channelsFragment = ChannelsFragment()
         replaceFragment(R.id.homeContainer, channelsFragment, ChannelsFragment.TAG, true)
     }
 
     fun homeWaysFragment(){
+        homeWaysFragment = HomeWaysFragment()
         homeWaysFragment.returnFragment = true
         replaceFragment(R.id.homeContainer, homeWaysFragment, HomeWaysFragment.TAG, true)
     }
 
     fun camerasFragment(){
+        camerasFragment = CamerasFragment()
         replaceFragment(R.id.homeContainer, camerasFragment, CamerasFragment.TAG, true)
     }
 

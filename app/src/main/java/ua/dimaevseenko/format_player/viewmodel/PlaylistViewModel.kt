@@ -77,7 +77,7 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
         }
     }
 
-    inner class PlaylistCallback: Callback<PlaylistResult>{
+    private inner class PlaylistCallback: Callback<PlaylistResult>{
         override fun onResponse(call: Call<PlaylistResult>, response: Response<PlaylistResult>) {
             onResponsePlaylist(response)
         }
@@ -87,7 +87,7 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
         }
     }
 
-    inner class IconsCallback: Callback<IconsResult>{
+    private inner class IconsCallback: Callback<IconsResult>{
         override fun onResponse(call: Call<IconsResult>, response: Response<IconsResult>) {
             onResponseIcons(response)
         }
