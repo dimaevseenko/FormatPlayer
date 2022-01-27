@@ -57,6 +57,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     private fun loadRecycler(){
         binding.recyclerView.layoutManager = getLinearLayoutManager()
         binding.recyclerView.adapter = getRecyclerAdapter()
+        onTabSelected(binding.channelsGenresTabLayout.getTabAt(binding.channelsGenresTabLayout.selectedTabPosition))
     }
 
     private fun getLinearLayoutManager(): LinearLayoutManager{
