@@ -34,6 +34,11 @@ class MainFragment @Inject constructor(): Fragment() {
 
         if(savedInstanceState == null)
             addFragment(R.id.mainFragmentContainer, splashFragment, SplashFragment.TAG, true)
+        else {
+            getFragment<SplashFragment>(SplashFragment.TAG)?.let { splashFragment = it }
+            getFragment<AuthorizationFragment>(AuthorizationFragment.TAG)?.let { authorizationFragment = it }
+            getFragment<PlayerFragment>(PlayerFragment.TAG)?.let { playerFragment = it }
+        }
     }
 
     fun authFragment(){
