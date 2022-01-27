@@ -9,6 +9,7 @@ import ua.dimaevseenko.format_player.databinding.FragmentHomeBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.AnimatedFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.cameras.CamerasFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.channels.ChannelsFragment
+import ua.dimaevseenko.format_player.model.Cam
 import javax.inject.Inject
 
 class HomeFragment @Inject constructor(): AnimatedFragment() {
@@ -36,18 +37,15 @@ class HomeFragment @Inject constructor(): AnimatedFragment() {
     }
 
     fun channelsFragment(){
-        channelsFragment = ChannelsFragment()
         replaceFragment(R.id.homeContainer, channelsFragment, ChannelsFragment.TAG, true)
     }
 
     fun homeWaysFragment(){
-        homeWaysFragment = HomeWaysFragment()
         homeWaysFragment.returnFragment = true
         replaceFragment(R.id.homeContainer, homeWaysFragment, HomeWaysFragment.TAG, true)
     }
 
     fun camerasFragment(){
-        camerasFragment = CamerasFragment()
         replaceFragment(R.id.homeContainer, camerasFragment, CamerasFragment.TAG, true)
     }
 

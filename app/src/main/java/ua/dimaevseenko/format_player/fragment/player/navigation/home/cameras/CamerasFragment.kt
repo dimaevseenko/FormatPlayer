@@ -14,6 +14,7 @@ import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentCamerasBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.AnimatedFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
+import ua.dimaevseenko.format_player.removeFragment
 import ua.dimaevseenko.format_player.viewmodel.PlaylistViewModel
 import javax.inject.Inject
 
@@ -43,7 +44,10 @@ class CamerasFragment @Inject constructor(): AnimatedFragment() {
 
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
 
-        binding.backCard.setOnClickListener { dismiss() }
+        binding.backCard.setOnClickListener {
+            if(isAnimated)
+                dismiss()
+        }
         loadRecycler()
     }
 

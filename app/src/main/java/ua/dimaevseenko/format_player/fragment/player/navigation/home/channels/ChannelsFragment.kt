@@ -45,7 +45,10 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
         loadGenres()
 
         binding.channelsGenresTabLayout.addOnTabSelectedListener(this)
-        binding.backCard.setOnClickListener { dismiss() }
+        binding.backCard.setOnClickListener {
+            if(isAnimated)
+                dismiss()
+        }
         loadRecycler()
     }
 

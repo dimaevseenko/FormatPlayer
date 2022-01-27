@@ -11,6 +11,8 @@ open class AnimatedFragment: Fragment() {
 
     internal open fun tag(): String = "tag"
 
+    internal var isAnimated = true
+
     internal fun animateEndX(reverse: Boolean = false, completion: (() -> Unit)? = null){
         var finalX = requireActivity().windowManager.defaultDisplay.width.toFloat()
         if(reverse)
@@ -44,10 +46,12 @@ open class AnimatedFragment: Fragment() {
     }
 
     private fun animateX(view: View, fromX: Float, toX: Float, completion: (() -> Unit)? = null){
+        isAnimated = false
         animateXY(view, View.TRANSLATION_X, fromX, toX, completion)
     }
 
     private fun animateY(view: View, fromY: Float, toY: Float, completion: (() -> Unit)? = null){
+        isAnimated = false
         animateXY(view, View.TRANSLATION_Y, fromY, toY, completion)
     }
 
@@ -56,6 +60,7 @@ open class AnimatedFragment: Fragment() {
             interpolator = FastOutSlowInInterpolator()
             duration = 500
             addListener({
+                isAnimated = true
                 completion?.let { it() }
             })
             start()

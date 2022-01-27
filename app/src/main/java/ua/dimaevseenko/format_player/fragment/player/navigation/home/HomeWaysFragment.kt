@@ -8,6 +8,7 @@ import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.FragmentHomeWaysBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.AnimatedFragment
 import ua.dimaevseenko.format_player.isTV
+import ua.dimaevseenko.format_player.removeFragment
 import javax.inject.Inject
 
 class HomeWaysFragment @Inject constructor(): AnimatedFragment() {
@@ -33,12 +34,16 @@ class HomeWaysFragment @Inject constructor(): AnimatedFragment() {
             binding.channelsLayout.requestFocus()
 
         binding.channelsLayout.setOnClickListener {
-            dismiss()
-            (parentFragment as HomeFragment).channelsFragment()
+            if(isAnimated) {
+                dismiss()
+                (parentFragment as HomeFragment).channelsFragment()
+            }
         }
         binding.camerasLayout.setOnClickListener {
-            dismiss()
-            (parentFragment as HomeFragment).camerasFragment()
+            if(isAnimated) {
+                dismiss()
+                (parentFragment as HomeFragment).camerasFragment()
+            }
         }
     }
 
