@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
@@ -11,13 +12,15 @@ import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Channels
 
 abstract class RecyclerChannelsAdapter constructor(
-    private var channels: Channels
+    private var channels: Channels,
+    private var linearLayoutManager: LinearLayoutManager
 ): RecyclerView.Adapter<RecyclerChannelsAdapter.ViewHolder>() {
 
     fun updateChannels(channels: Channels){
         val diffUtils = DiffUtil.calculateDiff(DiffUtils(this.channels, channels))
         this.channels = channels
         diffUtils.dispatchUpdatesTo(this)
+        linearLayoutManager.scrollToPositionWithOffset(0, 0)
     }
 
     override fun onBindViewHolder(holder: RecyclerChannelsAdapter.ViewHolder, position: Int) {
