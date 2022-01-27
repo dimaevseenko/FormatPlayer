@@ -38,7 +38,7 @@ class StreamFragment @Inject constructor(): AnimatedFragment() {
         appComponent.inject(this)
 
         if(savedInstanceState == null)
-            animateStartY()
+            animateStartY(duration = 400)
 
         stream = arguments?.getParcelable("stream")!!
         startPlayer()
@@ -74,7 +74,7 @@ class StreamFragment @Inject constructor(): AnimatedFragment() {
     }
 
     private fun dismiss(){
-        animateEndY {
+        animateEndY(duration = 400) {
             parentFragment?.removeFragment(this, true)
         }
     }

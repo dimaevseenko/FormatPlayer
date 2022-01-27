@@ -13,52 +13,52 @@ open class AnimatedFragment: Fragment() {
 
     internal var isAnimated = true
 
-    internal fun animateEndX(reverse: Boolean = false, completion: (() -> Unit)? = null){
+    internal fun animateEndX(reverse: Boolean = false, duration: Long = 500, completion: (() -> Unit)? = null){
         var finalX = requireActivity().windowManager.defaultDisplay.width.toFloat()
         if(reverse)
             finalX *= -1
 
-        animateX(requireView(), 0f, finalX, completion)
+        animateX(requireView(), 0f, finalX, completion, duration)
     }
 
-    internal fun animateStartX(reverse: Boolean = false, completion: (() -> Unit)? = null){
+    internal fun animateStartX(reverse: Boolean = false, duration: Long = 500, completion: (() -> Unit)? = null){
         var finalX = requireActivity().windowManager.defaultDisplay.width.toFloat()
         if(reverse)
             finalX *= -1
 
-        animateX(requireView(), finalX, 0f, completion)
+        animateX(requireView(), finalX, 0f, completion, duration)
     }
 
-    internal fun animateEndY(reverse: Boolean = false, completion: (() -> Unit)? = null){
+    internal fun animateEndY(reverse: Boolean = false, duration: Long = 500, completion: (() -> Unit)? = null){
         var finalY = requireActivity().windowManager.defaultDisplay.height.toFloat()
         if(reverse)
             finalY *= -1
 
-        animateY(requireView(), 0f, finalY, completion)
+        animateY(requireView(), 0f, finalY, completion, duration)
     }
 
-    internal fun animateStartY(reverse: Boolean = false, completion: (() -> Unit)? = null){
+    internal fun animateStartY(reverse: Boolean = false, duration: Long = 500, completion: (() -> Unit)? = null){
         var finalY = requireActivity().windowManager.defaultDisplay.height.toFloat()
         if(reverse)
             finalY *= -1
 
-        animateY(requireView(), finalY, 0f, completion)
+        animateY(requireView(), finalY, 0f, completion, duration)
     }
 
-    private fun animateX(view: View, fromX: Float, toX: Float, completion: (() -> Unit)? = null){
+    private fun animateX(view: View, fromX: Float, toX: Float, completion: (() -> Unit)? = null, duration: Long){
         isAnimated = false
-        animateXY(view, View.TRANSLATION_X, fromX, toX, completion)
+        animateXY(view, View.TRANSLATION_X, fromX, toX, completion, duration)
     }
 
-    private fun animateY(view: View, fromY: Float, toY: Float, completion: (() -> Unit)? = null){
+    private fun animateY(view: View, fromY: Float, toY: Float, completion: (() -> Unit)? = null, duration: Long){
         isAnimated = false
-        animateXY(view, View.TRANSLATION_Y, fromY, toY, completion)
+        animateXY(view, View.TRANSLATION_Y, fromY, toY, completion, duration)
     }
 
-    private fun animateXY(view: View, type: Property<View, Float>, from: Float, to: Float, completion: (()-> Unit)? = null){
+    private fun animateXY(view: View, type: Property<View, Float>, from: Float, to: Float, completion: (()-> Unit)? = null, duration: Long){
         ObjectAnimator.ofFloat(view, type, from, to).apply {
             interpolator = FastOutSlowInInterpolator()
-            duration = 500
+            this.duration = duration
             addListener({
                 isAnimated = true
                 completion?.let { it() }
