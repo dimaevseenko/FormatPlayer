@@ -38,7 +38,7 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
         if(savedInstanceState == null)
             addFragment(R.id.authContainer, loginFragment, LoginFragment.TAG)
 
-        presentationPlayer = presentationPlayerFactory.createPresentationPlayer(binding.player, true, "tv-presentation.mp4").apply { play() }
+        presentationPlayer = presentationPlayerFactory.createPresentationPlayer(binding.playerView, true, "tv-presentation.mp4").apply { play() }
     }
 
     fun registerFragment(){
@@ -49,10 +49,6 @@ class AuthorizationFragment @Inject constructor(): Fragment() {
     fun loginFragment(){
         registerFragment = getFragment(RegisterFragment.TAG)!!
         replaceFragment(R.id.authContainer, loginFragment, LoginFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-    }
-
-    fun loginSuccess(){
-        (parentFragment as MainFragment).playerFragment()
     }
 
     override fun onResume() {

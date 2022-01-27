@@ -112,7 +112,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     }
 
     override fun onSelectedChannel(channel: Channel, position: Int) {
-        println(channel)
+        playerFragment.startStream(channel)
     }
 
     fun dismiss(){

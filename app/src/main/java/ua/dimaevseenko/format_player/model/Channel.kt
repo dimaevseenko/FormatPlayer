@@ -1,6 +1,8 @@
 package ua.dimaevseenko.format_player.model
 
 import android.graphics.Bitmap
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Base64
 import com.google.gson.annotations.SerializedName
 import ua.dimaevseenko.format_player.app.Config
@@ -29,8 +31,51 @@ data class Channel(
 
     @SerializedName("server_time")
     val serverTime: String
-){
+): Stream{
     var imageBitmap: Bitmap? = null
+
+    constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!,
+        parcel.readString()!!
+    ) {
+        imageBitmap = parcel.readParcelable(Bitmap::class.java.classLoader)
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(id)
+        parcel.writeString(name)
+        parcel.writeString(url)
+        parcel.writeString(genreId)
+        parcel.writeString(type)
+        parcel.writeString(catchup)
+        parcel.writeString(rewind)
+        parcel.writeString(serverTime)
+        parcel.writeParcelable(imageBitmap, flags)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Channel> {
+        override fun createFromParcel(parcel: Parcel): Channel {
+            return Channel(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Channel?> {
+            return arrayOfNulls(size)
+        }
+    }
+
+    override fun getStreamUrl(): String {
+        return url
+    }
 }
 
 class Channels: ArrayList<Channel>(){

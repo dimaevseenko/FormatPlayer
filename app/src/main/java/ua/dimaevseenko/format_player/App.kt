@@ -10,6 +10,8 @@ import androidx.fragment.app.FragmentTransaction
 import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.di.component.AppComponent
 import ua.dimaevseenko.format_player.di.component.DaggerAppComponent
+import ua.dimaevseenko.format_player.fragment.MainFragment
+import ua.dimaevseenko.format_player.fragment.player.PlayerFragment
 
 class App: Application() {
 
@@ -28,6 +30,15 @@ val Context.appComponent: AppComponent
 
 val Fragment.appComponent: AppComponent
     get() = requireContext().appComponent
+
+val Fragment.mainActivity: MainActivity
+    get() = requireActivity() as MainActivity
+
+val Fragment.mainFragment: MainFragment
+    get() = mainActivity.mainFragment
+
+val Fragment.playerFragment: PlayerFragment
+    get() = mainFragment.playerFragment
 
 val Context.isTV: Boolean
     get() = (getSystemService(Context.UI_MODE_SERVICE) as UiModeManager)

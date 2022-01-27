@@ -5,9 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import dagger.Lazy
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.PlayerNavFragment
+import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
+import ua.dimaevseenko.format_player.model.Channel
+import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
 
 class PlayerFragment @Inject constructor(): Fragment() {
@@ -19,6 +23,7 @@ class PlayerFragment @Inject constructor(): Fragment() {
     private lateinit var binding: FragmentPlayerBinding
 
     @Inject lateinit var playerNavFragment: PlayerNavFragment
+    @Inject lateinit var streamFragment: Lazy<StreamFragment>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPlayerBinding.bind(inflater.inflate(R.layout.fragment_player, container, false))
@@ -32,7 +37,14 @@ class PlayerFragment @Inject constructor(): Fragment() {
             addFragment(R.id.playerContainer, playerNavFragment, PlayerNavFragment.TAG, true)
     }
 
+    fun startStream(stream: Stream){
+        addFragment(R.id.playerContainer, streamFragment.get().apply {
+            arguments = Bundle().apply { putParcelable("stream", stream) }
+        }, StreamFragment.TAG, true)
+    }
+
     fun onBackPressed(): Boolean{
+        getFragment<StreamFragment>(StreamFragment.TAG)?.let{ return it.onBackPressed() }
         getFragment<PlayerNavFragment>(PlayerNavFragment.TAG)?.let { return it.onBackPressed() }
         return false
     }

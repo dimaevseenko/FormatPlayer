@@ -14,11 +14,13 @@ import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentCamerasBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.AnimatedFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
+import ua.dimaevseenko.format_player.model.Cam
+import ua.dimaevseenko.format_player.playerFragment
 import ua.dimaevseenko.format_player.removeFragment
 import ua.dimaevseenko.format_player.viewmodel.PlaylistViewModel
 import javax.inject.Inject
 
-class CamerasFragment @Inject constructor(): AnimatedFragment() {
+class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCamerasAdapter.Listener {
 
     companion object{
         const val TAG = "CamerasFragment"
@@ -50,7 +52,13 @@ class CamerasFragment @Inject constructor(): AnimatedFragment() {
 
     private fun loadRecycler(){
         binding.recyclerView.layoutManager = getLayoutManager()
-        binding.recyclerView.adapter = getAdapter()
+        binding.recyclerView.adapter = getAdapter().apply {
+            setListener(this@CamerasFragment)
+        }
+    }
+
+    override fun onSelectedCam(cam: Cam, position: Int) {
+        playerFragment.startStream(cam)
     }
 
     private fun getAdapter(): RecyclerCamerasAdapter{

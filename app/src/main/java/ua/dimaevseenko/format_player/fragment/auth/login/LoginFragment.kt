@@ -88,7 +88,7 @@ class LoginFragment @Inject constructor(): Fragment(), Server.Listener<LoginResu
         Config.Values.login = binding.loginEditText.editableText.toString()
         Config.Values.mToken = token
         Config.Values.save(requireContext())
-        (parentFragment as AuthorizationFragment).loginSuccess()
+        mainFragment.playerFragment()
     }
 
     private fun loginFailed(reason: String){

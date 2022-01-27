@@ -31,17 +31,16 @@ class SplashFragment @Inject constructor(): Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
 
-        presentationPlayer = presentationPlayerFactory.createPresentationPlayer(binding.player, false, "intro.mp4"){
-           checkLogin()
-        }
+        presentationPlayer = presentationPlayerFactory
+            .createPresentationPlayer(binding.playerView, false, "1024.mp4"){ checkLogin() }
         presentationPlayer.play()
     }
 
     private fun checkLogin(){
         if(Config.Values.login != null && Config.Values.mToken != null)
-            (parentFragment as MainFragment).playerFragment()
+            mainFragment.playerFragment()
         else
-            (parentFragment as MainFragment).authFragment()
+            mainFragment.authFragment()
     }
 
     override fun onResume() {

@@ -37,7 +37,7 @@ abstract class RecyclerChannelsAdapter constructor(
         abstract fun bind(channel: Channel, listener: Listener?)
     }
 
-    fun setListener(listener: Listener?){
+    fun setListener(listener: Listener){
         this.listener = listener
     }
 

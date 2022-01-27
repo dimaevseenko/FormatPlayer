@@ -19,24 +19,35 @@ class RecyclerCamerasAdapter @AssistedInject constructor(
     private val context: Context
 ): RecyclerView.Adapter<RecyclerCamerasAdapter.ViewHolder>() {
 
+    private var listener: Listener? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_cameras_item, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(cams[position])
+        holder.bind(cams[position], listener)
     }
 
     override fun getItemCount(): Int {
         return cams.size
     }
 
+    fun setListener(listener: Listener){
+        this.listener = listener
+    }
+
+    interface Listener{
+        fun onSelectedCam(cam: Cam, position: Int)
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private var binding = RecyclerViewCamerasItemBinding.bind(view)
 
-        fun bind(cam: Cam){
+        fun bind(cam: Cam, listener: Listener?){
             binding.cameraImageView.setImageBitmap(cam.imageBitmap)
             binding.cameraTextView.text = cam.name
+            binding.cameraLayout.setOnClickListener { listener?.onSelectedCam(cam, absoluteAdapterPosition) }
         }
     }
 

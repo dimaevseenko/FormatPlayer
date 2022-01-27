@@ -5,17 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import ua.dimaevseenko.format_player.R
+import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.app.Config
-import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentProfileBinding
-import ua.dimaevseenko.format_player.dismissProgressDialog
 import ua.dimaevseenko.format_player.fragment.MainFragment
 import ua.dimaevseenko.format_player.viewmodel.RequestViewModel
 import ua.dimaevseenko.format_player.fragment.player.navigation.AnimatedFragment
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.UnLoginResult
-import ua.dimaevseenko.format_player.showProgressDialog
 import javax.inject.Inject
 
 class ProfileFragment @Inject constructor(): AnimatedFragment(), Server.Listener<UnLoginResult> {
@@ -61,7 +58,7 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(), Server.Listener
         Config.Values.login = null
         Config.Values.mToken = null
         Config.Values.save(requireContext())
-        (parentFragment?.parentFragment?.parentFragment as MainFragment).authFragment()
+        mainFragment.authFragment()
     }
 
     override fun onResponse(result: UnLoginResult) {
