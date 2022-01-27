@@ -69,9 +69,9 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     private fun getRecyclerAdapter(): RecyclerChannelsAdapter{
         if(recyclerChannelsAdapter == null)
             recyclerChannelsAdapter = if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-                verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!, binding.recyclerView.layoutManager as LinearLayoutManager)
+                verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!)
             else
-                horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!, binding.recyclerView.layoutManager as LinearLayoutManager)
+                horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!)
 
         return recyclerChannelsAdapter!!
     }
@@ -91,9 +91,8 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
-        if(tab?.id == 0)
-            return getRecyclerAdapter().updateChannels(playlistViewModel.getChannels()!!)
         getRecyclerAdapter().updateChannels(playlistViewModel.getChannels()!!.getChannelsForGenre(tab!!.id.toString()))
+        (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
     }
 
     override fun onTabUnselected(tab: TabLayout.Tab?) {}

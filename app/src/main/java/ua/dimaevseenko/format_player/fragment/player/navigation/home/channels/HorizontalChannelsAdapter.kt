@@ -16,12 +16,9 @@ import ua.dimaevseenko.format_player.model.Channels
 class HorizontalChannelsAdapter @AssistedInject constructor(
     @Assisted("channels")
     private val channels: Channels,
-    @Assisted("layoutManager")
-    private val linearLayoutManager: LinearLayoutManager,
     private val context: Context
 ): RecyclerChannelsAdapter(
-    channels,
-    linearLayoutManager
+    channels
 ) {
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -40,9 +37,7 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
     interface Factory{
         fun createHorizontalChannelsAdapter(
             @Assisted("channels")
-            channels: Channels,
-            @Assisted("layoutManager")
-            linearLayoutManager: LinearLayoutManager
+            channels: Channels
         ): HorizontalChannelsAdapter
     }
 }

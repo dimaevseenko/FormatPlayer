@@ -12,15 +12,13 @@ import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Channels
 
 abstract class RecyclerChannelsAdapter constructor(
-    private var channels: Channels,
-    private var linearLayoutManager: LinearLayoutManager
+    private var channels: Channels
 ): RecyclerView.Adapter<RecyclerChannelsAdapter.ViewHolder>() {
 
     fun updateChannels(channels: Channels){
         val diffUtils = DiffUtil.calculateDiff(DiffUtils(this.channels, channels))
         this.channels = channels
         diffUtils.dispatchUpdatesTo(this)
-        linearLayoutManager.scrollToPositionWithOffset(0, 0)
     }
 
     override fun onBindViewHolder(holder: RecyclerChannelsAdapter.ViewHolder, position: Int) {
