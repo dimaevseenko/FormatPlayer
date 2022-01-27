@@ -28,8 +28,9 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
     class ViewHolder(view: View): RecyclerChannelsAdapter.ViewHolder(view){
         private var binding = RecyclerViewChannelsHorizontalItemBinding.bind(view)
 
-        override fun bind(channel: Channel) {
+        override fun bind(channel: Channel, listener: Listener?) {
             binding.channelImageView.setImageBitmap(channel.imageBitmap)
+            binding.channelLayout.setOnClickListener { listener?.onSelectedChannel(channel, absoluteAdapterPosition) }
         }
     }
 

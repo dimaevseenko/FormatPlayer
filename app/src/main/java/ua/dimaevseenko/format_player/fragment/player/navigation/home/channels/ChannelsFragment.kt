@@ -12,11 +12,12 @@ import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentChannelsBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.AnimatedFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
+import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Genre
 import ua.dimaevseenko.format_player.viewmodel.PlaylistViewModel
 import javax.inject.Inject
 
-class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTabSelectedListener {
+class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTabSelectedListener, RecyclerChannelsAdapter.Listener {
 
     companion object{
         const val TAG = "ChannelsFragment"
@@ -56,7 +57,9 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
 
     private fun loadRecycler(){
         binding.recyclerView.layoutManager = getLinearLayoutManager()
-        binding.recyclerView.adapter = getRecyclerAdapter()
+        binding.recyclerView.adapter = getRecyclerAdapter().apply {
+            setListener(this@ChannelsFragment)
+        }
         onTabSelected(binding.channelsGenresTabLayout.getTabAt(binding.channelsGenresTabLayout.selectedTabPosition))
     }
 
@@ -109,6 +112,10 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putInt("genrePosition", binding.channelsGenresTabLayout.selectedTabPosition)
+    }
+
+    override fun onSelectedChannel(channel: Channel, position: Int) {
+        println(channel)
     }
 
     fun dismiss(){
