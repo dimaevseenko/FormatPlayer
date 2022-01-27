@@ -30,7 +30,6 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     @Inject lateinit var horizontalChannelsAdapterFactory: HorizontalChannelsAdapter.Factory
 
     private var recyclerChannelsAdapter: RecyclerChannelsAdapter? = null
-    private var linearLayoutManager: LinearLayoutManager? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.bind(inflater.inflate(R.layout.fragment_channels, container, false))
@@ -51,6 +50,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
             if(isAnimated)
                 dismiss()
         }
+
         loadRecycler()
     }
 
@@ -60,21 +60,18 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     }
 
     private fun getLinearLayoutManager(): LinearLayoutManager{
-        if(linearLayoutManager == null)
-            linearLayoutManager = if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+        return if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
                 LinearLayoutManager(requireContext())
             else
                 LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
-        return linearLayoutManager!!
     }
 
     private fun getRecyclerAdapter(): RecyclerChannelsAdapter{
         if(recyclerChannelsAdapter == null)
             recyclerChannelsAdapter = if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-                verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!, getLinearLayoutManager())
+                verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!, binding.recyclerView.layoutManager as LinearLayoutManager)
             else
-                horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!, getLinearLayoutManager())
+                horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!, binding.recyclerView.layoutManager as LinearLayoutManager)
 
         return recyclerChannelsAdapter!!
     }
