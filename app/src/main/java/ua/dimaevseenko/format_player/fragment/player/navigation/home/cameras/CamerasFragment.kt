@@ -44,10 +44,7 @@ class CamerasFragment @Inject constructor(): AnimatedFragment() {
 
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
 
-        binding.backCard.setOnClickListener {
-            if(isAnimated)
-                dismiss()
-        }
+        binding.backCard.setOnClickListener { dismiss() }
         loadRecycler()
     }
 
@@ -70,7 +67,9 @@ class CamerasFragment @Inject constructor(): AnimatedFragment() {
     }
 
     fun dismiss(){
-        animateEndX()
-        (parentFragment as HomeFragment).homeWaysFragment()
+        if(isAnimated) {
+            animateEndX()
+            (parentFragment as HomeFragment).homeWaysFragment()
+        }
     }
 }

@@ -47,10 +47,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
         loadGenres()
 
         binding.channelsGenresTabLayout.addOnTabSelectedListener(this)
-        binding.backCard.setOnClickListener {
-            if(isAnimated)
-                dismiss()
-        }
+        binding.backCard.setOnClickListener { dismiss() }
 
         loadRecycler()
     }
@@ -119,7 +116,9 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     }
 
     fun dismiss(){
-        animateEndX()
-        (parentFragment as HomeFragment).homeWaysFragment()
+        if(isAnimated) {
+            animateEndX()
+            (parentFragment as HomeFragment).homeWaysFragment()
+        }
     }
 }
