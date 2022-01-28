@@ -57,10 +57,10 @@ fun <T: Fragment> FragmentActivity.getFragment(tag: String): T?{
     return supportFragmentManager.findFragmentByTag(tag) as? T
 }
 
-fun Fragment.addFragment(container: Int, fragment: Fragment, tag: String, animated: Boolean = false){
+fun Fragment.addFragment(container: Int, fragment: Fragment, tag: String, animated: Boolean = false, transaction: Int = FragmentTransaction.TRANSIT_FRAGMENT_OPEN){
     childFragmentManager.beginTransaction().apply {
         if(animated)
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN)
+            setTransition(transaction)
         add(container, fragment, tag)
         commit()
     }
@@ -82,10 +82,10 @@ fun <T: Fragment> Fragment.getFragment(tag: String): T?{
     return childFragmentManager.findFragmentByTag(tag) as? T
 }
 
-fun Fragment.removeFragment(fragment: Fragment, animated: Boolean = false){
+fun Fragment.removeFragment(fragment: Fragment, animated: Boolean = false, transaction: Int = FragmentTransaction.TRANSIT_FRAGMENT_OPEN){
     childFragmentManager.beginTransaction().apply {
         if(animated)
-            setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+            setTransition(transaction)
         remove(fragment)
         commit()
     }

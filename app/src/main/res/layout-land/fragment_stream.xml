@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_land"
-    tools:ignore="SpeakableTextPresentCheck">
+    android:background="#000000"
+    tools:ignore="SpeakableTextPresentCheck,DuplicateClickableBoundsCheck">
 
     <FrameLayout
         android:id="@+id/streamContainer"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_max="250dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck">
+        tools:ignore="SpeakableTextPresentCheck">
 
         <com.google.android.exoplayer2.ui.PlayerView
             android:id="@+id/playerView"

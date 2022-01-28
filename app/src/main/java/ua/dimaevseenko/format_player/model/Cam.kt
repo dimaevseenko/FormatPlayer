@@ -51,6 +51,14 @@ data class Cam(
     override fun getStreamUrl(): String {
         return url
     }
+
+    override fun getStreamTitle(): String {
+        return name
+    }
+
+    override fun getStreamName(): String? {
+        return null
+    }
 }
 
 class Cams: ArrayList<Cam>(){

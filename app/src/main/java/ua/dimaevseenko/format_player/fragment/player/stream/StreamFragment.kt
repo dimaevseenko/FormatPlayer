@@ -4,16 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentTransaction
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.audio.DefaultAudioSink
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.upstream.DefaultDataSource
-import ua.dimaevseenko.format_player.R
-import ua.dimaevseenko.format_player.appComponent
+import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentStreamBinding
 import ua.dimaevseenko.format_player.fragment.player.AnimatedFragment
 import ua.dimaevseenko.format_player.model.Stream
-import ua.dimaevseenko.format_player.removeFragment
 import javax.inject.Inject
 
 class StreamFragment @Inject constructor(): AnimatedFragment() {
@@ -24,8 +24,10 @@ class StreamFragment @Inject constructor(): AnimatedFragment() {
 
     private lateinit var binding: FragmentStreamBinding
 
-    @Inject lateinit var player: ExoPlayer
-    @Inject lateinit var dataSourceFactory: DefaultDataSource.Factory
+    @Inject lateinit var streamPlayerFactory: StreamPlayer.Factory
+    private lateinit var streamPlayer: StreamPlayer
+
+    @Inject lateinit var streamControlsFragment: StreamControlsFragment
 
     private lateinit var stream: Stream
 
@@ -38,39 +40,48 @@ class StreamFragment @Inject constructor(): AnimatedFragment() {
         appComponent.inject(this)
 
         if(savedInstanceState == null)
-            animateStartY(duration = 400)
+            animateStartY(duration = 400){
+                if(requireContext().isTV)
+                    binding.streamContainer.requestFocus()
+            }
 
         stream = arguments?.getParcelable("stream")!!
-        startPlayer()
+        streamPlayer = streamPlayerFactory.createStreamPlayer(
+            binding.playerView,
+            stream.getStreamUrl()
+        )
+        streamPlayer.start()
+
+        binding.streamContainer.setOnClickListener { streamControls() }
     }
 
-    private fun startPlayer(){
-        binding.playerView.player = player
-        player.setMediaSource(createMediaSource())
-        player.prepare()
-        player.play()
+    private fun streamControls(){
+        if(getFragment<StreamControlsFragment>(StreamControlsFragment.TAG) == null)
+            addFragment(R.id.streamContainer, streamControlsFragment.apply {
+                arguments = Bundle().apply { putParcelable("stream", stream) }
+            }, StreamControlsFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+    }
+
+    fun dismissControls(){
+        removeFragment(getFragment<StreamControlsFragment>(StreamControlsFragment.TAG)!!, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+
+        if(requireContext().isTV)
+            binding.streamContainer.requestFocus()
     }
 
     override fun onPause() {
-        player.pause()
+        streamPlayer.pause()
         super.onPause()
     }
 
     override fun onDestroy() {
-        player.stop()
+        streamPlayer.stop()
         super.onDestroy()
     }
 
     override fun onResume() {
-        player.prepare()
-        player.play()
+        streamPlayer.start()
         super.onResume()
-    }
-
-    private fun createMediaSource(): HlsMediaSource{
-        return HlsMediaSource.Factory(dataSourceFactory).createMediaSource(
-            MediaItem.fromUri(stream.getStreamUrl())
-        )
     }
 
     private fun dismiss(){
