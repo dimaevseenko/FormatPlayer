@@ -33,7 +33,6 @@ class StreamControlsFragment @Inject constructor(): Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         stream = arguments?.getParcelable("stream")!!
-        binding.root.setOnClickListener { dismiss() }
         binding.titleTextView.text = stream.getStreamTitle()
         binding.hidePlayerImageButton.setOnClickListener { (parentFragment as StreamFragment).onBackPressed() }
 

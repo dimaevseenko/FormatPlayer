@@ -61,6 +61,8 @@ class StreamFragment @Inject constructor(): AnimatedFragment(), SwipeHelper.List
             addFragment(R.id.streamContainer, streamControlsFragment.apply {
                 arguments = Bundle().apply { putParcelable("stream", stream) }
             }, StreamControlsFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        else
+            dismissControls()
     }
 
     fun dismissControls(){

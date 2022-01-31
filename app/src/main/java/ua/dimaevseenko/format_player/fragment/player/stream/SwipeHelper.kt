@@ -1,9 +1,7 @@
 package ua.dimaevseenko.format_player.fragment.player.stream
 
-import android.animation.ObjectAnimator
 import android.view.MotionEvent
 import android.view.View
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
