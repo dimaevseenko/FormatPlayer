@@ -32,7 +32,11 @@ class SwipeHelper @AssistedInject constructor(
     }
 
     private fun actionMove(rawY: Float): Boolean{
-        rootView.translationY = rawY - initY
+        val dY = rawY - initY
+        if(dY>0)
+            rootView.translationY = dY
+        else
+            rootView.translationY = 0f
         return true
     }
 
