@@ -27,4 +27,6 @@
     <string name="cameras">Камеры</string>
     <string name="all_list">Весь список</string>
     <string name="all">Все</string>
+    <string name="format">ФОРМАТ</string>
+    <string name="player">PLAYER</string>
 </resources>
