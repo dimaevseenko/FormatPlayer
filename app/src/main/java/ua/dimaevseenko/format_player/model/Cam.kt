@@ -48,6 +48,10 @@ data class Cam(
         }
     }
 
+    override fun getStreamId(): String {
+        return id
+    }
+
     override fun getStreamUrl(): String {
         return url
     }
@@ -66,7 +70,7 @@ class Cams: ArrayList<Cam>(){
     fun setIcons(icons: Icons){
         forEach { cam ->
             icons.forEach { icon ->
-                if(cam.id.equals(icon.id)){
+                if(cam.id == icon.id){
                     cam.imageBitmap = Config.Utils.encodeBase64ToBitmap(
                         Base64.decode(icon.base64, Base64.DEFAULT)
                     )

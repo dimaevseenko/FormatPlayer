@@ -73,6 +73,10 @@ data class Channel(
         }
     }
 
+    override fun getStreamId(): String {
+        return id
+    }
+
     override fun getStreamUrl(): String {
         return url
     }
@@ -91,7 +95,7 @@ class Channels: ArrayList<Channel>(){
     fun setIcons(icons: Icons){
         forEach { channel ->
             icons.forEach { icon ->
-                if(channel.id.equals(icon.id)){
+                if(channel.id == icon.id){
                     channel.imageBitmap = Config.Utils.encodeBase64ToBitmap(
                         Base64.decode(icon.base64, Base64.DEFAULT)
                     )
