@@ -18,8 +18,8 @@ open class AnimatedFragment: BaseFragment() {
         animateX(requireView(), requireView().translationX, finalX, completion, duration)
     }
 
-    internal fun animateStartX(reverse: Boolean = false, duration: Long = 500, completion: (() -> Unit)? = null){
-        var finalX = requireActivity().windowManager.defaultDisplay.width.toFloat()
+    internal fun animateStartX(reverse: Boolean = false, fromX: Float = requireActivity().windowManager.defaultDisplay.width.toFloat(),duration: Long = 500, completion: (() -> Unit)? = null){
+        var finalX = fromX
         if(reverse)
             finalX *= -1
 
