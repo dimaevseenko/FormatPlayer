@@ -9,7 +9,8 @@ import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationBarView
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerNavigationBinding
-import ua.dimaevseenko.format_player.fragment.player.AnimatedFragment
+import ua.dimaevseenko.format_player.base.AnimatedFragment
+import ua.dimaevseenko.format_player.base.BaseFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.ProfileFragment
 import javax.inject.Inject
@@ -63,7 +64,7 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
         return false
     }
 
-    private fun onNavItemSelected(fragment: AnimatedFragment): Boolean{
+    private fun onNavItemSelected(fragment: BaseFragment): Boolean{
         if(getFragment<AnimatedFragment>(fragment.tag()) == null)
             replaceFragment(R.id.playerNavContainer, fragment, fragment.tag(), true)
         return false

@@ -6,12 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentHomeBinding
-import ua.dimaevseenko.format_player.fragment.player.AnimatedFragment
+import ua.dimaevseenko.format_player.base.BaseFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.cameras.CamerasFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.channels.ChannelsFragment
 import javax.inject.Inject
 
-class HomeFragment @Inject constructor(): AnimatedFragment() {
+class HomeFragment @Inject constructor(): BaseFragment() {
 
     companion object{
         const val TAG = "HomeFragment"

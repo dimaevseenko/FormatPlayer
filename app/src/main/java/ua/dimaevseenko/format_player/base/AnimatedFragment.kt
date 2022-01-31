@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.player
+package ua.dimaevseenko.format_player.base
 
 import android.animation.ObjectAnimator
 import android.util.Property
@@ -7,10 +7,7 @@ import androidx.core.animation.addListener
 import androidx.fragment.app.Fragment
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 
-open class AnimatedFragment: Fragment() {
-
-    internal open fun tag(): String = "tag"
-
+open class AnimatedFragment: BaseFragment() {
     internal var isAnimated = true
 
     internal fun animateEndX(reverse: Boolean = false, duration: Long = 500, completion: (() -> Unit)? = null){

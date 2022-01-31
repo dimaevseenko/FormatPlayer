@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.tabs.TabLayout
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentChannelsBinding
-import ua.dimaevseenko.format_player.fragment.player.AnimatedFragment
+import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Genre

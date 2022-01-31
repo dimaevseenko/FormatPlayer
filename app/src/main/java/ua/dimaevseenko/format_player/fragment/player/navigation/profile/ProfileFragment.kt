@@ -9,7 +9,7 @@ import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentProfileBinding
 import ua.dimaevseenko.format_player.viewmodel.RequestViewModel
-import ua.dimaevseenko.format_player.fragment.player.AnimatedFragment
+import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.UnLoginResult
 import javax.inject.Inject

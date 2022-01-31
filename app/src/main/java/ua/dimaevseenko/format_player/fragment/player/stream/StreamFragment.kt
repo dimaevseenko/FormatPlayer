@@ -5,14 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
-import com.google.android.exoplayer2.ExoPlayer
-import com.google.android.exoplayer2.MediaItem
-import com.google.android.exoplayer2.audio.DefaultAudioSink
-import com.google.android.exoplayer2.source.hls.HlsMediaSource
-import com.google.android.exoplayer2.upstream.DefaultDataSource
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentStreamBinding
-import ua.dimaevseenko.format_player.fragment.player.AnimatedFragment
+import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
 

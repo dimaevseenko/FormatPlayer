@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.FragmentHomeWaysBinding
-import ua.dimaevseenko.format_player.fragment.player.AnimatedFragment
+import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.isTV
 import javax.inject.Inject
 

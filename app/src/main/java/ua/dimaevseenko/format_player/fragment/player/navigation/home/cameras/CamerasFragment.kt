@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentCamerasBinding
-import ua.dimaevseenko.format_player.fragment.player.AnimatedFragment
+import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import ua.dimaevseenko.format_player.model.Cam
 import ua.dimaevseenko.format_player.playerFragment
