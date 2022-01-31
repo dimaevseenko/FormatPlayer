@@ -2,6 +2,7 @@ package ua.dimaevseenko.format_player.fragment.player.stream
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
@@ -11,7 +12,7 @@ import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
 
-class StreamFragment @Inject constructor(): AnimatedFragment() {
+class StreamFragment @Inject constructor(): AnimatedFragment(), SwipeHelper.Listener {
 
     companion object{
         const val TAG = "StreamFragment"
@@ -24,6 +25,8 @@ class StreamFragment @Inject constructor(): AnimatedFragment() {
 
     @Inject lateinit var streamControlsFragment: StreamControlsFragment
 
+    @Inject lateinit var swipeHelperFactory: SwipeHelper.Factory
+
     private lateinit var stream: Stream
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -34,9 +37,9 @@ class StreamFragment @Inject constructor(): AnimatedFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
 
-        if(savedInstanceState == null)
-            animateStartY(duration = 400){
-                if(requireContext().isTV)
+        if (savedInstanceState == null)
+            animateStartY(duration = 400) {
+                if (requireContext().isTV)
                     binding.streamContainer.requestFocus()
             }
 
@@ -48,6 +51,9 @@ class StreamFragment @Inject constructor(): AnimatedFragment() {
         streamPlayer.start()
 
         binding.streamContainer.setOnClickListener { streamControls() }
+        binding.streamContainer.setOnTouchListener(swipeHelperFactory.createSwipeHelper(binding.root).apply {
+            setSwipeListener(this@StreamFragment)
+        })
     }
 
     private fun streamControls(){
@@ -62,6 +68,13 @@ class StreamFragment @Inject constructor(): AnimatedFragment() {
 
         if(requireContext().isTV)
             binding.streamContainer.requestFocus()
+    }
+
+    override fun onSwipe(close: Boolean) {
+        if(close)
+            dismiss()
+        else
+            animateStartY(fromY = binding.root.translationY, duration = 400)
     }
 
     override fun onPause() {

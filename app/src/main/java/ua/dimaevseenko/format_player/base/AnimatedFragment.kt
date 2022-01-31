@@ -15,7 +15,7 @@ open class AnimatedFragment: BaseFragment() {
         if(reverse)
             finalX *= -1
 
-        animateX(requireView(), 0f, finalX, completion, duration)
+        animateX(requireView(), requireView().translationX, finalX, completion, duration)
     }
 
     internal fun animateStartX(reverse: Boolean = false, duration: Long = 500, completion: (() -> Unit)? = null){
@@ -31,11 +31,11 @@ open class AnimatedFragment: BaseFragment() {
         if(reverse)
             finalY *= -1
 
-        animateY(requireView(), 0f, finalY, completion, duration)
+        animateY(requireView(), requireView().translationY, finalY, completion, duration)
     }
 
-    internal fun animateStartY(reverse: Boolean = false, duration: Long = 500, completion: (() -> Unit)? = null){
-        var finalY = requireActivity().windowManager.defaultDisplay.height.toFloat()
+    internal fun animateStartY(reverse: Boolean = false, fromY: Float = requireActivity().windowManager.defaultDisplay.height.toFloat(),duration: Long = 500, completion: (() -> Unit)? = null){
+        var finalY = fromY
         if(reverse)
             finalY *= -1
 
