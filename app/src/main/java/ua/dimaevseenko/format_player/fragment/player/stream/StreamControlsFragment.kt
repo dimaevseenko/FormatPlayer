@@ -39,8 +39,6 @@ class StreamControlsFragment @Inject constructor(): Fragment() {
 
         if(requireContext().isTV)
             binding.hidePlayerImageButton.requestFocus()
-
-        startTimer()
     }
 
     private fun startTimer(){
@@ -50,6 +48,16 @@ class StreamControlsFragment @Inject constructor(): Fragment() {
         }
     }
 
+    override fun onResume() {
+        startTimer()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        timer?.cancel()
+        super.onPause()
+    }
+    
     override fun onDestroy() {
         timer?.cancel()
         timer = null
