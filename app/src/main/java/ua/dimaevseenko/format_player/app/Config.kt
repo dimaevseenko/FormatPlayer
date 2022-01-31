@@ -20,7 +20,7 @@ object Config {
     }
 
     object Values{
-        const val PREFERENCES_NAME = "config"
+        private const val PREFERENCES_NAME = "config"
 
         var login: String? = null
         var mToken: String? = null

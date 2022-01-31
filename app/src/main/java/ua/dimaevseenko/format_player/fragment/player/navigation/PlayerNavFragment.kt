@@ -48,7 +48,7 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         if(getFragment<LoaderFragment>(LoaderFragment.TAG) != null)
-            return true
+            return false
 
         when(item.itemId){
             R.id.navMain -> { onNavItemSelected(homeFragment) }
