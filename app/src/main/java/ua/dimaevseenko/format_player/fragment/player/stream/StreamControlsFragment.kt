@@ -1,18 +1,10 @@
 package ua.dimaevseenko.format_player.fragment.player.stream
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import kotlinx.coroutines.*
-import ua.dimaevseenko.format_player.R
-import ua.dimaevseenko.format_player.databinding.FragmentStreamControlsBinding
-import ua.dimaevseenko.format_player.isTV
 import ua.dimaevseenko.format_player.model.Stream
-import ua.dimaevseenko.format_player.removeFragment
-import javax.inject.Inject
 
 abstract class StreamControlsFragment: Fragment() {
 

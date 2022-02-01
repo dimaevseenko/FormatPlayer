@@ -2,17 +2,12 @@ package ua.dimaevseenko.format_player.fragment.player.stream
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.exoplayer2.ui.PlayerView
 import ua.dimaevseenko.format_player.*
-import ua.dimaevseenko.format_player.databinding.FragmentStreamBinding
 import ua.dimaevseenko.format_player.base.AnimatedFragment
-import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
 

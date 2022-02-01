@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.player.stream.channel
+package ua.dimaevseenko.format_player.fragment.player.stream.camera
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,19 +8,19 @@ import android.widget.FrameLayout
 import com.google.android.exoplayer2.ui.PlayerView
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
-import ua.dimaevseenko.format_player.databinding.FragmentStreamChannelBinding
+import ua.dimaevseenko.format_player.databinding.FragmentStreamCameraBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamControlsFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
 import javax.inject.Inject
 
-class ChannelStreamFragment @Inject constructor(): StreamFragment() {
+class CameraStreamFragment @Inject constructor(): StreamFragment() {
 
-    @Inject lateinit var channelStreamControlsFragment: ChannelStreamControlsFragment
+    @Inject lateinit var streamControls: CameraStreamControlsFragment
 
-    private lateinit var binding: FragmentStreamChannelBinding
+    private lateinit var binding: FragmentStreamCameraBinding
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View{
-        binding = FragmentStreamChannelBinding.bind(inflater.inflate(R.layout.fragment_stream_channel, container, false))
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentStreamCameraBinding.bind(inflater.inflate(R.layout.fragment_stream_camera, container, false))
         return binding.root
     }
 
@@ -38,7 +38,7 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment() {
     }
 
     override fun getStreamControls(): StreamControlsFragment {
-        return channelStreamControlsFragment
+        return streamControls
     }
 
     override fun getStreamContainer(): FrameLayout {
