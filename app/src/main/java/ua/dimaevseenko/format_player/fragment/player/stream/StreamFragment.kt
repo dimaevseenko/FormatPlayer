@@ -1,82 +1,101 @@
 package ua.dimaevseenko.format_player.fragment.player.stream
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import androidx.fragment.app.FragmentTransaction
+import com.google.android.exoplayer2.ui.PlayerView
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentStreamBinding
 import ua.dimaevseenko.format_player.base.AnimatedFragment
+import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
 
-class StreamFragment @Inject constructor(): AnimatedFragment(), SwipeHelper.Listener {
+abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
 
     companion object{
         const val TAG = "StreamFragment"
     }
 
-    private lateinit var binding: FragmentStreamBinding
-
     @Inject lateinit var streamPlayerFactory: StreamPlayer.Factory
     private lateinit var streamPlayer: StreamPlayer
-
-    @Inject lateinit var streamControlsFragment: StreamControlsFragment
 
     @Inject lateinit var swipeHelperFactory: SwipeHelper.Factory
 
     private lateinit var stream: Stream
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentStreamBinding.bind(inflater.inflate(R.layout.fragment_stream, container, false))
-        return binding.root
-    }
-
+    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
 
         if (savedInstanceState == null)
             animateStartY(duration = 400) {
                 if (requireContext().isTV)
-                    binding.streamContainer.requestFocus()
+                    getStreamContainer().requestFocus()
             }
 
         stream = arguments?.getParcelable("stream")!!
-        streamPlayer = streamPlayerFactory.createStreamPlayer(
-            binding.playerView,
-            stream.getStreamUrl()
-        )
-        streamPlayer.start()
+        startPlayer()
 
-        binding.streamContainer.setOnClickListener { streamControls() }
-        binding.streamContainer.setOnTouchListener(swipeHelperFactory.createSwipeHelper(binding.root).apply {
+        getStreamContainer().setOnClickListener { streamControls() }
+        getStreamContainer().setOnTouchListener(
+            swipeHelperFactory.createSwipeHelper(getRootView()).apply {
             setSwipeListener(this@StreamFragment)
         })
     }
 
+    abstract fun getRootView(): View
+
+    abstract fun getPlayerView(): PlayerView
+
+    abstract fun getStreamControls(): StreamControlsFragment
+
+    abstract fun getStreamContainer(): FrameLayout
+
+    private fun startPlayer(){
+        streamPlayer = streamPlayerFactory.createStreamPlayer(
+            getPlayerView(),
+            stream.getStreamUrl()
+        )
+        streamPlayer.start()
+    }
+
     private fun streamControls(){
         if(getFragment<StreamControlsFragment>(StreamControlsFragment.TAG) == null)
-            addFragment(R.id.streamContainer, streamControlsFragment.apply {
-                arguments = Bundle().apply { putParcelable("stream", stream) }
-            }, StreamControlsFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            addFragment(
+                getStreamContainer().id,
+                getStreamControls().apply {
+                    arguments = Bundle().apply { putParcelable("stream", stream) }
+                },
+                StreamControlsFragment.TAG,
+                true,
+                FragmentTransaction.TRANSIT_FRAGMENT_FADE
+            )
         else
             dismissControls()
     }
 
     fun dismissControls(){
-        removeFragment(getFragment<StreamControlsFragment>(StreamControlsFragment.TAG)!!, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        removeFragment(
+            getFragment<StreamControlsFragment>(StreamControlsFragment.TAG)!!,
+            true,
+            FragmentTransaction.TRANSIT_FRAGMENT_FADE
+        )
 
         if(requireContext().isTV)
-            binding.streamContainer.requestFocus()
+            getStreamContainer().requestFocus()
     }
 
     override fun onSwipe(close: Boolean) {
         if(close)
             dismiss()
         else
-            animateStartY(fromY = binding.root.translationY, duration = 400)
+            animateStartY(fromY = getRootView().translationY, duration = 400)
     }
 
     override fun onPause() {

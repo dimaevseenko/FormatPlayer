@@ -14,31 +14,21 @@ import ua.dimaevseenko.format_player.model.Stream
 import ua.dimaevseenko.format_player.removeFragment
 import javax.inject.Inject
 
-class StreamControlsFragment @Inject constructor(): Fragment() {
+abstract class StreamControlsFragment: Fragment() {
 
     companion object{
         const val TAG = "StreamControlsFragment"
     }
 
-    private lateinit var binding: FragmentStreamControlsBinding
-
     private lateinit var stream: Stream
 
     private var timer: Job? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentStreamControlsBinding.bind(inflater.inflate(R.layout.fragment_stream_controls, container, false))
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         stream = arguments?.getParcelable("stream")!!
-        binding.titleTextView.text = stream.getStreamTitle()
-        binding.hidePlayerImageButton.setOnClickListener { (parentFragment as StreamFragment).onBackPressed() }
-
-        if(requireContext().isTV)
-            binding.hidePlayerImageButton.requestFocus()
     }
+
+    internal fun getStream() = stream
 
     private fun startTimer(){
         timer = CoroutineScope(Dispatchers.Default).launch {
@@ -63,7 +53,11 @@ class StreamControlsFragment @Inject constructor(): Fragment() {
         super.onDestroy()
     }
 
-    private fun dismiss(){
+    internal fun dismiss(){
         (parentFragment as StreamFragment).dismissControls()
+    }
+
+    internal fun endStream(){
+        (parentFragment as StreamFragment).onBackPressed()
     }
 }

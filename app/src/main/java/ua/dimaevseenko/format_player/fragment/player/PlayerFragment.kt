@@ -10,6 +10,7 @@ import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerBinding
 import ua.dimaevseenko.format_player.fragment.player.navigation.PlayerNavFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
+import ua.dimaevseenko.format_player.fragment.player.stream.channel.ChannelStreamFragment
 import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
@@ -23,7 +24,7 @@ class PlayerFragment @Inject constructor(): Fragment() {
     private lateinit var binding: FragmentPlayerBinding
 
     @Inject lateinit var playerNavFragment: PlayerNavFragment
-    @Inject lateinit var streamFragment: Lazy<StreamFragment>
+    @Inject lateinit var streamFragment: Lazy<ChannelStreamFragment>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPlayerBinding.bind(inflater.inflate(R.layout.fragment_player, container, false))
