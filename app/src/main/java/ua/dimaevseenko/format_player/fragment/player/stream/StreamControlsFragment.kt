@@ -22,8 +22,6 @@ abstract class StreamControlsFragment: Fragment() {
 
     internal fun getStream() = stream
 
-    abstract fun requireFocus()
-
     private fun startTimer(){
         timer = CoroutineScope(Dispatchers.Default).launch {
             delay(4000)

@@ -21,12 +21,16 @@ class ChannelStreamControlsFragment @Inject constructor(): StreamControlsFragmen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(requireContext().isTV)
+            requireFocus()
+
         binding.hidePlayerImageButton.setOnClickListener { endStream() }
         binding.titleTextView.text = getStream().getStreamTitle()
         binding.nameTextView.text = "channel"
     }
 
-    override fun requireFocus() {
+    private fun requireFocus() {
         if(requireContext().isTV)
             binding.hidePlayerImageButton.requestFocus()
     }

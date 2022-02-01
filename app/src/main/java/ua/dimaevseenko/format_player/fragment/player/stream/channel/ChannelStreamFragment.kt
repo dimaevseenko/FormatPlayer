@@ -39,10 +39,7 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment() {
     }
 
     override fun getStreamControls(): StreamControlsFragment {
-        return if(getFragment<ChannelStreamControlsFragment>(StreamControlsFragment.TAG) != null)
-            getFragment<ChannelStreamControlsFragment>(StreamControlsFragment.TAG)!!
-                else
-            channelStreamControlsFragment
+        return channelStreamControlsFragment
     }
 
     override fun getStreamContainer(): FrameLayout {

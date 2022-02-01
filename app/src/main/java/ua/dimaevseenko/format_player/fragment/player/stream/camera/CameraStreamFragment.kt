@@ -40,10 +40,7 @@ class CameraStreamFragment @Inject constructor(): StreamFragment() {
     }
 
     override fun getStreamControls(): StreamControlsFragment {
-        return if(getFragment<CameraStreamControlsFragment>(StreamControlsFragment.TAG) != null)
-            getFragment<CameraStreamControlsFragment>(StreamControlsFragment.TAG)!!
-        else
-            streamControls
+        return streamControls
     }
 
     override fun getStreamContainer(): FrameLayout {

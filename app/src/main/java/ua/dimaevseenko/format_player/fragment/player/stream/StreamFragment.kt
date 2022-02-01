@@ -29,15 +29,12 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
 
         if (savedInstanceState == null)
             animateStartY(duration = 400){
-                getFragment<StreamControlsFragment>(StreamControlsFragment.TAG)?.requireFocus()
+                streamControls()
             }
 
         stream = arguments?.getParcelable("stream")!!
         startPlayer()
         initStreamContainer()
-
-        if(savedInstanceState == null)
-            streamControls()
     }
 
     abstract fun getRootView(): View
