@@ -36,6 +36,9 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
         stream = arguments?.getParcelable("stream")!!
         startPlayer()
         initStreamContainer()
+
+        if(savedInstanceState == null)
+            streamControls()
     }
 
     abstract fun getRootView(): View
