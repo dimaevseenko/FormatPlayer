@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player.fragment.player.stream
 
 import android.annotation.SuppressLint
+import android.os.Binder
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
@@ -28,10 +29,7 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
         appComponent.inject(this)
 
         if (savedInstanceState == null)
-            animateStartY(duration = 400) {
-                if (requireContext().isTV)
-                    getStreamContainer().requestFocus()
-            }
+            animateStartY(duration = 400)
 
         stream = arguments?.getParcelable("stream")!!
         startPlayer()
@@ -55,7 +53,8 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
         getStreamContainer().setOnTouchListener(
             swipeHelperFactory.createSwipeHelper(getRootView()).apply {
                 setSwipeListener(this@StreamFragment)
-            })
+            }
+        )
     }
 
     private fun startPlayer(){
@@ -121,7 +120,8 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
     }
 
     fun onBackPressed(): Boolean{
-        dismiss()
+        if(isAnimated)
+            dismiss()
         return true
     }
 }
