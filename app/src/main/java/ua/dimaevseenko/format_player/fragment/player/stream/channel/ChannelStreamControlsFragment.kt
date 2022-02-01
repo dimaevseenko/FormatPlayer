@@ -19,6 +19,8 @@ class ChannelStreamControlsFragment @Inject constructor(): StreamControlsFragmen
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         binding.hidePlayerImageButton.setOnClickListener { endStream() }
+        binding.titleTextView.text = getStream().getStreamTitle()
     }
 }

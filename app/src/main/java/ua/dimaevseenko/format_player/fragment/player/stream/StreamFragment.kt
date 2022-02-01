@@ -29,7 +29,6 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
 
     private lateinit var stream: Stream
 
-    @SuppressLint("ClickableViewAccessibility")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
 
@@ -41,12 +40,7 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
 
         stream = arguments?.getParcelable("stream")!!
         startPlayer()
-
-        getStreamContainer().setOnClickListener { streamControls() }
-        getStreamContainer().setOnTouchListener(
-            swipeHelperFactory.createSwipeHelper(getRootView()).apply {
-            setSwipeListener(this@StreamFragment)
-        })
+        initStreamContainer()
     }
 
     abstract fun getRootView(): View
@@ -56,6 +50,15 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
     abstract fun getStreamControls(): StreamControlsFragment
 
     abstract fun getStreamContainer(): FrameLayout
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun initStreamContainer(){
+        getStreamContainer().setOnClickListener { streamControls() }
+        getStreamContainer().setOnTouchListener(
+            swipeHelperFactory.createSwipeHelper(getRootView()).apply {
+                setSwipeListener(this@StreamFragment)
+            })
+    }
 
     private fun startPlayer(){
         streamPlayer = streamPlayerFactory.createStreamPlayer(
