@@ -1,7 +1,6 @@
 package ua.dimaevseenko.format_player.fragment.player.stream
 
 import android.annotation.SuppressLint
-import android.os.Binder
 import android.os.Bundle
 import android.view.View
 import android.widget.FrameLayout
@@ -29,7 +28,9 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
         appComponent.inject(this)
 
         if (savedInstanceState == null)
-            animateStartY(duration = 400)
+            animateStartY(duration = 400){
+                getFragment<StreamControlsFragment>(StreamControlsFragment.TAG)?.requireFocus()
+            }
 
         stream = arguments?.getParcelable("stream")!!
         startPlayer()
@@ -115,8 +116,9 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
 
     private fun dismiss(){
         animateEndY(duration = 400) {
-            parentFragment?.removeFragment(this, true)
+            playerFragment.removeFragment(this, true)
         }
+        playerFragment.requireLastFocus()
     }
 
     fun onBackPressed(): Boolean{

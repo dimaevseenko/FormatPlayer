@@ -21,12 +21,13 @@ class CameraStreamControlsFragment @Inject constructor(): StreamControlsFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if(requireContext().isTV)
-            binding.hidePlayerImageButton.requestFocus()
-
         binding.hidePlayerImageButton.setOnClickListener { endStream() }
         binding.titleTextView.text = getStream().getStreamTitle()
         binding.nameTextView.text = "camera"
+    }
+
+    override fun requireFocus() {
+        if(requireContext().isTV)
+            binding.hidePlayerImageButton.requestFocus()
     }
 }

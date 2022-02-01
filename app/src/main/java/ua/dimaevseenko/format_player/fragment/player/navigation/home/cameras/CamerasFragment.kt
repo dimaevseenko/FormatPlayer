@@ -57,7 +57,7 @@ class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCameras
     }
 
     override fun onSelectedCam(cam: Cam, position: Int) {
-        playerFragment.startStream(cam)
+        playerFragment.startStream(cam, binding.recyclerView.focusedChild)
     }
 
     private fun getAdapter(): RecyclerCamerasAdapter{

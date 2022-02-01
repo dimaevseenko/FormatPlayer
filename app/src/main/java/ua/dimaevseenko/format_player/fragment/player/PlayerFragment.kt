@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.Lazy
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerBinding
@@ -28,6 +30,8 @@ class PlayerFragment @Inject constructor(): Fragment() {
     @Inject lateinit var channelStreamFragment: Lazy<ChannelStreamFragment>
     @Inject lateinit var cameraStreamFragment: Lazy<CameraStreamFragment>
 
+    private var lastFocusedView: View? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPlayerBinding.bind(inflater.inflate(R.layout.fragment_player, container, false))
         return binding.root
@@ -40,7 +44,9 @@ class PlayerFragment @Inject constructor(): Fragment() {
             addFragment(R.id.playerContainer, playerNavFragment, PlayerNavFragment.TAG, true)
     }
 
-    fun startStream(stream: Stream){
+    fun startStream(stream: Stream, lastFocusedView: View? = null){
+        this.lastFocusedView = lastFocusedView
+
         val streamFragment = if(stream is Channel) channelStreamFragment else cameraStreamFragment
 
         if(getFragment<StreamFragment>(StreamFragment.TAG) == null)
@@ -49,6 +55,11 @@ class PlayerFragment @Inject constructor(): Fragment() {
             }, StreamFragment.TAG, true)
         else
             removeFragment(getFragment<StreamFragment>(StreamFragment.TAG)!!, true)
+    }
+
+    fun requireLastFocus(){
+        if(requireContext().isTV)
+            lastFocusedView?.requestFocus()
     }
 
     fun onBackPressed(): Boolean{

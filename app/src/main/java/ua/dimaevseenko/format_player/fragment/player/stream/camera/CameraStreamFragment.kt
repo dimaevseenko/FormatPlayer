@@ -11,6 +11,8 @@ import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentStreamCameraBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamControlsFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
+import ua.dimaevseenko.format_player.fragment.player.stream.channel.ChannelStreamControlsFragment
+import ua.dimaevseenko.format_player.getFragment
 import javax.inject.Inject
 
 class CameraStreamFragment @Inject constructor(): StreamFragment() {
@@ -38,7 +40,10 @@ class CameraStreamFragment @Inject constructor(): StreamFragment() {
     }
 
     override fun getStreamControls(): StreamControlsFragment {
-        return streamControls
+        return if(getFragment<CameraStreamControlsFragment>(StreamControlsFragment.TAG) != null)
+            getFragment<CameraStreamControlsFragment>(StreamControlsFragment.TAG)!!
+        else
+            streamControls
     }
 
     override fun getStreamContainer(): FrameLayout {
