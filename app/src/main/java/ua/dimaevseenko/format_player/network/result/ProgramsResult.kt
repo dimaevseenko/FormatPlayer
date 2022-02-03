@@ -18,7 +18,6 @@ data class ProgramsResult(
         get() {
             if(field == null){
                 field = Programs()
-
                 map.forEach { id ->
                     programsMap[id]?.let { field!!.add(it) }
                 }
