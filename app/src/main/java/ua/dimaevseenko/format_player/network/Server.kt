@@ -9,6 +9,7 @@ import kotlinx.coroutines.launch
 import retrofit2.Callback
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.network.request.RPlaylist
+import ua.dimaevseenko.format_player.network.request.RPrograms
 import ua.dimaevseenko.format_player.network.request.RUser
 import ua.dimaevseenko.format_player.network.result.*
 import javax.inject.Inject
@@ -27,6 +28,7 @@ object Server {
         @Inject lateinit var unLogin: Lazy<UnLogin>
         @Inject lateinit var playlist: Lazy<Playlist>
         @Inject lateinit var icons: Lazy<Icons>
+        @Inject lateinit var programs: Lazy<Programs>
 
         fun<T> request(bundle: Bundle, callback: Callback<T>){
             when(bundle.getString("action")){
@@ -35,6 +37,7 @@ object Server {
                 "jdeldevice" -> { unLogin.get().unLogin(callback = callback as Callback<UnLoginResult>) }
                 "jgetchannellist" -> { playlist.get().getPlaylist(callback = callback as Callback<PlaylistResult>) }
                 "jgetjsoniconschannels" -> { icons.get().getIcons(callback = callback as Callback<IconsResult>) }
+                "getProgramsById" -> { programs.get().getPrograms(bundle, callback = callback as Callback<ProgramsResult>) }
             }
         }
     }
@@ -104,6 +107,14 @@ object Server {
 
         fun getIcons(callback: Callback<IconsResult>){
             rPlaylist.getIcons().enqueue(callback)
+        }
+    }
+
+    class Programs @Inject constructor(){
+        @Inject lateinit var rPrograms: RPrograms
+
+        fun getPrograms(bundle: Bundle, callback: Callback<ProgramsResult>){
+            rPrograms.getPrograms(id = bundle.getString("id")!!).enqueue(callback)
         }
     }
 }

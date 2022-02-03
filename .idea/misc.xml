@@ -61,6 +61,8 @@
         <entry key="app/src/main/res/layout/recycler_view_channels_horizontal_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/recycler_view_channels_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/recycler_view_channels_vertical_item.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/recycler_view_program_date_item.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/recycler_view_program_item.xml" value="0.5" />
         <entry key="app/src/main/res/menu/player_nav_menu.xml" value="0.1" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.23489583333333333" />
       </map>

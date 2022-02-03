@@ -29,7 +29,7 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
 
         if (savedInstanceState == null)
             animateStartY(duration = 400){
-                streamControls()
+                requestFocus()
             }
 
         stream = arguments?.getParcelable("stream")!!
@@ -44,6 +44,14 @@ abstract class StreamFragment: AnimatedFragment(), SwipeHelper.Listener {
     abstract fun getStreamControls(): StreamControlsFragment
 
     abstract fun getStreamContainer(): FrameLayout
+
+    private fun requestFocus(){
+        streamControls()
+    }
+
+    internal fun getStream(): Stream{
+        return stream
+    }
 
     @SuppressLint("ClickableViewAccessibility")
     private fun initStreamContainer(){

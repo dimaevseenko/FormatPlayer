@@ -15,4 +15,5 @@
     <color name="transparent">#00FFFFFF</color>
     <color name="playerNavBackground">#26303030</color>
     <color name="subtext">#80EEEEEE</color>
+    <color name="subtext_variant">#EEEEEE</color>
 </resources>

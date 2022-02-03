@@ -7,6 +7,7 @@ import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
 import ua.dimaevseenko.format_player.network.request.RPlaylist
+import ua.dimaevseenko.format_player.network.request.RPrograms
 import ua.dimaevseenko.format_player.network.request.RUser
 
 @Module(includes = [PlayerModule::class, NetworkModule::class])
@@ -39,5 +40,11 @@ object NetworkModule{
     fun provideRPlaylist(@EdgeServer retrofit: Retrofit): RPlaylist{
         return retrofit
             .create(RPlaylist::class.java)
+    }
+
+    @Provides
+    fun provideRPrograms(@MobileServer retrofit: Retrofit): RPrograms{
+        return retrofit
+            .create(RPrograms::class.java)
     }
 }

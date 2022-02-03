@@ -12,6 +12,7 @@ import ua.dimaevseenko.format_player.di.component.AppComponent
 import ua.dimaevseenko.format_player.di.component.DaggerAppComponent
 import ua.dimaevseenko.format_player.fragment.MainFragment
 import ua.dimaevseenko.format_player.fragment.player.PlayerFragment
+import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
 
 class App: Application() {
 
