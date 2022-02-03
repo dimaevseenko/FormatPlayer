@@ -45,7 +45,7 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.List
         super.onViewCreated(view, savedInstanceState)
         appComponent.inject(this)
 
-        programsViewModel = ViewModelProvider(viewModelStore, programsViewModelFactory).get(ProgramsViewModel::class.java)
+        programsViewModel = ViewModelProvider(requireActivity(), programsViewModelFactory).get(ProgramsViewModel::class.java)
         programsViewModel.listener = this
         programsViewModel.getPrograms(getStream().getStreamId())
     }
