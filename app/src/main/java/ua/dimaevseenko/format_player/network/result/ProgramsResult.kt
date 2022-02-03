@@ -9,12 +9,9 @@ data class ProgramsResult(
     private val programsMap: Map<Long, Program>,
 
     @SerializedName("map")
-    private val map: List<Long>,
-
-    @SerializedName("currentData")
-    val currentProgram: Program
+    private val map: List<Long>
 ){
-    var programs: Programs? = null
+    private var programs: Programs? = null
         get() {
             if(field == null){
                 field = Programs()

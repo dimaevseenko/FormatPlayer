@@ -17,6 +17,7 @@ import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
 import ua.dimaevseenko.format_player.getFragment
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.ProgramsResult
+import ua.dimaevseenko.format_player.viewmodel.ProgramsViewModel
 import ua.dimaevseenko.format_player.viewmodel.RequestViewModel
 import java.sql.Timestamp
 import java.text.DateFormat
@@ -30,10 +31,10 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.List
 
     private lateinit var binding: FragmentStreamChannelBinding
 
-    @Inject lateinit var requestViewModelFactory: RequestViewModel.Factory<ProgramsResult>
-    private lateinit var requestViewModel: RequestViewModel<ProgramsResult>
-
     @Inject lateinit var channelProgramsRecyclerAdapter: ChannelProgramsRecyclerAdapter.Factory
+
+    @Inject lateinit var programsViewModelFactory: ProgramsViewModel.Factory
+    private lateinit var programsViewModel: ProgramsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View{
         binding = FragmentStreamChannelBinding.bind(inflater.inflate(R.layout.fragment_stream_channel, container, false))
@@ -44,15 +45,9 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.List
         super.onViewCreated(view, savedInstanceState)
         appComponent.inject(this)
 
-        requestViewModel = ViewModelProvider(viewModelStore, requestViewModelFactory).get(RequestViewModel::class.java) as RequestViewModel<ProgramsResult>
-        requestViewModel.listener = this
-
-        requestViewModel.request(
-            Bundle().apply {
-                putString("action", "getProgramsById")
-                putString("id", getStream().getStreamId())
-            }
-        )
+        programsViewModel = ViewModelProvider(viewModelStore, programsViewModelFactory).get(ProgramsViewModel::class.java)
+        programsViewModel.listener = this
+        programsViewModel.getPrograms(getStream().getStreamId())
     }
 
     override fun getRootView(): View {
@@ -72,16 +67,9 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.List
     }
 
     override fun onResponse(result: ProgramsResult) {
-        result.programs?.sortBy { it.gmtTime }
-
         binding.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView?.adapter = channelProgramsRecyclerAdapter.createChannelProgramsRecyclerAdapter(result.requirePrograms())
-
-        result.requirePrograms().forEach {
-            program ->
-            Log.d("PROGRAMS", program.getDay())
-            Log.d("PROGRAMS", program.getTimeStart())
-        }
+        binding.recyclerView?.scrollToPosition(result.requirePrograms().getCurrentProgramPosition())
     }
 
     override fun onFailure(t: Throwable) {
@@ -89,7 +77,7 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.List
     }
 
     override fun onDestroy() {
-        requestViewModel.listener = null
+        programsViewModel.listener = null
         super.onDestroy()
     }
 }

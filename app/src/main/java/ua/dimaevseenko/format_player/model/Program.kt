@@ -74,4 +74,23 @@ data class Program(
     }
 }
 
-class Programs: ArrayList<Program>()
+class Programs: ArrayList<Program>(){
+
+    fun getCurrentProgramId(): Long{
+        return getCurrentProgram().gmtTime
+    }
+
+    fun getCurrentProgram(): Program{
+        return get(getCurrentProgramPosition())
+    }
+
+    fun getCurrentProgramPosition(): Int{
+        var index = 0
+        forEach { program ->
+            if(System.currentTimeMillis() < (program.gmtTime*1000))
+                return index-1
+            index++
+        }
+        return index
+    }
+}

@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player.fragment.player.stream.channel
 
 import android.content.Context
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,13 +23,13 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return if (viewType == 1)
-            DateItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_program_date_item, parent, false))
+            DateItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_program_date_item, parent, false)).apply { setIsRecyclable(false) }
         else
-            ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_program_item, parent, false))
+            ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_program_item, parent, false)).apply { setIsRecyclable(false) }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(programs[position])
+        holder.bind(programs[position], programs.getCurrentProgramId())
     }
 
     override fun getItemCount(): Int {
@@ -50,24 +51,29 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     }
 
     abstract class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-        abstract fun bind(program: Program)
+        abstract fun bind(program: Program, currentProgramId: Long)
     }
 
     open class ItemViewHolder(view: View): ViewHolder(view){
 
         private var binding = RecyclerViewProgramItemBinding.bind(view)
 
-        override fun bind(program: Program) {
+        override fun bind(program: Program, currentProgramId: Long) {
             binding.programTime.text = program.getTimeStart()
             binding.programName.text = program.name
+
+            if(program.gmtTime == currentProgramId){
+                binding.programTime.setTextColor(Color.WHITE)
+                binding.programName.setTextColor(Color.WHITE)
+            }
         }
     }
 
     class DateItemViewHolder(view: View): ItemViewHolder(view){
         private var binding = RecyclerViewProgramDateItemBinding.bind(view)
 
-        override fun bind(program: Program) {
-            super.bind(program)
+        override fun bind(program: Program, currentProgramId: Long) {
+            super.bind(program, currentProgramId)
             binding.programDay.text = program.getDay()
         }
     }
