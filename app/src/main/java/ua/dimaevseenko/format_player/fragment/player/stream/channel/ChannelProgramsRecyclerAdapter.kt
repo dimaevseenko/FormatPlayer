@@ -21,10 +21,10 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
 ): RecyclerView.Adapter<ChannelProgramsRecyclerAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return if (viewType == 0)
-            ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_program_item, parent, false))
-        else
+        return if (viewType == 1)
             DateItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_program_date_item, parent, false))
+        else
+            ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_program_item, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
