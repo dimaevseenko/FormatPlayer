@@ -8,6 +8,7 @@ import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.FragmentStreamControlsCameraBinding
 import ua.dimaevseenko.format_player.databinding.FragmentStreamControlsChannelBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.ControlsFragment
+import ua.dimaevseenko.format_player.isTV
 import javax.inject.Inject
 
 class CameraControlsFragment @Inject constructor(): ControlsFragment() {
@@ -22,7 +23,15 @@ class CameraControlsFragment @Inject constructor(): ControlsFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initView()
+    }
+
+    private fun initView(){
+        if(requireContext().isTV)
+            binding.hidePlayerImageButton.requestFocus()
+
         binding.titleTextView.text = getStream().getStreamTitle()
         binding.hidePlayerImageButton.setOnClickListener { dismissStream() }
+        binding.nameTextView.text = "camera"
     }
 }

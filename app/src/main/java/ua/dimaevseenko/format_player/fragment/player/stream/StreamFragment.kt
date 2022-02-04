@@ -38,6 +38,8 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
         getStreamContainer().setOnTouchListener(swipeHelper)
         getStreamContainer().setOnClickListener { streamControls() }
 
+        requestFocus()
+
         streamPlayer = streamPlayerFactory.createStreamPlayer(getPlayerView(), stream.getStreamUrl())
     }
 
@@ -58,8 +60,15 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
 
         if(controlsFragment == null)
             addFragment(R.id.streamContainer, getControlsFragment(), ControlsFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-        else
+        else {
             removeFragment(controlsFragment, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            requestFocus()
+        }
+    }
+
+    private fun requestFocus(){
+        if(requireContext().isTV)
+            getStreamContainer().requestFocus()
     }
 
     override fun onSwipe(close: Boolean) {
@@ -68,7 +77,8 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
     }
 
     private fun dismiss(){
-        parentFragment?.removeFragment(this, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        playerFragment.requireLastFocus()
+        playerFragment.removeFragment(this, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
     }
 
     fun onBackPressed(): Boolean{

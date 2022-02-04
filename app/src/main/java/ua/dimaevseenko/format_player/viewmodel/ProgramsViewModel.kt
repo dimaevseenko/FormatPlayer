@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import ua.dimaevseenko.format_player.model.Program
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.ProgramsResult
 import javax.inject.Inject
@@ -22,8 +23,12 @@ class ProgramsViewModel @Inject constructor(): ViewModel(), Callback<ProgramsRes
 
     private var lastId = "0"
 
-    fun getPrograms(id: String){
-        lastId = id
+    fun getCurrentProgram(channelId: String): Program?{
+        return liveData.value?.get(channelId)?.requirePrograms()?.getCurrentProgram()
+    }
+
+    fun getPrograms(channelId: String){
+        lastId = channelId
 
         if(liveData.value == null)
             liveData.value = ArrayMap()
