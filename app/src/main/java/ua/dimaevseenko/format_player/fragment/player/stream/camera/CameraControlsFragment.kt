@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.FragmentStreamControlsCameraBinding
-import ua.dimaevseenko.format_player.fragment.player.stream.StreamControlsFragment
-import ua.dimaevseenko.format_player.isTV
+import ua.dimaevseenko.format_player.databinding.FragmentStreamControlsChannelBinding
+import ua.dimaevseenko.format_player.fragment.player.stream.ControlsFragment
 import javax.inject.Inject
 
-class CameraStreamControlsFragment @Inject constructor(): StreamControlsFragment() {
+class CameraControlsFragment @Inject constructor(): ControlsFragment() {
 
     private lateinit var binding: FragmentStreamControlsCameraBinding
 
@@ -22,16 +22,7 @@ class CameraStreamControlsFragment @Inject constructor(): StreamControlsFragment
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if(requireContext().isTV)
-            requireFocus()
-
-        binding.hidePlayerImageButton.setOnClickListener { endStream() }
         binding.titleTextView.text = getStream().getStreamTitle()
-        binding.nameTextView.text = "camera"
-    }
-
-    fun requireFocus() {
-        if(requireContext().isTV)
-            binding.hidePlayerImageButton.requestFocus()
+        binding.hidePlayerImageButton.setOnClickListener { dismissStream() }
     }
 }

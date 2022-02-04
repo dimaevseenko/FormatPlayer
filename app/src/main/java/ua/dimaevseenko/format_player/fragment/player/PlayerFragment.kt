@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.fragment.app.FragmentTransaction
 import dagger.Lazy
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerBinding
@@ -27,6 +26,7 @@ class PlayerFragment @Inject constructor(): Fragment() {
     private lateinit var binding: FragmentPlayerBinding
 
     @Inject lateinit var playerNavFragment: PlayerNavFragment
+
     @Inject lateinit var channelStreamFragment: Lazy<ChannelStreamFragment>
     @Inject lateinit var cameraStreamFragment: Lazy<CameraStreamFragment>
 
@@ -46,15 +46,11 @@ class PlayerFragment @Inject constructor(): Fragment() {
 
     fun startStream(stream: Stream, lastFocusedView: View? = null){
         this.lastFocusedView = lastFocusedView
-
-        val streamFragment = if(stream is Channel) channelStreamFragment else cameraStreamFragment
+        val streamFragment = if(stream is Channel) channelStreamFragment.get() else cameraStreamFragment.get()
+        streamFragment.arguments = Bundle().apply { putParcelable("stream", stream) }
 
         if(getFragment<StreamFragment>(StreamFragment.TAG) == null)
-            addFragment(R.id.playerContainer, streamFragment.get().apply {
-                arguments = Bundle().apply { putParcelable("stream", stream) }
-            }, StreamFragment.TAG, true)
-        else
-            removeFragment(getFragment<StreamFragment>(StreamFragment.TAG)!!, true)
+            addFragment(R.id.playerContainer, streamFragment, StreamFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
     }
 
     fun requireLastFocus(){
@@ -63,7 +59,7 @@ class PlayerFragment @Inject constructor(): Fragment() {
     }
 
     fun onBackPressed(): Boolean{
-        getFragment<StreamFragment>(StreamFragment.TAG)?.let{ return it.onBackPressed() }
+        getFragment<StreamFragment>(StreamFragment.TAG)?.let { return it.onBackPressed() }
         getFragment<PlayerNavFragment>(PlayerNavFragment.TAG)?.let { return it.onBackPressed() }
         return false
     }

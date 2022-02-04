@@ -6,21 +6,13 @@ import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
 import ua.dimaevseenko.format_player.model.Stream
 
-abstract class StreamControlsFragment: Fragment() {
+open class ControlsFragment: Fragment() {
 
     companion object{
-        const val TAG = "StreamControlsFragment"
+        const val TAG = "ControlsFragment"
     }
-
-    private lateinit var stream: Stream
 
     private var timer: Job? = null
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        stream = arguments?.getParcelable("stream")!!
-    }
-
-    internal fun getStream() = stream
 
     private fun startTimer(){
         timer = CoroutineScope(Dispatchers.Default).launch {
@@ -38,18 +30,22 @@ abstract class StreamControlsFragment: Fragment() {
         timer?.cancel()
         super.onPause()
     }
-    
+
     override fun onDestroy() {
         timer?.cancel()
         timer = null
         super.onDestroy()
     }
 
-    internal fun dismiss(){
-        (parentFragment as StreamFragment).dismissControls()
+    internal fun dismissStream(){
+        (parentFragment as StreamFragment).onBackPressed()
     }
 
-    internal fun endStream(){
-        (parentFragment as StreamFragment).onBackPressed()
+    private fun dismiss(){
+        (parentFragment as StreamFragment).streamControls()
+    }
+
+    fun getStream(): Stream{
+        return (parentFragment as StreamFragment).getStream()
     }
 }

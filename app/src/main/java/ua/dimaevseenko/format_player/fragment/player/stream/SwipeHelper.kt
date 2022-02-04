@@ -1,14 +1,19 @@
 package ua.dimaevseenko.format_player.fragment.player.stream
 
+import android.animation.ObjectAnimator
 import android.view.MotionEvent
 import android.view.View
+import androidx.core.animation.addListener
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 
 class SwipeHelper @AssistedInject constructor(
-    @Assisted("rootView")
-    private val rootView: View
+    @Assisted("contentView")
+    private val contentView: View,
+    @Assisted("backgroundView")
+    private val backgroundView: View
 ): View.OnTouchListener {
 
     private var listener: Listener? = null
@@ -32,19 +37,25 @@ class SwipeHelper @AssistedInject constructor(
     private fun actionMove(rawY: Float): Boolean{
         val dY = rawY - initY
         if(dY>0)
-            rootView.translationY = dY
+            contentView.translationY = dY
         else
-            rootView.translationY = 0f
+            contentView.translationY = 0f
+
+        alphaBackground(contentView.translationY)
         return true
     }
 
     private fun actionCancel(): Boolean{
-        if(rootView.translationY <= rootView.height.toFloat()/1.5)
-            listener?.onSwipe(false)
+        if(contentView.translationY <= contentView.height.toFloat()/1.5)
+            animateY(contentView.translationY, 0f, false)
         else
-            listener?.onSwipe(true)
+            animateY(contentView.translationY, contentView.height.toFloat(), true)
 
-        return rootView.translationY != 0f
+        return contentView.translationY != 0f
+    }
+
+    private fun alphaBackground(animatedValue: Float){
+        backgroundView.alpha = ((animatedValue/contentView.height.toFloat()-1)*-1)
     }
 
     fun setSwipeListener(listener: Listener){
@@ -55,11 +66,32 @@ class SwipeHelper @AssistedInject constructor(
         fun onSwipe(close: Boolean)
     }
 
+    fun start(fromY: Float){
+        animateY(fromY, 0f, false)
+    }
+
+    fun close(){
+        animateY(contentView.translationY, contentView.height.toFloat(), true)
+    }
+
+    private fun animateY(fromY: Float, toY: Float, close: Boolean){
+        ObjectAnimator.ofFloat(contentView, View.TRANSLATION_Y, fromY, toY).apply {
+            interpolator = FastOutSlowInInterpolator()
+            duration = 500
+            addUpdateListener { alphaBackground(animatedValue as Float) }
+            addListener({
+                listener?.onSwipe(close)
+            })
+        }.start()
+    }
+
     @AssistedFactory
     interface Factory{
         fun createSwipeHelper(
-            @Assisted("rootView")
-            rootView: View
+            @Assisted("contentView")
+            contentView: View,
+            @Assisted("backgroundView")
+            backgroundView: View
         ): SwipeHelper
     }
 }
