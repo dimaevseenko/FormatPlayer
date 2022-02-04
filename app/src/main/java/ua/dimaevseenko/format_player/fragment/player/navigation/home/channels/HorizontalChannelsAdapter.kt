@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -31,9 +33,40 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
         override fun bind(channel: Channel, listener: Listener?) {
             binding.channelImageView.setImageBitmap(channel.imageBitmap)
             binding.channelLayout.setOnClickListener { listener?.onSelectedChannel(channel, absoluteAdapterPosition) }
-            binding.channelLayout.setOnFocusChangeListener { _, hasFocus ->
-                if(hasFocus)
+            binding.channelLayout.setOnFocusChangeListener { view, hasFocus ->
+                if(hasFocus) {
                     listener?.onHorizontalFocusChanged(absoluteAdapterPosition)
+                    binding.root.startAnimation(
+                        ScaleAnimation(
+                            1f,
+                            1.10f,
+                            1f,
+                            1.10f,
+                            Animation.RELATIVE_TO_SELF,
+                            0.5f,
+                            Animation.RELATIVE_TO_SELF,
+                            0.5f
+                        ).apply {
+                            fillAfter = true
+                            duration = 150
+                        })
+                }else{
+                    binding.root.startAnimation(
+                        ScaleAnimation(
+                            1.10f,
+                            1f,
+                            1.10f,
+                            1f,
+                            Animation.RELATIVE_TO_SELF,
+                            0.5f,
+                            Animation.RELATIVE_TO_SELF,
+                            0.5f
+                        ).apply {
+                            fillAfter = true
+                            duration = 150
+                        }
+                    )
+                }
             }
         }
     }
