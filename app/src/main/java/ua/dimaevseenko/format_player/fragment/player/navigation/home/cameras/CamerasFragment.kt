@@ -66,7 +66,8 @@ class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCameras
 
         playerFragment.startStream(cam){
             binding.backCard.setOnClickListener { dismiss() }
-            lastFocusView.requestFocus()
+            if(requireContext().isTV)
+                lastFocusView.requestFocus()
         }
     }
 

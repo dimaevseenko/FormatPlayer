@@ -27,7 +27,7 @@ class PlayerFragment @Inject constructor(): Fragment() {
 
     @Inject lateinit var playerNavFragment: PlayerNavFragment
 
-    private lateinit var completionStreamFragment: ()->Unit
+    private var completionStreamFragment: (()->Unit)? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPlayerBinding.bind(inflater.inflate(R.layout.fragment_player, container, false))
@@ -64,9 +64,7 @@ class PlayerFragment @Inject constructor(): Fragment() {
 
     fun dismissStream(streamFragment: StreamFragment){
         if(streamFragment.isAdded){
-            if(requireContext().isTV)
-                completionStreamFragment()
-
+            completionStreamFragment?.let { it() }
             removeFragment(streamFragment, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         }
     }

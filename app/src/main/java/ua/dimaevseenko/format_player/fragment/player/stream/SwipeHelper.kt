@@ -63,7 +63,7 @@ class SwipeHelper @AssistedInject constructor(
     }
 
     interface Listener{
-        fun onSwipe(close: Boolean)
+        fun onSwiped(close: Boolean)
     }
 
     fun start(fromY: Float){
@@ -80,7 +80,7 @@ class SwipeHelper @AssistedInject constructor(
             duration = 500
             addUpdateListener { alphaBackground(animatedValue as Float) }
             addListener({
-                listener?.onSwipe(close)
+                listener?.onSwiped(close)
             })
         }.start()
     }

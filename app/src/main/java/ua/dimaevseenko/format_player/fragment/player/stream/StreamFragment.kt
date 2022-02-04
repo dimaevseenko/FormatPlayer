@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.exoplayer2.ui.PlayerView
 import ua.dimaevseenko.format_player.*
-import ua.dimaevseenko.format_player.fragment.player.PlayerFragment
 import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
 
@@ -71,7 +70,7 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
             getStreamContainer().requestFocus()
     }
 
-    override fun onSwipe(close: Boolean) {
+    override fun onSwiped(close: Boolean) {
         if(close)
             if(isAdded)
                 playerFragment.dismissStream(this)

@@ -120,7 +120,8 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
 
         playerFragment.startStream(channel){
             binding.backCard.setOnClickListener { dismiss() }
-            lastFocusView.requestFocus()
+            if(requireContext().isTV)
+                lastFocusView.requestFocus()
         }
     }
 
