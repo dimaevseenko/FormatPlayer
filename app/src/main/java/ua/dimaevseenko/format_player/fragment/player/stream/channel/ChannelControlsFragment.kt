@@ -48,4 +48,9 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
     }
 
     override fun onFailure(t: Throwable) {}
+
+    override fun onDestroy() {
+        programsViewModel.removeListener(TAG)
+        super.onDestroy()
+    }
 }
