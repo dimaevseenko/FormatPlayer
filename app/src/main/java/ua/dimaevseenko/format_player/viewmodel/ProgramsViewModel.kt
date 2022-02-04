@@ -19,7 +19,27 @@ class ProgramsViewModel @Inject constructor(): ViewModel(), Callback<ProgramsRes
 
     private var liveData = MutableLiveData<ArrayMap<String, ProgramsResult>>()
 
-    var listener: Server.Listener<ProgramsResult>? = null
+    private var listeners = ArrayMap<String, Server.Listener<ProgramsResult>?>()
+
+    fun addListener(tag: String, listener: Server.Listener<ProgramsResult>){
+        listeners[tag] = listener
+    }
+
+    fun removeListener(tag: String){
+        listeners[tag] = null
+    }
+
+    fun listenersOnResult(result: ProgramsResult){
+        listeners.forEach { map ->
+            map.value?.onResponse(result)
+        }
+    }
+
+    fun listenersOnFailure(t: Throwable){
+        listeners.forEach { map ->
+            map.value?.onFailure(t)
+        }
+    }
 
     private var lastId = "0"
 
@@ -34,7 +54,7 @@ class ProgramsViewModel @Inject constructor(): ViewModel(), Callback<ProgramsRes
             liveData.value = ArrayMap()
 
         if(liveData.value!![lastId] != null){
-            listener?.onResponse(liveData.value!![lastId]!!)
+            listenersOnResult(liveData.value!![lastId]!!)
             return
         }
 
@@ -50,12 +70,12 @@ class ProgramsViewModel @Inject constructor(): ViewModel(), Callback<ProgramsRes
         response.body()?.let{
             it.requirePrograms().sortBy { it.gmtTime }
             liveData.value!![lastId] = it
-            listener?.onResponse(it)
+            listenersOnResult(it)
         }
     }
 
     override fun onFailure(call: Call<ProgramsResult>, t: Throwable) {
-        listener?.onFailure(t)
+        listenersOnFailure(t)
     }
 
     class Factory @Inject constructor(): ViewModelProvider.Factory{

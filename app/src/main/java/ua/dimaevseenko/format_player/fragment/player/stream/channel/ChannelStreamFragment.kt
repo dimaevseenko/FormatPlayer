@@ -38,11 +38,11 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.List
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         appComponent.inject(this)
+        super.onViewCreated(view, savedInstanceState)
 
         programsViewModel = ViewModelProvider(requireActivity(), programsViewModelFactory).get(ProgramsViewModel::class.java)
-        programsViewModel.listener = this
+        programsViewModel.addListener(TAG, this)
         programsViewModel.getPrograms(getStream().getStreamId())
     }
 
@@ -84,7 +84,7 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.List
     }
 
     override fun onDestroy() {
-        programsViewModel.listener = null
+        programsViewModel.removeListener(TAG)
         super.onDestroy()
     }
 }

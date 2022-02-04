@@ -35,12 +35,13 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
         if(savedInstanceState == null)
             swipeHelper.start(requireActivity().windowManager.defaultDisplay.height.toFloat())
 
-        requestFocus()
-
         getStreamContainer().setOnTouchListener(swipeHelper)
         getStreamContainer().setOnClickListener { streamControls() }
 
         streamPlayer = streamPlayerFactory.createStreamPlayer(getPlayerView(), stream.getStreamUrl())
+
+        if(savedInstanceState == null)
+            streamControls()
     }
 
     internal abstract fun getStreamContainer(): View

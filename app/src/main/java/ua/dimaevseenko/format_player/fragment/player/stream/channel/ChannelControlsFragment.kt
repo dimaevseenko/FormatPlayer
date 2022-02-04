@@ -9,10 +9,13 @@ import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.FragmentStreamControlsChannelBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.ControlsFragment
 import ua.dimaevseenko.format_player.isTV
+import ua.dimaevseenko.format_player.model.Program
+import ua.dimaevseenko.format_player.network.Server
+import ua.dimaevseenko.format_player.network.result.ProgramsResult
 import ua.dimaevseenko.format_player.viewmodel.ProgramsViewModel
 import javax.inject.Inject
 
-class ChannelControlsFragment @Inject constructor(): ControlsFragment() {
+class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.Listener<ProgramsResult> {
 
     private lateinit var binding: FragmentStreamControlsChannelBinding
 
@@ -27,6 +30,7 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         programsViewModel = ViewModelProvider(requireActivity()).get(ProgramsViewModel::class.java)
+        programsViewModel.addListener(TAG, this)
         initView()
     }
 
@@ -38,4 +42,10 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment() {
         binding.hidePlayerImageButton.setOnClickListener { dismissStream() }
         programsViewModel.getCurrentProgram(getStream().getStreamId())?.let { binding.nameTextView.text = it.name }
     }
+
+    override fun onResponse(result: ProgramsResult) {
+        binding.nameTextView.text = result.requirePrograms().getCurrentProgram().name
+    }
+
+    override fun onFailure(t: Throwable) {}
 }

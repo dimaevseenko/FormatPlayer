@@ -24,8 +24,8 @@ class CameraStreamFragment @Inject constructor(): StreamFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         appComponent.inject(this)
+        super.onViewCreated(view, savedInstanceState)
     }
 
     override fun getControlsFragment(): ControlsFragment {
