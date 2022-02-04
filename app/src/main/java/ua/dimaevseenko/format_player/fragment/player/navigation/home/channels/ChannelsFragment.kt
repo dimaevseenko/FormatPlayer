@@ -113,15 +113,13 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     }
 
     override fun onSelectedChannel(channel: Channel, position: Int) {
-        binding.backCard.isFocusable = false
-        binding.channelsGenresTabLayout.isFocusable = false
+        binding.backCard.setOnClickListener {}
 
         if(requireContext().isTV)
             lastFocusView = binding.recyclerView.focusedChild
 
         playerFragment.startStream(channel){
-            binding.backCard.isFocusable = true
-            binding.channelsGenresTabLayout.isFocusable = true
+            binding.backCard.setOnClickListener { dismiss() }
             lastFocusView.requestFocus()
         }
     }

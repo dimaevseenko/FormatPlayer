@@ -60,13 +60,12 @@ class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCameras
     }
 
     override fun onSelectedCam(cam: Cam, position: Int) {
-        binding.backCard.isFocusable = false
-
+        binding.backCard.setOnClickListener {}
         if(requireContext().isTV)
             lastFocusView = binding.recyclerView.focusedChild
 
         playerFragment.startStream(cam){
-            binding.backCard.isFocusable = true
+            binding.backCard.setOnClickListener { dismiss() }
             lastFocusView.requestFocus()
         }
     }
