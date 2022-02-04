@@ -57,7 +57,6 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
 
     fun streamControls(){
         val controlsFragment = getFragment<ControlsFragment>(ControlsFragment.TAG)
-
         if(controlsFragment == null)
             addFragment(R.id.streamContainer, getControlsFragment(), ControlsFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         else {
@@ -73,12 +72,7 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
 
     override fun onSwipe(close: Boolean) {
         if(close)
-            dismiss()
-    }
-
-    private fun dismiss(){
-        playerFragment.requireLastFocus()
-        playerFragment.removeFragment(this, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            playerFragment.dismissStream(this)
     }
 
     fun onBackPressed(): Boolean{

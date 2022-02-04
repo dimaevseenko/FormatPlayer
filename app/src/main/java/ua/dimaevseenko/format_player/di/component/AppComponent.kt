@@ -43,6 +43,9 @@ interface AppComponent {
     fun inject(channelStreamFragment: ChannelStreamFragment)
     fun inject(cameraStreamFragment: CameraStreamFragment)
 
+    fun createChannelStreamFragment(): ChannelStreamFragment
+    fun createCameraStreamFragment(): CameraStreamFragment
+
     @Component.Builder
     interface Builder{
         @BindsInstance

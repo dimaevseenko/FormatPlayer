@@ -27,10 +27,7 @@ class PlayerFragment @Inject constructor(): Fragment() {
 
     @Inject lateinit var playerNavFragment: PlayerNavFragment
 
-    @Inject lateinit var channelStreamFragment: Lazy<ChannelStreamFragment>
-    @Inject lateinit var cameraStreamFragment: Lazy<CameraStreamFragment>
-
-    private var lastFocusedView: View? = null
+    private lateinit var completionStreamFragment: ()->Unit
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentPlayerBinding.bind(inflater.inflate(R.layout.fragment_player, container, false))
@@ -44,18 +41,34 @@ class PlayerFragment @Inject constructor(): Fragment() {
             addFragment(R.id.playerContainer, playerNavFragment, PlayerNavFragment.TAG, true)
     }
 
-    fun startStream(stream: Stream, lastFocusedView: View? = null){
-        this.lastFocusedView = lastFocusedView
-        val streamFragment = if(stream is Channel) channelStreamFragment.get() else cameraStreamFragment.get()
+    fun startStream(stream: Stream, completion: ()->Unit) {
+        completionStreamFragment = completion
+
+        val streamFragment =
+            if (stream is Channel) appComponent.createChannelStreamFragment() else appComponent.createCameraStreamFragment()
         streamFragment.arguments = Bundle().apply { putParcelable("stream", stream) }
 
-        if(getFragment<StreamFragment>(StreamFragment.TAG) == null)
-            addFragment(R.id.playerContainer, streamFragment, StreamFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        val existStreamFragment = getFragment<StreamFragment>(StreamFragment.TAG)
+
+        if (existStreamFragment == null)
+            addFragment(
+                R.id.playerContainer,
+                streamFragment,
+                StreamFragment.TAG,
+                true,
+                FragmentTransaction.TRANSIT_FRAGMENT_FADE
+            )
+        else
+            existStreamFragment.onBackPressed()
     }
 
-    fun requireLastFocus(){
-        if(requireContext().isTV)
-            lastFocusedView?.requestFocus()
+    fun dismissStream(streamFragment: StreamFragment){
+        if(streamFragment.isAdded){
+            if(requireContext().isTV)
+                completionStreamFragment()
+
+            removeFragment(streamFragment, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+        }
     }
 
     fun onBackPressed(): Boolean{

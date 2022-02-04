@@ -32,6 +32,8 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
 
     private var recyclerChannelsAdapter: RecyclerChannelsAdapter? = null
 
+    private lateinit var lastFocusView: View
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.bind(inflater.inflate(R.layout.fragment_channels, container, false))
         return binding.root
@@ -73,7 +75,6 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
                 verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!)
             else
                 horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!)
-
         return recyclerChannelsAdapter!!
     }
 
@@ -112,7 +113,17 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     }
 
     override fun onSelectedChannel(channel: Channel, position: Int) {
-        playerFragment.startStream(channel, binding.recyclerView.focusedChild)
+        binding.backCard.isFocusable = false
+        binding.channelsGenresTabLayout.isFocusable = false
+
+        if(requireContext().isTV)
+            lastFocusView = binding.recyclerView.focusedChild
+
+        playerFragment.startStream(channel){
+            binding.backCard.isFocusable = true
+            binding.channelsGenresTabLayout.isFocusable = true
+            lastFocusView.requestFocus()
+        }
     }
 
     fun dismiss(){

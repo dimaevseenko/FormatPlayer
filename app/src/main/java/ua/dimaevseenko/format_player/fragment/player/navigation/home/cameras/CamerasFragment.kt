@@ -14,6 +14,7 @@ import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentCamerasBinding
 import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
+import ua.dimaevseenko.format_player.isTV
 import ua.dimaevseenko.format_player.model.Cam
 import ua.dimaevseenko.format_player.playerFragment
 import ua.dimaevseenko.format_player.viewmodel.PlaylistViewModel
@@ -31,6 +32,8 @@ class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCameras
 
     @Inject lateinit var recyclerCamerasAdapterFactory: RecyclerCamerasAdapter.Factory
     private var recyclerCamerasAdapter: RecyclerCamerasAdapter? = null
+
+    private lateinit var lastFocusView: View
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCamerasBinding.bind(inflater.inflate(R.layout.fragment_cameras, container, false))
@@ -57,7 +60,15 @@ class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCameras
     }
 
     override fun onSelectedCam(cam: Cam, position: Int) {
-        playerFragment.startStream(cam, binding.recyclerView.focusedChild)
+        binding.backCard.isFocusable = false
+
+        if(requireContext().isTV)
+            lastFocusView = binding.recyclerView.focusedChild
+
+        playerFragment.startStream(cam){
+            binding.backCard.isFocusable = true
+            lastFocusView.requestFocus()
+        }
     }
 
     private fun getAdapter(): RecyclerCamerasAdapter{
