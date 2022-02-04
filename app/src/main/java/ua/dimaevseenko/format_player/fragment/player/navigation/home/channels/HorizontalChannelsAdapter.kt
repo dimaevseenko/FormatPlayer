@@ -31,6 +31,10 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
         override fun bind(channel: Channel, listener: Listener?) {
             binding.channelImageView.setImageBitmap(channel.imageBitmap)
             binding.channelLayout.setOnClickListener { listener?.onSelectedChannel(channel, absoluteAdapterPosition) }
+            binding.channelLayout.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus)
+                    listener?.onHorizontalFocusChanged(absoluteAdapterPosition)
+            }
         }
     }
 

@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentChannelsBinding
@@ -122,6 +125,26 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
             binding.backCard.setOnClickListener { dismiss() }
             if(requireContext().isTV)
                 lastFocusView.requestFocus()
+        }
+    }
+
+    override fun onHorizontalFocusChanged(position: Int) {
+        val lm = (binding.recyclerView.layoutManager as LinearLayoutManager)
+
+        val first = lm.findFirstVisibleItemPosition()
+        val last = lm.findLastVisibleItemPosition()
+
+        val countVisible = last - first
+
+        val smoothScroller = object : LinearSmoothScroller(requireContext()) {
+            override fun getHorizontalSnapPreference(): Int {
+                return LinearSmoothScroller.SNAP_TO_START
+            }
+        }
+
+        if(position > countVisible/2) {
+            smoothScroller.targetPosition = position-countVisible/2
+            binding.recyclerView.layoutManager?.startSmoothScroll(smoothScroller)
         }
     }
 
