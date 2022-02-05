@@ -12,62 +12,32 @@ import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.RecyclerViewChannelsHorizontalItemBinding
+import ua.dimaevseenko.format_player.di.module.FocusAnimation
+import ua.dimaevseenko.format_player.di.module.UnFocusAnimation
 import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Channels
+import javax.inject.Inject
 
 class HorizontalChannelsAdapter @AssistedInject constructor(
     @Assisted("channels")
     private val channels: Channels,
-    private val context: Context
+    private val context: Context,
+    private val channelFocusListener: ChannelFocusListener
 ): RecyclerChannelsAdapter(
     channels
 ) {
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_channels_horizontal_item, parent, false))
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_channels_horizontal_item, parent, false), channelFocusListener)
     }
 
-    class ViewHolder(view: View): RecyclerChannelsAdapter.ViewHolder(view){
+    class ViewHolder(view: View, private val channelFocusListener: ChannelFocusListener): RecyclerChannelsAdapter.ViewHolder(view){
         private var binding = RecyclerViewChannelsHorizontalItemBinding.bind(view)
 
         override fun bind(channel: Channel, listener: Listener?) {
             binding.channelImageView.setImageBitmap(channel.imageBitmap)
             binding.channelLayout.setOnClickListener { listener?.onSelectedChannel(channel, absoluteAdapterPosition) }
-            binding.channelLayout.setOnFocusChangeListener { view, hasFocus ->
-                if(hasFocus) {
-                    listener?.onHorizontalFocusChanged(absoluteAdapterPosition)
-                    binding.root.startAnimation(
-                        ScaleAnimation(
-                            1f,
-                            1.10f,
-                            1f,
-                            1.10f,
-                            Animation.RELATIVE_TO_SELF,
-                            0.5f,
-                            Animation.RELATIVE_TO_SELF,
-                            0.5f
-                        ).apply {
-                            fillAfter = true
-                            duration = 150
-                        })
-                }else{
-                    binding.root.startAnimation(
-                        ScaleAnimation(
-                            1.10f,
-                            1f,
-                            1.10f,
-                            1f,
-                            Animation.RELATIVE_TO_SELF,
-                            0.5f,
-                            Animation.RELATIVE_TO_SELF,
-                            0.5f
-                        ).apply {
-                            fillAfter = true
-                            duration = 150
-                        }
-                    )
-                }
-            }
+            binding.channelLayout.onFocusChangeListener = channelFocusListener
         }
     }
 

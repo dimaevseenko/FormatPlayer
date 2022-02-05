@@ -10,7 +10,7 @@ import ua.dimaevseenko.format_player.network.request.RPlaylist
 import ua.dimaevseenko.format_player.network.request.RPrograms
 import ua.dimaevseenko.format_player.network.request.RUser
 
-@Module(includes = [PlayerModule::class, NetworkModule::class])
+@Module(includes = [PlayerModule::class, NetworkModule::class, AnimationModule::class])
 object AppModule
 
 @Module
