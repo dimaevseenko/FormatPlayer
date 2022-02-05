@@ -7,7 +7,7 @@ import ua.dimaevseenko.format_player.di.module.FocusAnimation
 import ua.dimaevseenko.format_player.di.module.UnFocusAnimation
 import javax.inject.Inject
 
-class ChannelFocusListener @Inject constructor(): View.OnFocusChangeListener{
+class ChannelScaleAnimator @Inject constructor(){
 
     @FocusAnimation
     @Inject
@@ -16,11 +16,4 @@ class ChannelFocusListener @Inject constructor(): View.OnFocusChangeListener{
     @UnFocusAnimation
     @Inject
     lateinit var unFocusAnimation: ScaleAnimation
-
-    override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        if(hasFocus)
-            v?.rootView?.startAnimation(focusAnimation)
-        else
-            v?.rootView?.startAnimation(unFocusAnimation)
-    }
 }

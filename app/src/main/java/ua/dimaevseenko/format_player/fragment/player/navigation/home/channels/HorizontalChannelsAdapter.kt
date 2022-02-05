@@ -22,22 +22,29 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
     @Assisted("channels")
     private val channels: Channels,
     private val context: Context,
-    private val channelFocusListener: ChannelFocusListener
+    private val channelScaleAnimator: ChannelScaleAnimator
 ): RecyclerChannelsAdapter(
     channels
 ) {
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_channels_horizontal_item, parent, false), channelFocusListener)
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_channels_horizontal_item, parent, false), channelScaleAnimator)
     }
 
-    class ViewHolder(view: View, private val channelFocusListener: ChannelFocusListener): RecyclerChannelsAdapter.ViewHolder(view){
+    class ViewHolder(view: View, private val channelScaleAnimator: ChannelScaleAnimator): RecyclerChannelsAdapter.ViewHolder(view){
         private var binding = RecyclerViewChannelsHorizontalItemBinding.bind(view)
 
         override fun bind(channel: Channel, listener: Listener?) {
+
             binding.channelImageView.setImageBitmap(channel.imageBitmap)
             binding.channelLayout.setOnClickListener { listener?.onSelectedChannel(channel, absoluteAdapterPosition) }
-            binding.channelLayout.onFocusChangeListener = channelFocusListener
+            binding.channelLayout.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus) {
+                    listener?.onHorizontalFocusChanged(absoluteAdapterPosition)
+                    binding.root.startAnimation(channelScaleAnimator.focusAnimation)
+                }else
+                    binding.root.startAnimation(channelScaleAnimator.unFocusAnimation)
+            }
         }
     }
 
