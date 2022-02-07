@@ -41,9 +41,9 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
             binding.channelLayout.setOnFocusChangeListener { _, hasFocus ->
                 if(hasFocus) {
                     listener?.onHorizontalFocusChanged(absoluteAdapterPosition)
-                    binding.root.startAnimation(channelScaleAnimator.focusAnimation)
+                    channelScaleAnimator.animate(binding.card, true)
                 }else
-                    binding.root.startAnimation(channelScaleAnimator.unFocusAnimation)
+                    channelScaleAnimator.animate(binding.card, false)
             }
         }
     }

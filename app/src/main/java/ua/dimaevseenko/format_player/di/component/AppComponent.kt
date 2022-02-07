@@ -1,11 +1,14 @@
 package ua.dimaevseenko.format_player.di.component
 
 import android.content.Context
+import android.view.animation.ScaleAnimation
 import dagger.BindsInstance
 import dagger.Component
 import ua.dimaevseenko.format_player.MainActivity
 import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.di.module.AppModule
+import ua.dimaevseenko.format_player.di.module.FocusAnimation
+import ua.dimaevseenko.format_player.di.module.UnFocusAnimation
 import ua.dimaevseenko.format_player.fragment.MainFragment
 import ua.dimaevseenko.format_player.fragment.auth.AuthorizationFragment
 import ua.dimaevseenko.format_player.fragment.auth.login.LoginFragment
@@ -45,6 +48,12 @@ interface AppComponent {
 
     fun createChannelStreamFragment(): ChannelStreamFragment
     fun createCameraStreamFragment(): CameraStreamFragment
+
+    @FocusAnimation
+    fun createFocusScaleAnimation(): ScaleAnimation
+
+    @UnFocusAnimation
+    fun createUnFocusScaleAnimation(): ScaleAnimation
 
     @Component.Builder
     interface Builder{
