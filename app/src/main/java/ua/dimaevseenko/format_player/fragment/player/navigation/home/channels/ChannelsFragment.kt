@@ -127,6 +127,10 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
         Config.Values.lastWatchedChannelsIds.sortBy { it.dateAdded }
         Config.Values.save(requireContext())
 
+        if(binding.channelsGenresTabLayout?.getTabAt(0)?.id.toString() != "-1"){
+            binding.channelsGenresTabLayout?.addTab(createTab(Genre("-1", getString(R.string.last))), 0)
+        }
+
         if(binding.recyclerView.adapter is VerticalChannelRecyclersAdapter) {
                 if(binding.recyclerView.findViewHolderForAdapterPosition(0) != null)
                     (binding.recyclerView.adapter as VerticalChannelRecyclersAdapter).updateLastChannels(
