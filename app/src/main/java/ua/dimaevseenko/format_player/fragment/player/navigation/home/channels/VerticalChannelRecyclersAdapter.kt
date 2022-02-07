@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
@@ -19,7 +20,7 @@ import ua.dimaevseenko.format_player.model.Genres
 
 class VerticalChannelRecyclersAdapter @AssistedInject constructor(
     @Assisted("genres")
-    private val genres: Genres,
+    private var genres: Genres,
     @Assisted("channels")
     private val channels: Channels,
     private val horizontalChannelsAdapterFactory: HorizontalChannelsAdapter.Factory,
@@ -56,10 +57,11 @@ class VerticalChannelRecyclersAdapter @AssistedInject constructor(
     fun updateLastChannels(recyclerView: RecyclerView, channels: Channels){
         if(recyclerView.adapter is HorizontalChannelsAdapter)
             (recyclerView.adapter as HorizontalChannelsAdapter).updateChannels(channels)
+        (recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
     }
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view), HorizontalChannelsAdapter.Listener{
-        private var binding = RecyclerViewChannelsHorizontalBinding.bind(view)
+        var binding = RecyclerViewChannelsHorizontalBinding.bind(view)
 
         private lateinit var context: Context
         private var listener: RecyclerChannelsAdapter.Listener? = null

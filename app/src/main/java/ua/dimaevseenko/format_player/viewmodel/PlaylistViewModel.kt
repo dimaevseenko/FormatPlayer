@@ -33,9 +33,6 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
     var listener: Server.Listener<PlaylistResult>? = null
 
     fun getGenres(): Genres? {
-        if(Config.Values.lastWatchedChannelsIds.size>0 && playlistLiveData.value?.genres?.findGenre(context.resources.getString(R.string.last)) == false)
-            playlistLiveData.value?.genres?.add(0, Genre("-1", context.resources.getString(R.string.last)))
-
         return playlistLiveData.value?.genres
     }
 
@@ -61,6 +58,7 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
     private fun onResponsePlaylist(response: Response<PlaylistResult>){
         response.body()?.let { it ->
             it.genres.add(0, Genre("0", context.resources.getString(R.string.all)))
+            it.genres.add(0, Genre("-1", context.resources.getString(R.string.last)))
             it.channels.sortBy { channel -> channel.id.toInt() }
             it.cams.sortBy { cam -> cam.id.toInt() }
             playlistLiveData.value = it

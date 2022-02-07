@@ -126,11 +126,13 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
         Config.Values.lastWatchedChannelsIds.sortBy { it.dateAdded }
         Config.Values.save(requireContext())
 
-        if(binding.recyclerView.adapter is VerticalChannelRecyclersAdapter)
-            (binding.recyclerView.adapter as VerticalChannelRecyclersAdapter).updateLastChannels(
-                binding.recyclerView.getChildAt(0).findViewById(R.id.recyclerView),
-                playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
+        if(binding.recyclerView.adapter is VerticalChannelRecyclersAdapter) {
+                if(binding.recyclerView.findViewHolderForAdapterPosition(0) != null)
+                    (binding.recyclerView.adapter as VerticalChannelRecyclersAdapter).updateLastChannels(
+                        (binding.recyclerView.findViewHolderForAdapterPosition(0) as VerticalChannelRecyclersAdapter.ViewHolder).binding.recyclerView,
+                        playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
             )
+        }
         else if(binding.channelsGenresTabLayout?.getTabAt(binding.channelsGenresTabLayout?.selectedTabPosition!!)?.id.toString() == "-1") {
             (binding.recyclerView.adapter as VerticalChannelsAdapter).updateChannels(
                 playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
@@ -153,7 +155,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     private fun getLinearSmoothScroller(): LinearSmoothScroller {
         return object : LinearSmoothScroller(context){
             override fun getVerticalSnapPreference(): Int {
-                return LinearSmoothScroller.SNAP_TO_START
+                return SNAP_TO_START
             }
         }
     }
