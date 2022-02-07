@@ -110,6 +110,12 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
         Config.Values.lastWatchedChannelsIds.sortBy { it.dateAdded }
         Config.Values.save(requireContext())
 
+        if(binding.recyclerView.adapter is VerticalChannelRecyclersAdapter)
+            (binding.recyclerView.adapter as VerticalChannelRecyclersAdapter).updateLastChannels(
+                binding.recyclerView.getChildAt(0).findViewById(R.id.recyclerView),
+                playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
+            )
+
         binding.backCard.setOnClickListener {}
 
         if(requireContext().isTV)

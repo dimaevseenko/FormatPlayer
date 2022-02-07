@@ -53,6 +53,11 @@ class VerticalChannelRecyclersAdapter @AssistedInject constructor(
         return genres.size
     }
 
+    fun updateLastChannels(recyclerView: RecyclerView, channels: Channels){
+        if(recyclerView.adapter is HorizontalChannelsAdapter)
+            (recyclerView.adapter as HorizontalChannelsAdapter).updateChannels(channels)
+    }
+
     class ViewHolder(view: View): RecyclerView.ViewHolder(view), HorizontalChannelsAdapter.Listener{
         private var binding = RecyclerViewChannelsHorizontalBinding.bind(view)
 
