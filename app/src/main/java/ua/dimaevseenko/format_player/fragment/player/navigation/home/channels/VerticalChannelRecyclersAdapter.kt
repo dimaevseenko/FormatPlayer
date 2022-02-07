@@ -98,7 +98,6 @@ class VerticalChannelRecyclersAdapter @AssistedInject constructor(
                 smoothScroller.targetPosition = position-center
                 lm.startSmoothScroll(smoothScroller)
             }
-
         }
 
         private fun getLinearSmoothScroller(): LinearSmoothScroller {

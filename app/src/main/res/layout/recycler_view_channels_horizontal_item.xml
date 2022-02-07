@@ -40,7 +40,7 @@
                 <ImageView
                     android:id="@+id/channelImageView"
                     android:layout_width="100dp"
-                    android:layout_height="100dp"
+                    android:layout_height="70dp"
                     tools:srcCompat="@tools:sample/avatars" />
             </androidx.cardview.widget.CardView>
 

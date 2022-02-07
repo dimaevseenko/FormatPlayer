@@ -60,7 +60,7 @@
         <entry key="app/src/main/res/layout/fragment_vidio.xml" value="0.1816123188405797" />
         <entry key="app/src/main/res/layout/recycler_view_cameras_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/recycler_view_channels_horizontal.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/recycler_view_channels_horizontal_item.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/recycler_view_channels_horizontal_item.xml" value="0.375" />
         <entry key="app/src/main/res/layout/recycler_view_channels_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/recycler_view_channels_vertical_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/recycler_view_program_date_item.xml" value="0.375" />
