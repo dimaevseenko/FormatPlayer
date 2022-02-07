@@ -70,7 +70,8 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
 
     private fun loadGenres(){
         playlistViewModel.getGenres()?.forEach {
-            binding.channelsGenresTabLayout?.addTab(createTab(it))
+            if(playlistViewModel.getChannels()!!.getChannelsForGenre(it.id).size>0)
+                binding.channelsGenresTabLayout?.addTab(createTab(it))
         }
     }
 
