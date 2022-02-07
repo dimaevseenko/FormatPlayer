@@ -131,10 +131,12 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
                 binding.recyclerView.getChildAt(0).findViewById(R.id.recyclerView),
                 playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
             )
-        else
-            (binding.recyclerView.adapter as VerticalChannelsAdapter).updateChannels(playlistViewModel.getChannels()!!.getChannelsForGenre("-1"))
-
-        binding.recyclerView.scrollToPosition(0)
+        else if(binding.channelsGenresTabLayout?.getTabAt(binding.channelsGenresTabLayout?.selectedTabPosition!!)?.id.toString() == "-1") {
+            (binding.recyclerView.adapter as VerticalChannelsAdapter).updateChannels(
+                playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
+            )
+            (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
+        }
     }
 
     override fun onVerticalFocusChanged(position: Int) {
