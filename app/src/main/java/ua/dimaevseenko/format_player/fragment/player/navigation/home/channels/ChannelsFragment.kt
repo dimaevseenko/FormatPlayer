@@ -136,15 +136,19 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
 
         val center = (last - first)/2
 
-        val smoothScroller = object : LinearSmoothScroller(requireContext()) {
-            override fun getHorizontalSnapPreference(): Int {
-                return LinearSmoothScroller.SNAP_TO_START
-            }
-        }
+        val smoothScroller = getLinearSmoothScroller()
 
         if(position > center) {
             smoothScroller.targetPosition = position-center
             binding.recyclerView.layoutManager?.startSmoothScroll(smoothScroller)
+        }
+    }
+
+    private fun getLinearSmoothScroller(): LinearSmoothScroller{
+        return object : LinearSmoothScroller(requireContext()){
+            override fun getHorizontalSnapPreference(): Int {
+                return LinearSmoothScroller.SNAP_TO_START
+            }
         }
     }
 
