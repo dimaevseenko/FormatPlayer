@@ -1,5 +1,6 @@
 package ua.dimaevseenko.format_player.viewmodel
 
+import android.content.Context
 import android.os.Bundle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,8 +11,10 @@ import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.model.Cams
 import ua.dimaevseenko.format_player.model.Channels
+import ua.dimaevseenko.format_player.model.Genre
 import ua.dimaevseenko.format_player.model.Genres
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.IconsResult
@@ -21,6 +24,8 @@ import javax.inject.Inject
 class PlaylistViewModel @Inject constructor(): ViewModel(){
 
     @Inject lateinit var serverRequest: Server.Request
+
+    @Inject lateinit var context: Context
 
     private val playlistLiveData = MutableLiveData<PlaylistResult>()
 
@@ -51,6 +56,7 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
 
     private fun onResponsePlaylist(response: Response<PlaylistResult>){
         response.body()?.let { it ->
+            it.genres.add(0, Genre("0", context.resources.getString(R.string.all)))
             it.channels.sortBy { channel -> channel.id.toInt() }
             it.cams.sortBy { cam -> cam.id.toInt() }
             playlistLiveData.value = it

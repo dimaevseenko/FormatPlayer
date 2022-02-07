@@ -27,6 +27,10 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
     channels
 ) {
 
+    interface Listener: RecyclerChannelsAdapter.Listener{
+        fun onHorizontalFocusChanged(position: Int)
+    }
+
     override fun getViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_channels_horizontal_item, parent, false), channelScaleAnimator)
     }
@@ -34,13 +38,15 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
     class ViewHolder(view: View, private val channelScaleAnimator: ChannelScaleAnimator): RecyclerChannelsAdapter.ViewHolder(view){
         private var binding = RecyclerViewChannelsHorizontalItemBinding.bind(view)
 
-        override fun bind(channel: Channel, listener: Listener?) {
+        override fun bind(channel: Channel, listener: RecyclerChannelsAdapter.Listener?) {
 
             binding.channelImageView.setImageBitmap(channel.imageBitmap)
-            binding.channelLayout.setOnClickListener { listener?.onSelectedChannel(channel, absoluteAdapterPosition) }
+            binding.channelLayout.setOnClickListener { listener?.onSelectedChannel(channel, absoluteAdapterPosition, binding.channelLayout) }
             binding.channelLayout.setOnFocusChangeListener { _, hasFocus ->
                 if(hasFocus) {
-                    listener?.onHorizontalFocusChanged(absoluteAdapterPosition)
+                    if(listener is Listener)
+                        listener.onHorizontalFocusChanged(absoluteAdapterPosition)
+
                     channelScaleAnimator.animate(binding.card, true)
                 }else
                     channelScaleAnimator.animate(binding.card, false)

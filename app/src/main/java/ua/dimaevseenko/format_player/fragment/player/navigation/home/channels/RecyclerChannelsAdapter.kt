@@ -42,8 +42,7 @@ abstract class RecyclerChannelsAdapter constructor(
     }
 
     interface Listener{
-        fun onSelectedChannel(channel: Channel, position: Int)
-        fun onHorizontalFocusChanged(position: Int)
+        fun onSelectedChannel(channel: Channel, position: Int, focusedView: View?)
     }
 
     private class DiffUtils(

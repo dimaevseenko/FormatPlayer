@@ -20,7 +20,7 @@ import ua.dimaevseenko.format_player.model.Genre
 import ua.dimaevseenko.format_player.viewmodel.PlaylistViewModel
 import javax.inject.Inject
 
-class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTabSelectedListener, RecyclerChannelsAdapter.Listener {
+class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTabSelectedListener, VerticalChannelRecyclersAdapter.Listener {
 
     companion object{
         const val TAG = "ChannelsFragment"
@@ -31,11 +31,9 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     private lateinit var playlistViewModel: PlaylistViewModel
 
     @Inject lateinit var verticalChannelsAdapterFactory: VerticalChannelsAdapter.Factory
-    @Inject lateinit var horizontalChannelsAdapterFactory: HorizontalChannelsAdapter.Factory
+    @Inject lateinit var verticalChannelRecyclersAdapterFactory: VerticalChannelRecyclersAdapter.Factory
 
-    private var recyclerChannelsAdapter: RecyclerChannelsAdapter? = null
-
-    private lateinit var lastFocusView: View
+    private var lastFocusView: View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.bind(inflater.inflate(R.layout.fragment_channels, container, false))
@@ -51,52 +49,41 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
         loadGenres()
 
-        binding.channelsGenresTabLayout.addOnTabSelectedListener(this)
+        binding.channelsGenresTabLayout?.addOnTabSelectedListener(this)
         binding.backCard.setOnClickListener { dismiss() }
 
         loadRecycler()
     }
 
     private fun loadRecycler(){
-        binding.recyclerView.layoutManager = getLinearLayoutManager()
-        binding.recyclerView.adapter = getRecyclerAdapter().apply {
-            setListener(this@ChannelsFragment)
-        }
-        onTabSelected(binding.channelsGenresTabLayout.getTabAt(binding.channelsGenresTabLayout.selectedTabPosition))
-    }
-
-    private fun getLinearLayoutManager(): LinearLayoutManager{
-        return if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-                LinearLayoutManager(requireContext())
-            else
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-    }
-
-    private fun getRecyclerAdapter(): RecyclerChannelsAdapter{
-        if(recyclerChannelsAdapter == null)
-            recyclerChannelsAdapter = if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-                verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!)
-            else
-                horizontalChannelsAdapterFactory.createHorizontalChannelsAdapter(playlistViewModel.getChannels()!!)
-        return recyclerChannelsAdapter!!
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
+            verticalChannelsAdapterFactory.createVerticalChannelsAdapter(playlistViewModel.getChannels()!!).apply {
+                setListener(this@ChannelsFragment)
+            }
+        else
+            verticalChannelRecyclersAdapterFactory.createAdapter(playlistViewModel.getGenres()!!, playlistViewModel.getChannels()!!).apply {
+                setListener(this@ChannelsFragment)
+            }
+        binding.channelsGenresTabLayout?.let { onTabSelected(it.getTabAt(it.selectedTabPosition)) }
     }
 
     private fun loadGenres(){
-        binding.channelsGenresTabLayout.addTab(createTab(Genre("0", getString(R.string.all))))
         playlistViewModel.getGenres()?.forEach {
-            binding.channelsGenresTabLayout.addTab(createTab(it))
+            binding.channelsGenresTabLayout?.addTab(createTab(it))
         }
     }
 
     private fun createTab(genre: Genre): TabLayout.Tab{
-        return binding.channelsGenresTabLayout.newTab().apply {
+        return binding.channelsGenresTabLayout!!.newTab().apply {
             this.text = genre.name
             this.id = genre.id.toInt()
         }
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {
-        getRecyclerAdapter().updateChannels(playlistViewModel.getChannels()!!.getChannelsForGenre(tab!!.id.toString()))
+        if(binding.recyclerView.adapter is VerticalChannelsAdapter)
+            (binding.recyclerView.adapter as VerticalChannelsAdapter).updateChannels(playlistViewModel.getChannels()!!.getChannelsForGenre(tab!!.id.toString()))
         (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
     }
 
@@ -107,46 +94,41 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
         savedInstanceState?.let {
-            binding.channelsGenresTabLayout.getTabAt(it.getInt("genrePosition"))?.select()
+            binding.channelsGenresTabLayout?.getTabAt(it.getInt("genrePosition"))?.select()
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putInt("genrePosition", binding.channelsGenresTabLayout.selectedTabPosition)
+        binding.channelsGenresTabLayout?.let { outState.putInt("genrePosition", it.selectedTabPosition) }
     }
 
-    override fun onSelectedChannel(channel: Channel, position: Int) {
+    override fun onSelectedChannel(channel: Channel, position: Int, focusedView: View?) {
         binding.backCard.setOnClickListener {}
 
         if(requireContext().isTV)
-            lastFocusView = binding.recyclerView.focusedChild
+            focusedView?.let { lastFocusView = it }
 
         playerFragment.startStream(channel){
             binding.backCard.setOnClickListener { dismiss() }
             if(requireContext().isTV)
-                lastFocusView.requestFocus()
+                lastFocusView?.requestFocus()
         }
     }
 
-    override fun onHorizontalFocusChanged(position: Int) {
+    override fun onVerticalFocusChanged(position: Int) {
         val lm = (binding.recyclerView.layoutManager as LinearLayoutManager)
-
-        val first = lm.findFirstVisibleItemPosition()
-        val last = lm.findLastVisibleItemPosition()
-
-        val center = (last - first)/2
 
         val smoothScroller = getLinearSmoothScroller()
 
-        if(position > center) {
-            smoothScroller.targetPosition = position-center
-            binding.recyclerView.layoutManager?.startSmoothScroll(smoothScroller)
+        if(position>0) {
+            smoothScroller.targetPosition = position - 1
+            lm.startSmoothScroll(smoothScroller)
         }
     }
 
-    private fun getLinearSmoothScroller(): LinearSmoothScroller{
-        return object : LinearSmoothScroller(requireContext()){
-            override fun getHorizontalSnapPreference(): Int {
+    private fun getLinearSmoothScroller(): LinearSmoothScroller {
+        return object : LinearSmoothScroller(context){
+            override fun getVerticalSnapPreference(): Int {
                 return LinearSmoothScroller.SNAP_TO_START
             }
         }
