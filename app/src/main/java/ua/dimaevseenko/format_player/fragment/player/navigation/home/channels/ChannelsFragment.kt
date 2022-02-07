@@ -5,18 +5,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
-import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
 import ua.dimaevseenko.format_player.*
+import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentChannelsBinding
 import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Genre
+import ua.dimaevseenko.format_player.model.LastWatchedChannel
 import ua.dimaevseenko.format_player.viewmodel.PlaylistViewModel
 import javax.inject.Inject
 
@@ -103,6 +103,13 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     }
 
     override fun onSelectedChannel(channel: Channel, position: Int, focusedView: View?) {
+        Config.Values.lastWatchedChannelsIds.add(LastWatchedChannel(
+            channel.id,
+            System.currentTimeMillis()
+        ))
+        Config.Values.lastWatchedChannelsIds.sortBy { it.dateAdded }
+        Config.Values.save(requireContext())
+
         binding.backCard.setOnClickListener {}
 
         if(requireContext().isTV)

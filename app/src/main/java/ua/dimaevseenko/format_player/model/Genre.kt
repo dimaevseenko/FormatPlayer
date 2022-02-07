@@ -10,4 +10,13 @@ data class Genre(
     val name: String
 )
 
-class Genres: ArrayList<Genre>()
+class Genres: ArrayList<Genre>(){
+
+    fun findGenre(name: String): Boolean{
+        forEach { genre ->
+            if(name == genre.name)
+                return true
+        }
+        return false
+    }
+}

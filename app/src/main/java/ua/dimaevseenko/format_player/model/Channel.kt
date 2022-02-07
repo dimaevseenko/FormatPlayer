@@ -105,14 +105,29 @@ class Channels: ArrayList<Channel>(){
     }
 
     fun getChannelsForGenre(genreId: String): Channels{
-        if(genreId == "0")
+        if(genreId == "-1")
+            return getLastWatched()
+        else if(genreId == "0")
             return this
 
         val channels = Channels()
         forEach { channel ->
-            if(channel.genreId.equals(genreId))
+            if(channel.genreId == genreId)
                 channels.add(channel)
         }
+        return channels
+    }
+
+    private fun getLastWatched(): Channels{
+        val channels = Channels()
+        Config.Values.lastWatchedChannelsIds.forEach { last ->
+            this.forEach { channel ->
+                if(last.id == channel.id)
+                    channels.add(channel)
+            }
+        }
+
+        channels.reverse()
         return channels
     }
 }

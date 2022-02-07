@@ -12,6 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ua.dimaevseenko.format_player.R
+import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.model.Cams
 import ua.dimaevseenko.format_player.model.Channels
 import ua.dimaevseenko.format_player.model.Genre
@@ -32,6 +33,9 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
     var listener: Server.Listener<PlaylistResult>? = null
 
     fun getGenres(): Genres? {
+        if(Config.Values.lastWatchedChannelsIds.size>0 && playlistLiveData.value?.genres?.findGenre(context.resources.getString(R.string.last)) == false)
+            playlistLiveData.value?.genres?.add(0, Genre("-1", context.resources.getString(R.string.last)))
+
         return playlistLiveData.value?.genres
     }
 

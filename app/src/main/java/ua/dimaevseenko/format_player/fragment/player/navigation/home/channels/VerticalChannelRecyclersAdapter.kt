@@ -71,9 +71,7 @@ class VerticalChannelRecyclersAdapter @AssistedInject constructor(
         }
 
         private fun initRecycler(context: Context, horizontalChannelsAdapter: HorizontalChannelsAdapter){
-            binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false).apply {
-                stackFromEnd = false
-            }
+            binding.recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
             binding.recyclerView.adapter = horizontalChannelsAdapter
         }
 
