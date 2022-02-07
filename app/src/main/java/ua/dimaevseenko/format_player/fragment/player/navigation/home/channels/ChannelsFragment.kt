@@ -103,18 +103,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     }
 
     override fun onSelectedChannel(channel: Channel, position: Int, focusedView: View?) {
-        Config.Values.lastWatchedChannelsIds.add(LastWatchedChannel(
-            channel.id,
-            System.currentTimeMillis()
-        ))
-        Config.Values.lastWatchedChannelsIds.sortBy { it.dateAdded }
-        Config.Values.save(requireContext())
-
-        if(binding.recyclerView.adapter is VerticalChannelRecyclersAdapter)
-            (binding.recyclerView.adapter as VerticalChannelRecyclersAdapter).updateLastChannels(
-                binding.recyclerView.getChildAt(0).findViewById(R.id.recyclerView),
-                playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
-            )
+        addToLast(channel)
 
         binding.backCard.setOnClickListener {}
 
@@ -126,6 +115,26 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
             if(requireContext().isTV)
                 lastFocusView?.requestFocus()
         }
+    }
+
+    private fun addToLast(channel: Channel){
+        Config.Values.lastWatchedChannelsIds.add(LastWatchedChannel(
+            channel.id,
+            System.currentTimeMillis()
+        ))
+
+        Config.Values.lastWatchedChannelsIds.sortBy { it.dateAdded }
+        Config.Values.save(requireContext())
+
+        if(binding.recyclerView.adapter is VerticalChannelRecyclersAdapter)
+            (binding.recyclerView.adapter as VerticalChannelRecyclersAdapter).updateLastChannels(
+                binding.recyclerView.getChildAt(0).findViewById(R.id.recyclerView),
+                playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
+            )
+        else
+            (binding.recyclerView.adapter as VerticalChannelsAdapter).updateChannels(playlistViewModel.getChannels()!!.getChannelsForGenre("-1"))
+
+        binding.recyclerView.scrollToPosition(0)
     }
 
     override fun onVerticalFocusChanged(position: Int) {
