@@ -23,6 +23,8 @@ import ua.dimaevseenko.format_player.fragment.player.navigation.home.cameras.Cam
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.ProfileFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.camera.CameraStreamFragment
+import ua.dimaevseenko.format_player.fragment.player.stream.channel.ChannelControlsFragment
+import ua.dimaevseenko.format_player.fragment.player.stream.channel.ChannelProgramsFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.channel.ChannelStreamFragment
 
 @Component(modules = [AppModule::class])
@@ -45,6 +47,8 @@ interface AppComponent {
     fun inject(streamFragment: StreamFragment)
     fun inject(channelStreamFragment: ChannelStreamFragment)
     fun inject(cameraStreamFragment: CameraStreamFragment)
+    fun inject(channelProgramsFragment: ChannelProgramsFragment)
+    fun inject(channelControlsFragment: ChannelControlsFragment)
 
     fun createChannelStreamFragment(): ChannelStreamFragment
     fun createCameraStreamFragment(): CameraStreamFragment

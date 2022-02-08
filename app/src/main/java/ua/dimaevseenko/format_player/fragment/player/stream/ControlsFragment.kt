@@ -1,9 +1,11 @@
 package ua.dimaevseenko.format_player.fragment.player.stream
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
+import ua.dimaevseenko.format_player.getFragment
 import ua.dimaevseenko.format_player.model.Stream
 
 open class ControlsFragment: Fragment() {
@@ -47,5 +49,11 @@ open class ControlsFragment: Fragment() {
 
     fun getStream(): Stream{
         return (parentFragment as StreamFragment).getStream()
+    }
+
+    fun onKeyDown(keyCode: Int, event: KeyEvent?){
+        timer?.cancel()
+        timer = null
+        startTimer()
     }
 }

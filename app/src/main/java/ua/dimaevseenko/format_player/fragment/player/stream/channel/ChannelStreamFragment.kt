@@ -9,8 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.exoplayer2.ui.PlayerView
 import dagger.Lazy
-import ua.dimaevseenko.format_player.R
-import ua.dimaevseenko.format_player.appComponent
+import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentStreamChannelBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.ControlsFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
@@ -20,17 +19,15 @@ import ua.dimaevseenko.format_player.network.result.ProgramsResult
 import ua.dimaevseenko.format_player.viewmodel.ProgramsViewModel
 import javax.inject.Inject
 
-class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.Listener<ProgramsResult> {
+class ChannelStreamFragment @Inject constructor(): StreamFragment() {
 
     private lateinit var binding: FragmentStreamChannelBinding
 
     @Inject lateinit var programsViewModelFactory: ProgramsViewModel.Factory
     private lateinit var programsViewModel: ProgramsViewModel
 
-    @Inject lateinit var recyclerAdapterFactory: ChannelProgramsRecyclerAdapter.Factory
-    private lateinit var recyclerAdapter: ChannelProgramsRecyclerAdapter
-
     @Inject lateinit var controlsFragment: ChannelControlsFragment
+    @Inject lateinit var channelProgramsFragment: ChannelProgramsFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentStreamChannelBinding.bind(inflater.inflate(R.layout.fragment_stream_channel, container, false))
@@ -42,25 +39,9 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.List
         super.onViewCreated(view, savedInstanceState)
 
         programsViewModel = ViewModelProvider(requireActivity(), programsViewModelFactory).get(ProgramsViewModel::class.java)
-        programsViewModel.addListener(TAG, this)
         programsViewModel.getPrograms(getStream().getStreamId())
-    }
 
-    override fun onResponse(result: ProgramsResult) {
-        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT)
-            loadRecycler(result.requirePrograms())
-    }
-
-    override fun onFailure(t: Throwable) {
-
-    }
-
-    private fun loadRecycler(programs: Programs){
-        recyclerAdapter = recyclerAdapterFactory.createChannelProgramsRecyclerAdapter(programs)
-
-        binding.recyclerView?.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView?.adapter = recyclerAdapter
-        binding.recyclerView?.scrollToPosition(programs.getCurrentProgramPosition())
+        binding.programsContainer?.let { replaceFragment(it.id, channelProgramsFragment, ChannelProgramsFragment.TAG, true) }
     }
 
     override fun getControlsFragment(): ControlsFragment {
@@ -83,8 +64,11 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.List
         return binding.playerView
     }
 
-    override fun onDestroy() {
-        programsViewModel.removeListener(TAG)
-        super.onDestroy()
+    override fun onBackPressed(): Boolean {
+        getFragment<ChannelControlsFragment>(ControlsFragment.TAG)?.let {
+            if(it.onBackPressed())
+                return true
+        }
+        return super.onBackPressed()
     }
 }

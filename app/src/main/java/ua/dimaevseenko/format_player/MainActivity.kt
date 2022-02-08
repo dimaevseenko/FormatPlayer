@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player
 
 import android.os.Bundle
+import android.view.KeyEvent
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.base.BaseActivity
 import ua.dimaevseenko.format_player.fragment.MainFragment
@@ -26,5 +27,10 @@ class MainActivity : BaseActivity() {
     override fun onBackPressed() {
         if(!mainFragment.onBackPressed())
             super.onBackPressed()
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        mainFragment.onKeyDown(keyCode, event)
+        return super.onKeyDown(keyCode, event)
     }
 }

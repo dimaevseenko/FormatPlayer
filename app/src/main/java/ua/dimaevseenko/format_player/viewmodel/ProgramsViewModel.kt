@@ -29,13 +29,13 @@ class ProgramsViewModel @Inject constructor(): ViewModel(), Callback<ProgramsRes
         listeners[tag] = null
     }
 
-    fun listenersOnResult(result: ProgramsResult){
+    private fun listenersOnResult(result: ProgramsResult){
         listeners.forEach { map ->
             map.value?.onResponse(result)
         }
     }
 
-    fun listenersOnFailure(t: Throwable){
+    private fun listenersOnFailure(t: Throwable){
         listeners.forEach { map ->
             map.value?.onFailure(t)
         }

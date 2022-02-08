@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player.fragment.player
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,5 +74,9 @@ class PlayerFragment @Inject constructor(): Fragment() {
         getFragment<StreamFragment>(StreamFragment.TAG)?.let { return it.onBackPressed() }
         getFragment<PlayerNavFragment>(PlayerNavFragment.TAG)?.let { return it.onBackPressed() }
         return false
+    }
+
+    fun onKeyDown(keyCode: Int, event: KeyEvent?){
+        getFragment<StreamFragment>(StreamFragment.TAG)?.onKeyDown(keyCode, event)
     }
 }

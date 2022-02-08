@@ -36,6 +36,10 @@
             android:layout_height="wrap_content"
             android:background="@color/black"
             android:clickable="true"
+            android:nextFocusLeft="@id/streamContainer"
+            android:nextFocusDown="@id/streamContainer"
+            android:nextFocusRight="@id/streamContainer"
+            android:nextFocusUp="@id/streamContainer"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_max="250dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -49,14 +53,16 @@
                 app:use_controller="false" />
         </FrameLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+        <FrameLayout
+            android:id="@+id/programsContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/streamContainer" />
+            app:layout_constraintTop_toBottomOf="@+id/streamContainer">
+
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,6 +5,7 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
@@ -21,6 +22,12 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     private val context: Context
 ): RecyclerView.Adapter<ChannelProgramsRecyclerAdapter.ItemViewHolder>() {
 
+    private var listener: Listener? = null
+
+    fun setListener(listener: Listener){
+        this.listener = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return if (viewType == 1)
             DateItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_program_date_item, parent, false)).apply { setIsRecyclable(false) }
@@ -29,7 +36,7 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(programs[position], programs.getCurrentProgramId())
+        holder.bind(programs[position], programs.getCurrentProgramId(), listener)
     }
 
     override fun getItemCount(): Int {
@@ -50,17 +57,28 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
         return programs[position].gmtTime
     }
 
+    interface Listener{
+        fun onProgramSelected(program: Program, position: Int)
+        fun onVerticalFocusChanged(position: Int)
+    }
+
     open class ItemViewHolder(view: View): RecyclerView.ViewHolder(view){
 
         private var binding = RecyclerViewProgramItemBinding.bind(view)
 
-        open fun bind(program: Program, currentProgramId: Long) {
-            binding.programTime.text = program.getTimeStart()
-            binding.programName.text = program.name
+        open fun bind(program: Program, currentProgramId: Long, listener: Listener?) {
+            binding.programDate.text = "${program.getTimeStart()}   ${program.name}"
+
+            binding.programDate.isClickable = true
+            binding.programDate.setOnClickListener { listener?.onProgramSelected(program, absoluteAdapterPosition) }
+            binding.programDate.setOnFocusChangeListener { _, hasFocus ->
+                if(hasFocus)
+                    listener?.onVerticalFocusChanged(absoluteAdapterPosition)
+            }
 
             if(program.gmtTime == currentProgramId){
-                binding.programTime.setTextColor(Color.WHITE)
-                binding.programName.setTextColor(Color.WHITE)
+                binding.programDate.setTextColor(Color.WHITE)
+                binding.programDate.requestFocus()
             }
         }
     }
@@ -68,8 +86,8 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     class DateItemViewHolder(view: View): ItemViewHolder(view){
         private var binding = RecyclerViewProgramDateItemBinding.bind(view)
 
-         override fun bind(program: Program, currentProgramId: Long) {
-            super.bind(program, currentProgramId)
+         override fun bind(program: Program, currentProgramId: Long, listener: Listener?) {
+            super.bind(program, currentProgramId, listener)
             binding.programDay.text = program.getDay()
         }
     }

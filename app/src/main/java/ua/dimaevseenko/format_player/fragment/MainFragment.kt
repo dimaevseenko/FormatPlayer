@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player.fragment
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,5 +55,9 @@ class MainFragment @Inject constructor(): Fragment() {
         getFragment<SplashFragment>(SplashFragment.TAG)?.let { return it.onBackPressed() }
         getFragment<AuthorizationFragment>(AuthorizationFragment.TAG)?.let { return it.onBackPressed() }
         return false
+    }
+
+    fun onKeyDown(keyCode: Int, event: KeyEvent?){
+        getFragment<PlayerFragment>(PlayerFragment.TAG)?.onKeyDown(keyCode, event)
     }
 }

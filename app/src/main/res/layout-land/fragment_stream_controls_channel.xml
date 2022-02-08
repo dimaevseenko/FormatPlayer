@@ -18,14 +18,14 @@
         android:nextFocusLeft="@id/hidePlayerImageButton"
         android:nextFocusRight="@id/hidePlayerImageButton"
         android:nextFocusUp="@id/hidePlayerImageButton"
-        android:nextFocusDown="@id/fullscreenImageButton"
+        android:nextFocusDown="@id/programsImageButton"
         android:padding="8dp"
         android:scaleType="fitCenter"
         android:src="@drawable/hide_icon"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="#FFFFFF"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -50,7 +50,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/back_selector"
-        android:nextFocusLeft="@id/fullscreenImageButton"
+        android:nextFocusLeft="@id/programsImageButton"
         android:nextFocusRight="@id/fullscreenImageButton"
         android:nextFocusUp="@id/hidePlayerImageButton"
         android:nextFocusDown="@id/fullscreenImageButton"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/full_screen_icon"
         app:tint="#FFFFFF"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/nameTextView"
@@ -74,7 +74,35 @@
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@id/fullscreenImageButton"
         app:layout_constraintEnd_toStartOf="@id/fullscreenImageButton"
-        app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/programsImageButton"
         app:layout_constraintTop_toTopOf="@id/fullscreenImageButton" />
+
+    <ImageButton
+        android:id="@+id/programsImageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/back_selector"
+        android:padding="4dp"
+        android:scaleType="fitCenter"
+        android:nextFocusRight="@id/fullscreenImageButton"
+        android:nextFocusDown="@id/programsImageButton"
+        android:nextFocusLeft="@id/programsImageButton"
+        android:nextFocusUp="@id/hidePlayerImageButton"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/replay_hd"
+        app:tint="#FFFFFF"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <FrameLayout
+        android:id="@+id/streamProgramsContainer"
+        android:layout_width="300dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/programsImageButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hidePlayerImageButton">
+
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

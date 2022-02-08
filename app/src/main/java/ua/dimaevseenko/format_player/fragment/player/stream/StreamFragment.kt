@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player.fragment.player.stream
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -77,7 +78,7 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
                 playerFragment.dismissStream(this)
     }
 
-    fun onBackPressed(): Boolean{
+    open fun onBackPressed(): Boolean{
         swipeHelper.close()
         return true
     }
@@ -95,5 +96,9 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
     override fun onDestroy() {
         streamPlayer.stop()
         super.onDestroy()
+    }
+
+    fun onKeyDown(keyCode: Int, event: KeyEvent?){
+        getFragment<ControlsFragment>(ControlsFragment.TAG)?.onKeyDown(keyCode, event)
     }
 }
