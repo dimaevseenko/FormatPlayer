@@ -16,7 +16,7 @@ open class ControlsFragment: Fragment() {
 
     private var timer: Job? = null
 
-    private fun startTimer(){
+    internal fun startTimer(){
         timer = CoroutineScope(Dispatchers.Default).launch {
             delay(4000)
             launch(Dispatchers.Main) { dismiss() }
@@ -34,8 +34,7 @@ open class ControlsFragment: Fragment() {
     }
 
     override fun onDestroy() {
-        timer?.cancel()
-        timer = null
+        stopTimer()
         super.onDestroy()
     }
 
@@ -52,8 +51,11 @@ open class ControlsFragment: Fragment() {
     }
 
     fun onKeyDown(keyCode: Int, event: KeyEvent?){
+        stopTimer()
+    }
+
+    internal fun stopTimer(){
         timer?.cancel()
         timer = null
-        startTimer()
     }
 }

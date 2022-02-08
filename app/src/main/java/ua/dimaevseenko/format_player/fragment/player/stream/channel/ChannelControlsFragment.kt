@@ -1,5 +1,6 @@
 package ua.dimaevseenko.format_player.fragment.player.stream.channel
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,11 +51,25 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
 
     private fun programs(){
         binding.streamProgramsContainer?.let {
-            if(getFragment<ChannelProgramsFragment>(ChannelProgramsFragment.TAG) == null)
+            if(getFragment<ChannelProgramsFragment>(ChannelProgramsFragment.TAG) == null) {
                 addFragment(it.id, channelProgramsFragment, ChannelProgramsFragment.TAG, true)
-            else
-                removeFragment(getFragment<ChannelProgramsFragment>(ChannelProgramsFragment.TAG)!!, true, FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+                stopTimer()
+            }
+            else {
+                removeFragment(
+                    getFragment<ChannelProgramsFragment>(ChannelProgramsFragment.TAG)!!,
+                    true,
+                    FragmentTransaction.TRANSIT_FRAGMENT_CLOSE
+                )
+                startTimer()
+            }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if(getFragment<ChannelProgramsFragment>(ChannelProgramsFragment.TAG) != null && resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+            stopTimer()
     }
 
     override fun onResponse(result: ProgramsResult) {
