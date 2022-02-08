@@ -19,16 +19,16 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     @Assisted("programs")
     private val programs: Programs,
     private val context: Context
-): RecyclerView.Adapter<ChannelProgramsRecyclerAdapter.ViewHolder>() {
+): RecyclerView.Adapter<ChannelProgramsRecyclerAdapter.ItemViewHolder>() {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return if (viewType == 1)
             DateItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_program_date_item, parent, false)).apply { setIsRecyclable(false) }
         else
             ItemViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_program_item, parent, false)).apply { setIsRecyclable(false) }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.bind(programs[position], programs.getCurrentProgramId())
     }
 
@@ -50,15 +50,11 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
         return programs[position].gmtTime
     }
 
-    abstract class ViewHolder(view: View): RecyclerView.ViewHolder(view){
-        abstract fun bind(program: Program, currentProgramId: Long)
-    }
-
-    open class ItemViewHolder(view: View): ViewHolder(view){
+    open class ItemViewHolder(view: View): RecyclerView.ViewHolder(view){
 
         private var binding = RecyclerViewProgramItemBinding.bind(view)
 
-        override fun bind(program: Program, currentProgramId: Long) {
+        open fun bind(program: Program, currentProgramId: Long) {
             binding.programTime.text = program.getTimeStart()
             binding.programName.text = program.name
 
@@ -72,7 +68,7 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     class DateItemViewHolder(view: View): ItemViewHolder(view){
         private var binding = RecyclerViewProgramDateItemBinding.bind(view)
 
-        override fun bind(program: Program, currentProgramId: Long) {
+         override fun bind(program: Program, currentProgramId: Long) {
             super.bind(program, currentProgramId)
             binding.programDay.text = program.getDay()
         }

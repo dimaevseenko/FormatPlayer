@@ -32,6 +32,6 @@ class CameraControlsFragment @Inject constructor(): ControlsFragment() {
 
         binding.titleTextView.text = getStream().getStreamTitle()
         binding.hidePlayerImageButton.setOnClickListener { dismissStream() }
-        binding.nameTextView.text = "camera"
+        binding.nameTextView.text = "FORMAT MARIUPOL"
     }
 }

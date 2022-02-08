@@ -10,6 +10,7 @@ import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentProfileBinding
 import ua.dimaevseenko.format_player.viewmodel.RequestViewModel
 import ua.dimaevseenko.format_player.base.AnimatedFragment
+import ua.dimaevseenko.format_player.model.LastWatchedChannels
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.UnLoginResult
 import javax.inject.Inject
@@ -56,6 +57,7 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(), Server.Listener
     private fun unLoginSuccess(){
         Config.Values.login = null
         Config.Values.mToken = null
+        Config.Values.lastWatchedChannelsIds = LastWatchedChannels()
         Config.Values.save(requireContext())
         mainFragment.authFragment()
     }
