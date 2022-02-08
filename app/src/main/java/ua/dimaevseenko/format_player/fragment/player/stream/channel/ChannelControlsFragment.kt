@@ -55,15 +55,18 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
                 addFragment(it.id, channelProgramsFragment, ChannelProgramsFragment.TAG, true)
                 stopTimer()
             }
-            else {
-                removeFragment(
-                    getFragment<ChannelProgramsFragment>(ChannelProgramsFragment.TAG)!!,
-                    true,
-                    FragmentTransaction.TRANSIT_FRAGMENT_CLOSE
-                )
-                startTimer()
-            }
+            else
+                destroyPrograms()
         }
+    }
+
+    private fun destroyPrograms(){
+        removeFragment(
+            getFragment<ChannelProgramsFragment>(ChannelProgramsFragment.TAG)!!,
+            true,
+            FragmentTransaction.TRANSIT_FRAGMENT_CLOSE
+        )
+        startTimer()
     }
 
     override fun onResume() {
@@ -85,7 +88,7 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
 
     fun onBackPressed(): Boolean{
         getFragment<ChannelProgramsFragment>(ChannelProgramsFragment.TAG)?.let {
-            removeFragment(it, true, FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+            destroyPrograms()
             binding.programsImageButton?.requestFocus()
             return true
         }
