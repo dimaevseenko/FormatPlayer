@@ -2,6 +2,7 @@ package ua.dimaevseenko.format_player.fragment.player.stream.channel
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -96,5 +97,10 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
             return true
         }
         return false
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?) {
+        if(getFragment<ChannelProgramsFragment>(ChannelProgramsFragment.TAG) == null)
+            super.onKeyDown(keyCode, event)
     }
 }

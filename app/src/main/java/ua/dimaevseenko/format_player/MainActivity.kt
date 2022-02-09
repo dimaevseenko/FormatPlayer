@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player
 
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.base.BaseActivity

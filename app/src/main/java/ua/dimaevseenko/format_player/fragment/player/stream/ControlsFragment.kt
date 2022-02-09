@@ -50,8 +50,9 @@ open class ControlsFragment: Fragment() {
         return (parentFragment as StreamFragment).getStream()
     }
 
-    fun onKeyDown(keyCode: Int, event: KeyEvent?){
+    open fun onKeyDown(keyCode: Int, event: KeyEvent?){
         stopTimer()
+        startTimer()
     }
 
     internal fun stopTimer(){
