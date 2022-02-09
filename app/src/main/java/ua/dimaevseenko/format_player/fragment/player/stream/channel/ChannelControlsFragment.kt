@@ -50,6 +50,9 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
     }
 
     private fun programs(){
+        if(programsViewModel.getPrograms(getStream().getStreamId()) == null)
+            return
+
         binding.streamProgramsContainer?.let {
             if(getFragment<ChannelProgramsFragment>(ChannelProgramsFragment.TAG) == null) {
                 addFragment(it.id, channelProgramsFragment, ChannelProgramsFragment.TAG, true)

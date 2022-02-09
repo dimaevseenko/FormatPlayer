@@ -9,6 +9,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ua.dimaevseenko.format_player.model.Program
+import ua.dimaevseenko.format_player.model.Programs
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.ProgramsResult
 import javax.inject.Inject
@@ -44,24 +45,28 @@ class ProgramsViewModel @Inject constructor(): ViewModel(), Callback<ProgramsRes
     private var lastId = "0"
 
     fun getCurrentProgram(channelId: String): Program?{
-        return liveData.value?.get(channelId)?.requirePrograms()?.getCurrentProgram()
+        return getPrograms(channelId)?.getCurrentProgram()
     }
 
-    fun getPrograms(channelId: String){
+    fun getPrograms(channelId: String): Programs?{
         lastId = channelId
 
         if(liveData.value == null)
             liveData.value = ArrayMap()
 
-        if(liveData.value!![lastId] != null){
-            listenersOnResult(liveData.value!![lastId]!!)
-            return
+        if(liveData.value!![channelId] != null){
+            return liveData.value!![channelId]!!.requirePrograms()
         }
 
+        loadPrograms(channelId)
+        return null
+    }
+
+    private fun loadPrograms(channelId: String){
         serverRequest.request(
             Bundle().apply {
                 putString("action", "getProgramsById")
-                putString("id", lastId)
+                putString("id", channelId)
             }, this
         )
     }

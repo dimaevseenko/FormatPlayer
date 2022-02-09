@@ -54,13 +54,6 @@ class VerticalChannelRecyclersAdapter @AssistedInject constructor(
         return genres.size
     }
 
-    override fun getItemViewType(position: Int): Int {
-        return if(channels.getChannelsForGenre(genres[position].id).size>0)
-            0
-        else
-            1
-    }
-
     fun updateLastChannels(recyclerView: RecyclerView, channels: Channels){
         if(recyclerView.adapter is HorizontalChannelsAdapter)
             (recyclerView.adapter as HorizontalChannelsAdapter).updateChannels(channels)
@@ -82,11 +75,6 @@ class VerticalChannelRecyclersAdapter @AssistedInject constructor(
 
             binding.genreName.text = genre.name
             initRecycler(context, horizontalChannelsAdapter)
-
-            if(itemViewType == 1) {
-                binding.root.visibility = View.GONE
-                binding.root.layoutParams = ViewGroup.LayoutParams(0, 0)
-            }
         }
 
         private fun initRecycler(context: Context, horizontalChannelsAdapter: HorizontalChannelsAdapter){
@@ -120,7 +108,7 @@ class VerticalChannelRecyclersAdapter @AssistedInject constructor(
         private fun getLinearSmoothScroller(): LinearSmoothScroller {
             return object : LinearSmoothScroller(context){
                 override fun getHorizontalSnapPreference(): Int {
-                    return LinearSmoothScroller.SNAP_TO_START
+                    return SNAP_TO_START
                 }
             }
         }

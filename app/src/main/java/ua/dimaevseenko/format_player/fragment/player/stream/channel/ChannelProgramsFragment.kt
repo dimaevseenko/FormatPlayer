@@ -52,7 +52,9 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
         else
             (parentFragment as ChannelControlsFragment).getStream()
 
-        programsViewModel.getPrograms(stream.getStreamId())
+        programsViewModel.getPrograms(stream.getStreamId())?.let {
+            loadRecycler(it)
+        }
     }
 
     override fun onResponse(result: ProgramsResult) {
