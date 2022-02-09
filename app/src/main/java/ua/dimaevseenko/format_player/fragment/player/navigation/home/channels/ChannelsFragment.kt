@@ -77,6 +77,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
                 }
         }
     }
+
     private fun createTab(genre: Genre): TabLayout.Tab{
         return binding.channelsGenresTabLayout!!.newTab().apply {
             this.text = genre.name

@@ -27,7 +27,7 @@ data class Channel(
     val catchup: String,
 
     @SerializedName("rewind")
-    val rewind: String,
+    val rewind: String?,
 
     @SerializedName("server_time")
     val serverTime: String
