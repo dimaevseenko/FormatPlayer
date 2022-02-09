@@ -59,6 +59,7 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
         response.body()?.let { it ->
             it.genres.add(0, Genre("0", context.resources.getString(R.string.all)))
             it.genres.add(0, Genre("-1", context.resources.getString(R.string.last)))
+            it.genres = it.genres.noEmpty(it.channels)
             it.channels.sortBy { channel -> channel.id.toInt() }
             it.cams.sortBy { cam -> cam.id.toInt() }
             playlistLiveData.value = it

@@ -19,4 +19,13 @@ class Genres: ArrayList<Genre>(){
         }
         return false
     }
+
+    fun noEmpty(channels: Channels): Genres{
+        val genres = Genres()
+        forEach { genre ->
+            if(channels.getChannelsForGenre(genre.id).size>0 || genre.id == "-1")
+                genres.add(genre)
+        }
+        return genres
+    }
 }

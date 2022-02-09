@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.size
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
@@ -76,7 +77,6 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
                 }
         }
     }
-
     private fun createTab(genre: Genre): TabLayout.Tab{
         return binding.channelsGenresTabLayout!!.newTab().apply {
             this.text = genre.name
@@ -153,8 +153,13 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
 
         val smoothScroller = getLinearSmoothScroller()
 
-        if(position>0) {
-            smoothScroller.targetPosition = position - 1
+        val firstVisible = lm.findFirstCompletelyVisibleItemPosition()
+        val lastVisible = lm.findLastCompletelyVisibleItemPosition()
+
+        val itemsVisible = (lastVisible - firstVisible)
+
+        if(position >= itemsVisible) {
+            smoothScroller.targetPosition = position - itemsVisible
             lm.startSmoothScroll(smoothScroller)
         }
     }

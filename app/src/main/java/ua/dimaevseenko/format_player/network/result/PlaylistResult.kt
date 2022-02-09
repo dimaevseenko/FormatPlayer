@@ -16,7 +16,7 @@ data class PlaylistResult(
     val channels: Channels,
 
     @SerializedName("genres")
-    val genres: Genres,
+    var genres: Genres,
 
     @SerializedName("cams")
     val cams: Cams
