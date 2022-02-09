@@ -35,11 +35,19 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
         return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_channels_horizontal_item, parent, false), channelScaleAnimator)
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return if(position == 0)
+            1
+        else if(position == channels.size-1)
+            2
+        else
+            0
+    }
+
     class ViewHolder(view: View, private val channelScaleAnimator: ChannelScaleAnimator): RecyclerChannelsAdapter.ViewHolder(view){
         private var binding = RecyclerViewChannelsHorizontalItemBinding.bind(view)
 
         override fun bind(channel: Channel, listener: RecyclerChannelsAdapter.Listener?) {
-
             binding.channelImageView.setImageBitmap(channel.imageBitmap)
             binding.channelLayout.setOnClickListener { listener?.onSelectedChannel(channel, absoluteAdapterPosition, binding.channelLayout) }
             binding.channelLayout.setOnFocusChangeListener { _, hasFocus ->
@@ -51,6 +59,11 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
                 }else
                     channelScaleAnimator.animate(binding.card, false)
             }
+
+            if(itemViewType == 1)
+                binding.channelLayout.nextFocusLeftId = binding.channelLayout.id
+            else if(itemViewType == 2)
+                binding.channelLayout.nextFocusRightId = binding.channelLayout.id
         }
     }
 
