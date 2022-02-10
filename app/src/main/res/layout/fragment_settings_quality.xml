@@ -32,29 +32,21 @@
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
-            android:id="@+id/qualityLayout"
+            android:id="@+id/fullHdLayout"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/settings_item_selector"
             android:clickable="true"
             android:focusable="true"
+            android:nextFocusUp="@id/fullHdLayout"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="left|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/swipeCardView">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="8dp"
-                android:padding="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_settings_filll"
-                app:tint="@color/subtext" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -70,14 +62,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:fontFamily="@font/inter"
-                android:text="TextView"
+                android:text="@string/full_hd"
                 android:textColor="@color/subtext"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/hdLayout"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:background="@drawable/settings_item_selector"
@@ -88,17 +80,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/qualityLayout">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="8dp"
-                android:padding="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_settings_filll"
-                app:tint="@color/subtext" />
+            app:layout_constraintTop_toBottomOf="@+id/fullHdLayout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -114,37 +96,130 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:fontFamily="@font/inter"
-                android:text="TextView"
+                android:text="@string/hd"
                 android:textColor="@color/subtext"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/sdLayout"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/settings_item_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/hdLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/inter"
+                android:text="@string/quality"
+                android:textColor="@color/subtext_variant"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/inter"
+                android:text="@string/sd"
+                android:textColor="@color/subtext"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/midLayout"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/settings_item_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sdLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/inter"
+                android:text="@string/quality"
+                android:textColor="@color/subtext_variant"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/inter"
+                android:text="@string/mid"
+                android:textColor="@color/subtext"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/lowLayout"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/settings_item_selector"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="left|center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/midLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/inter"
+                android:text="@string/quality"
+                android:textColor="@color/subtext_variant"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="4dp"
+                android:fontFamily="@font/inter"
+                android:text="@string/low"
+                android:textColor="@color/subtext"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/autoLayout"
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_marginBottom="8dp"
             android:background="@drawable/settings_item_selector"
             android:clickable="true"
             android:focusable="true"
+            android:nextFocusDown="@id/autoLayout"
             android:foreground="?android:attr/selectableItemBackground"
             android:gravity="left|center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.49"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
-
-            <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginLeft="8dp"
-                android:padding="6dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_settings_filll"
-                app:tint="@color/subtext" />
+            app:layout_constraintTop_toBottomOf="@id/lowLayout">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -160,7 +235,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="4dp"
                 android:fontFamily="@font/inter"
-                android:text="TextView"
+                android:text="@string/auto"
                 android:textColor="@color/subtext"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

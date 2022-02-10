@@ -24,7 +24,6 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
     private lateinit var programsViewModel: ProgramsViewModel
 
     @Inject lateinit var channelProgramsFragment: ChannelProgramsFragment
-    @Inject lateinit var channelSettingsFragment: ChannelSettingsFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentStreamControlsChannelBinding.bind(inflater.inflate(R.layout.fragment_stream_controls_channel, container, false))
@@ -53,10 +52,12 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
     }
 
     private fun settings(){
-        channelSettingsFragment.arguments = Bundle().apply {
-            putParcelable("stream", getStream())
+        appComponent.createChannelSettingsFragment().apply {
+            arguments = Bundle().apply {
+                putParcelable("stream", getStream())
+            }
+            show(this@ChannelControlsFragment.parentFragmentManager, ChannelSettingsFragment.TAG)
         }
-        channelSettingsFragment.show(parentFragmentManager, ChannelSettingsFragment.TAG)
     }
 
     private fun programs(){

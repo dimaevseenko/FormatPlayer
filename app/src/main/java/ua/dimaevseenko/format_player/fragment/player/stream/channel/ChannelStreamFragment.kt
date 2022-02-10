@@ -1,21 +1,15 @@
 package ua.dimaevseenko.format_player.fragment.player.stream.channel
 
-import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.exoplayer2.ui.PlayerView
-import dagger.Lazy
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentStreamChannelBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.ControlsFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
-import ua.dimaevseenko.format_player.model.Programs
-import ua.dimaevseenko.format_player.network.Server
-import ua.dimaevseenko.format_player.network.result.ProgramsResult
 import ua.dimaevseenko.format_player.viewmodel.ProgramsViewModel
 import javax.inject.Inject
 

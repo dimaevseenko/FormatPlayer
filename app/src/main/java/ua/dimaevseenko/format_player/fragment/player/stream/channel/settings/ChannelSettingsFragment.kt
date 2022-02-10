@@ -9,7 +9,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentSettingsBinding
+import ua.dimaevseenko.format_player.fragment.player.stream.channel.ChannelControlsFragment
+import ua.dimaevseenko.format_player.fragment.player.stream.channel.ChannelStreamFragment
 import ua.dimaevseenko.format_player.isTV
+import ua.dimaevseenko.format_player.model.Quality
 import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
 
@@ -21,8 +24,6 @@ class ChannelSettingsFragment @Inject constructor(): BottomSheetDialogFragment()
     }
 
     private lateinit var binding: FragmentSettingsBinding
-
-    private lateinit var stream: Stream
 
     @Inject lateinit var settingsSwipeHelperFactory: SettingsSwipeHelper.Factory
     private lateinit var settingsSwipeHelper: SettingsSwipeHelper
@@ -40,7 +41,6 @@ class ChannelSettingsFragment @Inject constructor(): BottomSheetDialogFragment()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
-        stream = arguments?.getParcelable("stream")!!
 
         settingsSwipeHelper = settingsSwipeHelperFactory.createSwipeHelper(binding.rootContent).apply {
             setListener(this@ChannelSettingsFragment)
@@ -49,7 +49,20 @@ class ChannelSettingsFragment @Inject constructor(): BottomSheetDialogFragment()
         if(requireContext().isTV)
             binding.qualityLayout.requestFocus()
 
-        binding.qualityTextView.text = stream.getQualityType().toString()
+        initView()
+    }
+
+    private fun initView(){
+        val quality = (parentFragment as ChannelStreamFragment).getStreamQuality()
+
+        val qualityString = if(quality == Quality.FULL_HD)
+            getString(R.string.full_hd)
+        else if(quality == Quality.HD)
+            getString(R.string.hd)
+        else
+            (parentFragment as ChannelStreamFragment).getStreamQuality().toString()
+
+        binding.qualityTextView.text = qualityString
         binding.swipeCardView.setOnTouchListener(settingsSwipeHelper)
         binding.qualityLayout.setOnClickListener { quality() }
         binding.root.setOnClickListener { dismiss() }

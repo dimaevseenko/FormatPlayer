@@ -31,4 +31,10 @@
     <string name="player">PLAYER</string>
     <string name="last">Последние</string>
     <string name="quality">Качество • </string>
+    <string name="auto">Авто</string>
+    <string name="full_hd">Full HD 1080p</string>
+    <string name="hd">HD 720p</string>
+    <string name="sd">SD</string>
+    <string name="mid">MID</string>
+    <string name="low">LOW</string>
 </resources>

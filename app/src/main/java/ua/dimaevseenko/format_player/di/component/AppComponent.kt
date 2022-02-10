@@ -57,6 +57,8 @@ interface AppComponent {
     fun createChannelStreamFragment(): ChannelStreamFragment
     fun createCameraStreamFragment(): CameraStreamFragment
 
+    fun createChannelSettingsFragment(): ChannelSettingsFragment
+
     @FocusAnimation
     fun createFocusScaleAnimation(): ScaleAnimation
 

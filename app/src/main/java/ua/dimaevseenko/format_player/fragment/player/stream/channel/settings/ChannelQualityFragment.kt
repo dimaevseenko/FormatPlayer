@@ -11,9 +11,14 @@ import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentSettingsQualityBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.SwipeHelper
+import ua.dimaevseenko.format_player.fragment.player.stream.channel.ChannelStreamFragment
+import ua.dimaevseenko.format_player.isTV
+import ua.dimaevseenko.format_player.model.Quality
+import ua.dimaevseenko.format_player.model.Stream
+import ua.dimaevseenko.format_player.model.Type
 import javax.inject.Inject
 
-class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(), SettingsSwipeHelper.Listener {
+class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(), SettingsSwipeHelper.Listener{
 
     companion object {
         const val TAG = "ChannelQualityFragment"
@@ -29,18 +34,8 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
         return Dialog(requireContext(), R.style.Theme_FormatPlayer_BottomSheetDialog)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentSettingsQualityBinding.bind(
-            inflater.inflate(
-                R.layout.fragment_settings_quality,
-                container,
-                false
-            )
-        )
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = FragmentSettingsQualityBinding.bind(inflater.inflate(R.layout.fragment_settings_quality, container, false))
         return binding.root
     }
 
@@ -52,8 +47,32 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
                 setListener(this@ChannelQualityFragment)
             }
 
+        if(requireContext().isTV)
+            binding.autoLayout.requestFocus()
+
+        initView()
+    }
+
+    private fun initView(){
         binding.root.setOnClickListener { dismiss() }
         binding.swipeCardView.setOnTouchListener(settingsSwipeHelper)
+
+        if((parentFragment as ChannelStreamFragment).getStream().getStreamType() == Type.SD){
+            binding.fullHdLayout.visibility = View.GONE
+            binding.hdLayout.visibility = View.GONE
+        }
+
+        binding.fullHdLayout.setOnClickListener{ setQuality(Quality.FULL_HD) }
+        binding.hdLayout.setOnClickListener{ setQuality(Quality.HD) }
+        binding.sdLayout.setOnClickListener{ setQuality(Quality.SD) }
+        binding.midLayout.setOnClickListener{ setQuality(Quality.MID) }
+        binding.lowLayout.setOnClickListener{ setQuality(Quality.LOW) }
+        binding.autoLayout.setOnClickListener{  }
+    }
+
+    private fun setQuality(quality: Quality){
+        (parentFragment as ChannelStreamFragment).setStreamQuality(quality)
+        dismiss()
     }
 
     override fun onSwiped(close: Boolean) {

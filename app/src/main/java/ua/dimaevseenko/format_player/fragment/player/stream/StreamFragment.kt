@@ -5,8 +5,10 @@ import android.view.KeyEvent
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import com.google.android.exoplayer2.Format
 import com.google.android.exoplayer2.ui.PlayerView
 import ua.dimaevseenko.format_player.*
+import ua.dimaevseenko.format_player.model.Quality
 import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
 
@@ -56,6 +58,18 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
     internal abstract fun getControlsFragment(): ControlsFragment
 
     fun getStream() = stream
+
+    fun getStreamVideoFormat(): Format?{
+        return streamPlayer.getVideoFormat()
+    }
+
+    fun getStreamQuality(): Quality{
+        return streamPlayer.getQuality()
+    }
+
+    fun setStreamQuality(quality: Quality){
+        streamPlayer.setQuality(quality)
+    }
 
     fun streamControls(){
         val controlsFragment = getFragment<ControlsFragment>(ControlsFragment.TAG)

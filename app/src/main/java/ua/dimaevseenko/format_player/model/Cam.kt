@@ -60,8 +60,8 @@ data class Cam(
         return name
     }
 
-    override fun getQualityType(): Quality {
-        return Quality.HD
+    override fun getStreamType(): Type {
+        return Type.CAMERA
     }
 }
 
