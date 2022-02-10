@@ -72,8 +72,12 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
         if((parentFragment as ChannelStreamFragment).getStream().getStreamType() == Type.SD){
             binding.fullHdLayout.visibility = View.GONE
             binding.hdLayout.visibility = View.GONE
-            (binding.sdLayout.layoutParams as ViewGroup.MarginLayoutParams).apply {
-                topMargin = getPxFromDp(8f)
+
+            binding.sdLayout.apply {
+                (layoutParams as ViewGroup.MarginLayoutParams).apply {
+                    topMargin = getPxFromDp(8f)
+                }
+                nextFocusUpId = id
             }
         }
 
@@ -82,7 +86,7 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
         binding.sdLayout.setOnClickListener{ setQuality(Quality.SD) }
         binding.midLayout.setOnClickListener{ setQuality(Quality.MID) }
         binding.lowLayout.setOnClickListener{ setQuality(Quality.LOW) }
-        binding.autoLayout.setOnClickListener{ setQuality(Quality.FULL_HD) }
+        binding.autoLayout.setOnClickListener{ setQuality(Quality.AUTO) }
     }
 
     private fun setQuality(quality: Quality){

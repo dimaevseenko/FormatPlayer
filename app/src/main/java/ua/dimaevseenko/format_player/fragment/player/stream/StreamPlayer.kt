@@ -42,7 +42,6 @@ class StreamPlayer @AssistedInject constructor(
             Quality.HD -> 2692000
             Quality.FULL_HD -> 4192000
             Quality.AUTO -> 0
-            else -> 0
         }
 
         setQualityBitrate(bitrate)
@@ -63,6 +62,12 @@ class StreamPlayer @AssistedInject constructor(
     }
 
     fun setQualityBitrate(bitrate: Int){
+        if(bitrate == 0) {
+            player.trackSelector?.parameters =
+                DefaultTrackSelector(context).buildUponParameters().build()
+            return
+        }
+
         player.trackSelector?.parameters = DefaultTrackSelector(context).buildUponParameters().setMaxVideoBitrate(
             bitrate
         ).build()
