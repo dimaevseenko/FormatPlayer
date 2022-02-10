@@ -2,10 +2,14 @@ package ua.dimaevseenko.format_player.fragment.player.stream.channel.settings
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.view.MarginLayoutParamsCompat
+import androidx.core.view.marginTop
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
@@ -53,6 +57,14 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
         initView()
     }
 
+    private fun getPxFromDp(dp: Float): Int{
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            resources.displayMetrics
+        ).toInt()
+    }
+
     private fun initView(){
         binding.root.setOnClickListener { dismiss() }
         binding.swipeCardView.setOnTouchListener(settingsSwipeHelper)
@@ -60,6 +72,9 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
         if((parentFragment as ChannelStreamFragment).getStream().getStreamType() == Type.SD){
             binding.fullHdLayout.visibility = View.GONE
             binding.hdLayout.visibility = View.GONE
+            (binding.sdLayout.layoutParams as ViewGroup.MarginLayoutParams).apply {
+                topMargin = getPxFromDp(8f)
+            }
         }
 
         binding.fullHdLayout.setOnClickListener{ setQuality(Quality.FULL_HD) }
