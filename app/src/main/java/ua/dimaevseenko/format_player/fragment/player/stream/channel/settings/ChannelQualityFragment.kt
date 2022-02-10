@@ -67,7 +67,7 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
         binding.sdLayout.setOnClickListener{ setQuality(Quality.SD) }
         binding.midLayout.setOnClickListener{ setQuality(Quality.MID) }
         binding.lowLayout.setOnClickListener{ setQuality(Quality.LOW) }
-        binding.autoLayout.setOnClickListener{  }
+        binding.autoLayout.setOnClickListener{ setQuality(Quality.FULL_HD) }
     }
 
     private fun setQuality(quality: Quality){
