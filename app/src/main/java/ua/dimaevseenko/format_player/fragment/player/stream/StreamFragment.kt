@@ -112,6 +112,19 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
         super.onDestroy()
     }
 
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        savedInstanceState?.let {
+            streamPlayer.setQualityBitrate(it.getInt("quality"))
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        streamPlayer.getVideoFormat()?.let {
+            outState.putInt("quality", it.bitrate)
+        }
+    }
+
     fun onKeyDown(keyCode: Int, event: KeyEvent?){
         getFragment<ControlsFragment>(ControlsFragment.TAG)?.onKeyDown(keyCode, event)
     }
