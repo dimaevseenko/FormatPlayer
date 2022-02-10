@@ -67,7 +67,7 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
 
     private fun initView(){
         binding.root.setOnClickListener { dismiss() }
-        binding.swipeCardView.setOnTouchListener(settingsSwipeHelper)
+        binding.rootContent.setOnTouchListener(settingsSwipeHelper)
 
         if((parentFragment as ChannelStreamFragment).getStream().getStreamType() == Type.SD){
             binding.fullHdLayout.visibility = View.GONE

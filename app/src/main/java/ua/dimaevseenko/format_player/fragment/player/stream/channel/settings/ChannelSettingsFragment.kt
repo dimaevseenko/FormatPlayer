@@ -59,11 +59,13 @@ class ChannelSettingsFragment @Inject constructor(): BottomSheetDialogFragment()
             getString(R.string.full_hd)
         else if(quality == Quality.HD)
             getString(R.string.hd)
+        else if(quality == Quality.AUTO)
+            getString(R.string.auto)
         else
             (parentFragment as ChannelStreamFragment).getStreamQuality().toString()
 
         binding.qualityTextView.text = qualityString
-        binding.swipeCardView.setOnTouchListener(settingsSwipeHelper)
+        binding.rootContent.setOnTouchListener(settingsSwipeHelper)
         binding.qualityLayout.setOnClickListener { quality() }
         binding.root.setOnClickListener { dismiss() }
     }
