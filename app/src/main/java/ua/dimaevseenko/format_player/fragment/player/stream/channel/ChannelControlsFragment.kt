@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentStreamControlsChannelBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.ControlsFragment
-import ua.dimaevseenko.format_player.model.Program
+import ua.dimaevseenko.format_player.fragment.player.stream.channel.settings.ChannelSettingsFragment
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.ProgramsResult
 import ua.dimaevseenko.format_player.viewmodel.ProgramsViewModel
@@ -24,6 +24,7 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
     private lateinit var programsViewModel: ProgramsViewModel
 
     @Inject lateinit var channelProgramsFragment: ChannelProgramsFragment
+    @Inject lateinit var channelSettingsFragment: ChannelSettingsFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentStreamControlsChannelBinding.bind(inflater.inflate(R.layout.fragment_stream_controls_channel, container, false))
@@ -47,7 +48,15 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
         binding.hidePlayerImageButton.setOnClickListener { dismissStream() }
         programsViewModel.getCurrentProgram(getStream().getStreamId())?.let { binding.nameTextView.text = it.name }
 
+        binding.settingsImageButton.setOnClickListener { settings() }
         binding.programsImageButton?.let { it.setOnClickListener { programs() } }
+    }
+
+    private fun settings(){
+        channelSettingsFragment.arguments = Bundle().apply {
+            putParcelable("stream", getStream())
+        }
+        channelSettingsFragment.show(parentFragmentManager, ChannelSettingsFragment.TAG)
     }
 
     private fun programs(){

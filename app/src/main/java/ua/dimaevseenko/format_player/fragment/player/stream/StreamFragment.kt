@@ -60,7 +60,7 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
     fun streamControls(){
         val controlsFragment = getFragment<ControlsFragment>(ControlsFragment.TAG)
         if(controlsFragment == null)
-            addFragment(R.id.streamContainer, getControlsFragment(), ControlsFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+            replaceFragment(R.id.streamContainer, getControlsFragment(), ControlsFragment.TAG, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         else {
             removeFragment(controlsFragment, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
             requestFocus()

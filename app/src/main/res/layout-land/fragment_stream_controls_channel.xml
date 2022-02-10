@@ -50,7 +50,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:background="@drawable/back_selector"
-        android:nextFocusLeft="@id/programsImageButton"
+        android:nextFocusLeft="@id/settingsImageButton"
         android:nextFocusRight="@id/fullscreenImageButton"
         android:nextFocusUp="@id/hidePlayerImageButton"
         android:nextFocusDown="@id/fullscreenImageButton"
@@ -58,7 +58,7 @@
         android:scaleType="fitCenter"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/full_screen_icon"
+        app:srcCompat="@drawable/exit_fullscreen_icon"
         app:tint="#FFFFFF"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
@@ -72,10 +72,10 @@
         android:text=""
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/fullscreenImageButton"
-        app:layout_constraintEnd_toStartOf="@id/fullscreenImageButton"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsImageButton"
+        app:layout_constraintEnd_toStartOf="@+id/settingsImageButton"
         app:layout_constraintStart_toEndOf="@+id/programsImageButton"
-        app:layout_constraintTop_toTopOf="@id/fullscreenImageButton" />
+        app:layout_constraintTop_toTopOf="@+id/settingsImageButton" />
 
     <ImageButton
         android:id="@+id/programsImageButton"
@@ -86,7 +86,7 @@
         android:background="@drawable/back_selector"
         android:padding="4dp"
         android:scaleType="fitCenter"
-        android:nextFocusRight="@id/fullscreenImageButton"
+        android:nextFocusRight="@id/settingsImageButton"
         android:nextFocusDown="@id/programsImageButton"
         android:nextFocusLeft="@id/programsImageButton"
         android:nextFocusUp="@id/hidePlayerImageButton"
@@ -105,4 +105,23 @@
         app:layout_constraintTop_toBottomOf="@+id/hidePlayerImageButton">
 
     </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/settingsImageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/back_selector"
+        android:padding="6dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/fullscreenImageButton"
+        app:layout_constraintEnd_toStartOf="@+id/fullscreenImageButton"
+        app:layout_constraintTop_toTopOf="@+id/fullscreenImageButton"
+        app:srcCompat="@drawable/ic_settings"
+        app:tint="#FFFFFF"
+        android:nextFocusUp="@id/settingsImageButton"
+        android:nextFocusDown="@id/settingsImageButton"
+        android:nextFocusRight="@id/fullscreenImageButton"
+        android:nextFocusLeft="@id/programsImageButton"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

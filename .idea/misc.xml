@@ -19,6 +19,7 @@
         <entry key="app/src/main/res/drawable/player_nav_linear_layout_selector.xml" value="0.234375" />
         <entry key="app/src/main/res/drawable/player_nav_selected_item.xml" value="0.234375" />
         <entry key="app/src/main/res/drawable/player_nav_selected_iten.xml" value="0.234375" />
+        <entry key="app/src/main/res/drawable/settings_background.xml" value="0.2328125" />
         <entry key="app/src/main/res/drawable/splash_gradient.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/drawable/test.xml" value="0.234375" />
         <entry key="app/src/main/res/layout-land/fragment_channels.xml" value="0.25" />
@@ -33,7 +34,8 @@
         <entry key="app/src/main/res/layout-land/fragment_stream_camera.xml" value="0.15677083333333333" />
         <entry key="app/src/main/res/layout-land/fragment_stream_channel.xml" value="0.15677083333333333" />
         <entry key="app/src/main/res/layout-land/fragment_stream_controls.xml" value="0.15677083333333333" />
-        <entry key="app/src/main/res/layout-land/fragment_stream_controls_channel.xml" value="0.3667711598746082" />
+        <entry key="app/src/main/res/layout-land/fragment_stream_controls_camera.xml" value="0.335" />
+        <entry key="app/src/main/res/layout-land/fragment_stream_controls_channel.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.19067028985507245" />
         <entry key="app/src/main/res/layout/activity_player.xml" value="0.335" />
         <entry key="app/src/main/res/layout/dialog_fragment_progress.xml" value="0.165" />
@@ -52,12 +54,14 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.17255434782608695" />
         <entry key="app/src/main/res/layout/fragment_programs.xml" value="0.15896739130434784" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_settings.xml" value="0.45" />
+        <entry key="app/src/main/res/layout/fragment_settings_quality.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_stream.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_stream_camera.xml" value="0.13632246376811594" />
         <entry key="app/src/main/res/layout/fragment_stream_channel.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_stream_controls.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_stream_controls_channel.xml" value="0.13632246376811594" />
+        <entry key="app/src/main/res/layout/fragment_stream_controls_channel.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_vidio.xml" value="0.1816123188405797" />
         <entry key="app/src/main/res/layout/recycler_view_cameras_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/recycler_view_channels_horizontal.xml" value="0.335" />

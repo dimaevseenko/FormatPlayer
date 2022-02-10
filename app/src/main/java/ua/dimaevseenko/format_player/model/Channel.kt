@@ -85,8 +85,13 @@ data class Channel(
         return name
     }
 
-    override fun getStreamName(): String? {
-        return null
+    override fun getQualityType(): Quality {
+        return if(type == "sd")
+            Quality.SD
+        else if (type == "hd")
+            Quality.HD
+        else
+            Quality.RADIO
     }
 }
 

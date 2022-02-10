@@ -6,5 +6,9 @@ interface Stream: Parcelable{
     fun getStreamId(): String
     fun getStreamUrl(): String
     fun getStreamTitle(): String
-    fun getStreamName(): String?
+    fun getQualityType(): Quality
+}
+
+enum class Quality{
+    RADIO, SD, HD, AUTO
 }

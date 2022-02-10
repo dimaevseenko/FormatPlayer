@@ -16,4 +16,5 @@
     <color name="playerNavBackground">#26303030</color>
     <color name="subtext">#80EEEEEE</color>
     <color name="subtext_variant">#EEEEEE</color>
+    <color name="subtext_back">#33EEEEEE</color>
 </resources>

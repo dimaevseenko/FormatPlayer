@@ -25,7 +25,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tint="#FFFFFF"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/titleTextView"
@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/full_screen_icon"
         app:tint="#FFFFFF"
-        tools:ignore="SpeakableTextPresentCheck" />
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
     <TextView
         android:id="@+id/nameTextView"
@@ -72,9 +72,23 @@
         android:text=""
         android:textColor="#FFFFFF"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@id/fullscreenImageButton"
-        app:layout_constraintEnd_toStartOf="@id/fullscreenImageButton"
-        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintBottom_toBottomOf="@+id/settingsImageButton"
+        app:layout_constraintEnd_toStartOf="@+id/settingsImageButton"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/fullscreenImageButton" />
+        app:layout_constraintTop_toTopOf="@+id/settingsImageButton" />
+
+    <ImageButton
+        android:id="@+id/settingsImageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="4dp"
+        android:background="@drawable/back_selector"
+        android:padding="6dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/fullscreenImageButton"
+        app:layout_constraintEnd_toStartOf="@+id/fullscreenImageButton"
+        app:layout_constraintTop_toTopOf="@+id/fullscreenImageButton"
+        app:srcCompat="@drawable/ic_settings"
+        app:tint="#FFFFFF"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 </androidx.constraintlayout.widget.ConstraintLayout>

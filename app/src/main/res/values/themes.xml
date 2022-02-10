@@ -102,4 +102,17 @@
         <item name="android:textSize">15sp</item>
         <item name="fontFamily">@font/inter</item>
     </style>
+
+    <style name="Theme.FormatPlayer.BottomSheetDialog" parent="ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Theme.FormatPlayer.BottomSheetStyle</item>
+    </style>
+    
+    <style name="Theme.FormatPlayer.BottomSheetStyle" parent="Widget.MaterialComponents.BottomSheet.Modal">
+        <item name="shapeAppearance">@style/Theme.FormatPlayer.BottomSheetShape</item>
+    </style>
+
+    <style name="Theme.FormatPlayer.BottomSheetShape" parent="ShapeAppearance.MaterialComponents.LargeComponent">
+        <item name="cornerFamily">cut</item>
+        <item name="cornerSize">20dp</item>
+    </style>
 </resources>
