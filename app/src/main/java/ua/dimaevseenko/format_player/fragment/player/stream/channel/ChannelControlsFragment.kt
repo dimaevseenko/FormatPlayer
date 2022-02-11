@@ -1,5 +1,6 @@
 package ua.dimaevseenko.format_player.fragment.player.stream.channel
 
+import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
@@ -47,6 +48,7 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
         binding.hidePlayerImageButton.setOnClickListener { dismissStream() }
         programsViewModel.getCurrentProgram(getStream().getStreamId())?.let { binding.nameTextView.text = it.name }
 
+        binding.fullscreenImageButton.setOnClickListener { fullscreen() }
         binding.settingsImageButton.setOnClickListener { settings() }
         binding.programsImageButton?.let { it.setOnClickListener { programs() } }
     }

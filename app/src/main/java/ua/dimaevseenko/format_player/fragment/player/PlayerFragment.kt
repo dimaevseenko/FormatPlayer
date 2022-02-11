@@ -1,5 +1,6 @@
 package ua.dimaevseenko.format_player.fragment.player
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -68,6 +69,7 @@ class PlayerFragment @Inject constructor(): Fragment() {
             completionStreamFragment?.let { it() }
             removeFragment(streamFragment, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         }
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
     }
 
     fun onBackPressed(): Boolean{

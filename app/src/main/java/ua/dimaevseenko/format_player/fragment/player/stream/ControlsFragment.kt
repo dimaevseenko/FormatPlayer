@@ -1,5 +1,7 @@
 package ua.dimaevseenko.format_player.fragment.player.stream
 
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
@@ -15,12 +17,17 @@ open class ControlsFragment: Fragment() {
     }
 
     private var timer: Job? = null
+    private var isFullscreen = false
 
     internal fun startTimer(){
         timer = CoroutineScope(Dispatchers.Default).launch {
             delay(4000)
             launch(Dispatchers.Main) { dismiss() }
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        isFullscreen = resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
     }
 
     override fun onResume() {
@@ -53,6 +60,15 @@ open class ControlsFragment: Fragment() {
     open fun onKeyDown(keyCode: Int, event: KeyEvent?){
         stopTimer()
         startTimer()
+    }
+
+    internal fun fullscreen(){
+        if(!isFullscreen)
+            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        else
+            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+
+        isFullscreen = !isFullscreen
     }
 
     internal fun stopTimer(){

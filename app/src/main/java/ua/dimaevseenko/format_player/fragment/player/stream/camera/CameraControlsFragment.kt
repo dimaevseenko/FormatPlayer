@@ -22,7 +22,6 @@ class CameraControlsFragment @Inject constructor(): ControlsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initView()
     }
 
@@ -30,6 +29,7 @@ class CameraControlsFragment @Inject constructor(): ControlsFragment() {
         if(requireContext().isTV)
             binding.hidePlayerImageButton.requestFocus()
 
+        binding.fullscreenImageButton.setOnClickListener { fullscreen() }
         binding.titleTextView.text = getStream().getStreamTitle()
         binding.hidePlayerImageButton.setOnClickListener { dismissStream() }
         binding.nameTextView.text = "FORMAT MARIUPOL"
