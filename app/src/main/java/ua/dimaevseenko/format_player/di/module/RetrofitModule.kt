@@ -19,10 +19,11 @@ object RetrofitModule{
 
     @EdgeServer
     @Provides
-    fun provideRetrofitEdge(): Retrofit {
+    fun provideRetrofitEdge(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(Config.SERVER_ADDRESS)
+            .client(okHttpClient)
             .build()
     }
 
