@@ -8,6 +8,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import kotlinx.coroutines.*
 import ua.dimaevseenko.format_player.getFragment
+import ua.dimaevseenko.format_player.isTV
 import ua.dimaevseenko.format_player.model.Stream
 
 open class ControlsFragment: Fragment() {
@@ -63,12 +64,14 @@ open class ControlsFragment: Fragment() {
     }
 
     internal fun fullscreen(){
-        if(!isFullscreen)
-            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
-        else
-            requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+        if(!requireContext().isTV) {
+            if (!isFullscreen)
+                requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+            else
+                requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 
-        isFullscreen = !isFullscreen
+            isFullscreen = !isFullscreen
+        }
     }
 
     internal fun stopTimer(){
