@@ -51,7 +51,7 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
         loadGenres()
 
         binding.channelsGenresTabLayout?.addOnTabSelectedListener(this)
-        binding.backCard.setOnClickListener { dismiss() }
+        binding.backImageView.setOnClickListener { dismiss() }
 
         loadRecycler()
     }
@@ -109,13 +109,13 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     override fun onSelectedChannel(channel: Channel, position: Int, focusedView: View?) {
         addToLast(channel)
 
-        binding.backCard.setOnClickListener {}
+        binding.backImageView.setOnClickListener {}
 
         if(requireContext().isTV)
             focusedView?.let { lastFocusView = it }
 
         playerFragment.startStream(channel){
-            binding.backCard.setOnClickListener { dismiss() }
+            binding.backImageView.setOnClickListener { dismiss() }
             if(requireContext().isTV)
                 lastFocusView?.requestFocus()
         }

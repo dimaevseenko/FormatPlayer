@@ -48,7 +48,7 @@ class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCameras
 
         playlistViewModel = ViewModelProvider(requireActivity()).get(PlaylistViewModel::class.java)
 
-        binding.backCard.setOnClickListener { dismiss() }
+        binding.backImageView.setOnClickListener { dismiss() }
         loadRecycler()
     }
 
@@ -60,12 +60,12 @@ class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCameras
     }
 
     override fun onSelectedCam(cam: Cam, position: Int) {
-        binding.backCard.setOnClickListener {}
+        binding.backImageView.setOnClickListener {}
         if(requireContext().isTV)
             lastFocusView = binding.recyclerView.focusedChild
 
         playerFragment.startStream(cam){
-            binding.backCard.setOnClickListener { dismiss() }
+            binding.backImageView.setOnClickListener { dismiss() }
             if(requireContext().isTV)
                 lastFocusView.requestFocus()
         }

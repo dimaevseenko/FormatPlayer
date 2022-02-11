@@ -6,31 +6,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:background="@drawable/background_land" >
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/backCard"
-        style="@style/Theme.FormatPlayer.ClickableCardView"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+    <ImageView
+        android:id="@+id/backImageView"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="4dp"
+        android:rotation="180"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="30dp"
-                android:paddingLeft="4dp"
-                android:paddingEnd="4dp"
-                app:srcCompat="@drawable/ic_arrow_reverse" />
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+        app:srcCompat="@drawable/ic_circle"
+        app:tint="@color/back_image_button_selector"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,9 +30,9 @@
         android:text="@string/channels"
         android:textColor="@color/white"
         android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/backCard"
-        app:layout_constraintStart_toEndOf="@+id/backCard"
-        app:layout_constraintTop_toTopOf="@+id/backCard" />
+        app:layout_constraintBottom_toBottomOf="@+id/backImageView"
+        app:layout_constraintStart_toEndOf="@+id/backImageView"
+        app:layout_constraintTop_toTopOf="@+id/backImageView" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/channelsGenresTabLayout"
@@ -53,7 +43,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backCard"
+        app:layout_constraintTop_toBottomOf="@+id/backImageView"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <androidx.recyclerview.widget.RecyclerView

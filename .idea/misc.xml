@@ -22,7 +22,7 @@
         <entry key="app/src/main/res/drawable/settings_background.xml" value="0.2328125" />
         <entry key="app/src/main/res/drawable/splash_gradient.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/drawable/test.xml" value="0.234375" />
-        <entry key="app/src/main/res/layout-land/fragment_channels.xml" value="0.25" />
+        <entry key="app/src/main/res/layout-land/fragment_channels.xml" value="0.375" />
         <entry key="app/src/main/res/layout-land/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout-land/fragment_home_ways.xml" value="0.375" />
         <entry key="app/src/main/res/layout-land/fragment_loader.xml" value="0.18474426807760141" />
@@ -42,7 +42,7 @@
         <entry key="app/src/main/res/layout/fragment.xml" value="0.16304347826086957" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_cameras.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/fragment_channels.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_channels.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_chennels_list.xml" value="0.18478260869565216" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_home_ways.xml" value="0.335" />

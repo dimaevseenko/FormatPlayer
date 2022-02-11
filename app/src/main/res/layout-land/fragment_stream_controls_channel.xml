@@ -119,7 +119,7 @@
         app:layout_constraintTop_toTopOf="@+id/fullscreenImageButton"
         app:srcCompat="@drawable/ic_settings"
         app:tint="#FFFFFF"
-        android:nextFocusUp="@id/settingsImageButton"
+        android:nextFocusUp="@id/hidePlayerImageButton"
         android:nextFocusDown="@id/settingsImageButton"
         android:nextFocusRight="@id/fullscreenImageButton"
         android:nextFocusLeft="@id/programsImageButton"
