@@ -61,6 +61,7 @@
         <entry key="app/src/main/res/layout/fragment_stream_camera.xml" value="0.13632246376811594" />
         <entry key="app/src/main/res/layout/fragment_stream_channel.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_stream_controls.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/fragment_stream_controls_camera.xml" value="0.1272644927536232" />
         <entry key="app/src/main/res/layout/fragment_stream_controls_channel.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_vidio.xml" value="0.1816123188405797" />
         <entry key="app/src/main/res/layout/recycler_view_cameras_item.xml" value="0.335" />

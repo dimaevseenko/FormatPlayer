@@ -24,11 +24,11 @@
             style="@style/Theme.FormatPlayer.PlayerNavLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:ignore="SpeakableTextPresentCheck"
-            android:nextFocusUp="@id/channelsLayout"
             android:nextFocusLeft="@id/channelsLayout"
-            android:nextFocusRight="@id/megogoLayout">
+            android:nextFocusRight="@id/megogoLayout"
+            android:nextFocusUp="@id/channelsLayout"
+            android:orientation="vertical"
+            tools:ignore="SpeakableTextPresentCheck">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"

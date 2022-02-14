@@ -38,7 +38,7 @@ class RecyclerCamerasAdapter @AssistedInject constructor(
     }
 
     interface Listener{
-        fun onSelectedCam(cam: Cam, position: Int)
+        fun onSelectedCam(cam: Cam, position: Int, focusedView: View?)
     }
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -47,7 +47,7 @@ class RecyclerCamerasAdapter @AssistedInject constructor(
         fun bind(cam: Cam, listener: Listener?){
             binding.cameraImageView.setImageBitmap(cam.imageBitmap)
             binding.cameraTextView.text = cam.name
-            binding.cameraLayout.setOnClickListener { listener?.onSelectedCam(cam, absoluteAdapterPosition) }
+            binding.cameraLayout.setOnClickListener { listener?.onSelectedCam(cam, absoluteAdapterPosition, binding.cameraLayout) }
         }
     }
 

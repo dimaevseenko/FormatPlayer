@@ -33,7 +33,7 @@ class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCameras
     @Inject lateinit var recyclerCamerasAdapterFactory: RecyclerCamerasAdapter.Factory
     private var recyclerCamerasAdapter: RecyclerCamerasAdapter? = null
 
-    private lateinit var lastFocusView: View
+    private var lastFocusView: View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCamerasBinding.bind(inflater.inflate(R.layout.fragment_cameras, container, false))
@@ -59,15 +59,16 @@ class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCameras
         }
     }
 
-    override fun onSelectedCam(cam: Cam, position: Int) {
+    override fun onSelectedCam(cam: Cam, position: Int, focusedView: View?) {
         binding.backImageView.setOnClickListener {}
+
         if(requireContext().isTV)
-            lastFocusView = binding.recyclerView.focusedChild
+            focusedView?.let { lastFocusView = it }
 
         playerFragment.startStream(cam){
             binding.backImageView.setOnClickListener { dismiss() }
             if(requireContext().isTV)
-                lastFocusView.requestFocus()
+                lastFocusView?.requestFocus()
         }
     }
 

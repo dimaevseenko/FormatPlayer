@@ -75,6 +75,7 @@
         <item name="android:background">@drawable/player_nav_linear_layout_selector</item>
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
         <item name="android:clickable">true</item>
+        <item name="android:focusable">true</item>
         <item name="rippleColor">@color/lightGreen</item>
     </style>
 
