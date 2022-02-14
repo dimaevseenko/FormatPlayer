@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player.fragment.player.stream.channel.settings
 
 import android.app.Dialog
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -78,6 +79,9 @@ class ChannelSettingsFragment @Inject constructor(): BottomSheetDialogFragment()
     override fun dismiss() {
         settingsSwipeHelper.dismiss {
             super.dismiss()
+
+            if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                (parentFragment as ChannelStreamFragment).hideSystemUI()
         }
     }
 

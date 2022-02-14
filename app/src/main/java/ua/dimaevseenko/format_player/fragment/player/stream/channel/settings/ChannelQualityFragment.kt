@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player.fragment.player.stream.channel.settings
 
 import android.app.Dialog
+import android.content.res.Configuration
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -45,6 +46,11 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
+
+        dialog?.setOnDismissListener {
+            if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                (parentFragment as ChannelStreamFragment).hideSystemUI()
+        }
 
         settingsSwipeHelper =
             settingsSwipeHelperFactory.createSwipeHelper(binding.rootContent).apply {
@@ -102,6 +108,9 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
     override fun dismiss() {
         settingsSwipeHelper.dismiss {
             super.dismiss()
+
+            if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                (parentFragment as ChannelStreamFragment).hideSystemUI()
         }
     }
 }

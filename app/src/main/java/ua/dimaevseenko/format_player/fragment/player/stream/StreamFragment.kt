@@ -137,7 +137,7 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
         }
     }
 
-    private fun hideSystemUI() {
+    fun hideSystemUI() {
         WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
         WindowInsetsControllerCompat(requireActivity().window, getBackgroundView().rootView).let { controller ->
             controller.hide(WindowInsetsCompat.Type.systemBars())
@@ -145,7 +145,7 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
         }
     }
 
-    private fun showSystemUI() {
+    fun showSystemUI() {
         WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
         WindowInsetsControllerCompat(requireActivity().window, getBackgroundView().rootView).show(WindowInsetsCompat.Type.systemBars())
     }
