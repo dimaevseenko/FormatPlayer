@@ -138,18 +138,14 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
             binding.channelsGenresTabLayout?.addTab(createTab(Genre("-1", getString(R.string.last))), 0)
         }
 
-        if(binding.recyclerView.adapter is VerticalChannelRecyclersAdapter) {
-            if(binding.recyclerView.findViewHolderForAdapterPosition(0) != null)
-                (binding.recyclerView.adapter as VerticalChannelRecyclersAdapter).updateLastChannels(
-                    (binding.recyclerView.findViewHolderForAdapterPosition(0) as VerticalChannelRecyclersAdapter.ViewHolder).binding.recyclerView,
-                    playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
-                )
-        }
-        else if(binding.channelsGenresTabLayout?.getTabAt(binding.channelsGenresTabLayout?.selectedTabPosition!!)?.id.toString() == "-1") {
-            (binding.recyclerView.adapter as VerticalChannelsAdapter).updateChannels(
-                playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
-            )
-            (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
+        binding.channelsGenresTabLayout?.let {
+            if(it.getTabAt(it.selectedTabPosition)?.id.toString() == "-1")
+                if(binding.recyclerView.adapter is VerticalChannelsAdapter){
+                    (binding.recyclerView.adapter as VerticalChannelsAdapter).updateChannels(
+                        playlistViewModel.getChannels()!!.getChannelsForGenre("-1")
+                    )
+                    (binding.recyclerView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(0, 0)
+                }
         }
     }
 

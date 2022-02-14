@@ -19,8 +19,9 @@ class ProgramsViewModel @Inject constructor(): ViewModel(), Callback<ProgramsRes
     @Inject lateinit var serverRequest: Server.Request
 
     private var liveData = MutableLiveData<ArrayMap<String, ProgramsResult>>()
-
     private var listeners = ArrayMap<String, Server.Listener<ProgramsResult>?>()
+
+    private var isLoading = false
 
     fun addListener(tag: String, listener: Server.Listener<ProgramsResult>){
         listeners[tag] = listener
@@ -58,11 +59,14 @@ class ProgramsViewModel @Inject constructor(): ViewModel(), Callback<ProgramsRes
             return liveData.value!![channelId]!!.requirePrograms()
         }
 
-        loadPrograms(channelId)
+        if(!isLoading)
+            loadPrograms(channelId)
+
         return null
     }
 
     private fun loadPrograms(channelId: String){
+        isLoading = true
         serverRequest.request(
             Bundle().apply {
                 putString("action", "getProgramsById")
@@ -72,6 +76,7 @@ class ProgramsViewModel @Inject constructor(): ViewModel(), Callback<ProgramsRes
     }
 
     override fun onResponse(call: Call<ProgramsResult>, response: Response<ProgramsResult>) {
+        isLoading = false
         response.body()?.let{
             it.requirePrograms().sortBy { it.gmtTime }
             liveData.value!![lastId] = it
@@ -80,6 +85,7 @@ class ProgramsViewModel @Inject constructor(): ViewModel(), Callback<ProgramsRes
     }
 
     override fun onFailure(call: Call<ProgramsResult>, t: Throwable) {
+        isLoading = false
         listenersOnFailure(t)
     }
 

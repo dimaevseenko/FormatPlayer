@@ -35,6 +35,6 @@
     <string name="full_hd">Full HD 1080p</string>
     <string name="hd">HD 720p</string>
     <string name="sd">SD</string>
-    <string name="mid">MID</string>
-    <string name="low">LOW</string>
+    <string name="mid">Mid</string>
+    <string name="low">Low</string>
 </resources>
