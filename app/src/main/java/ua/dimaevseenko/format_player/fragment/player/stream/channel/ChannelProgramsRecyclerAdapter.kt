@@ -36,7 +36,7 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(programs[position], programs.getCurrentProgramId(), listener)
+        holder.bind(programs[position], programs.getCurrentProgramId(), programs[0].gmtTime, programs[programs.size-1].gmtTime, listener)
     }
 
     override fun getItemCount(): Int {
@@ -66,7 +66,7 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
 
         private var binding = RecyclerViewProgramItemBinding.bind(view)
 
-        open fun bind(program: Program, currentProgramId: Long, listener: Listener?) {
+        open fun bind(program: Program, currentProgramId: Long, firstProgramId: Long, lastProgramId: Long, listener: Listener?) {
             binding.programDate.text = "${program.getTimeStart()}   ${program.name}"
 
             binding.programDate.isClickable = true
@@ -80,14 +80,20 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
                 binding.programDate.setTextColor(Color.WHITE)
                 binding.programDate.requestFocus()
             }
+
+            if(program.gmtTime == firstProgramId)
+                binding.programDate.apply { nextFocusUpId = id }
+
+            if(program.gmtTime == lastProgramId)
+                binding.programDate.apply { nextFocusDownId = id }
         }
     }
 
     class DateItemViewHolder(view: View): ItemViewHolder(view){
         private var binding = RecyclerViewProgramDateItemBinding.bind(view)
 
-         override fun bind(program: Program, currentProgramId: Long, listener: Listener?) {
-            super.bind(program, currentProgramId, listener)
+         override fun bind(program: Program, currentProgramId: Long, firstProgramId: Long, lastProgramId: Long, listener: Listener?) {
+            super.bind(program, currentProgramId, firstProgramId, lastProgramId, listener)
             binding.programDay.text = program.getDay()
         }
     }

@@ -61,7 +61,6 @@ interface AppComponent {
 
     @FocusAnimation
     fun createFocusScaleAnimation(): ScaleAnimation
-
     @UnFocusAnimation
     fun createUnFocusScaleAnimation(): ScaleAnimation
 

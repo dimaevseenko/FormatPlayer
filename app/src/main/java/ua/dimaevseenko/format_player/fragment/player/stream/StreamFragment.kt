@@ -1,8 +1,12 @@
 package ua.dimaevseenko.format_player.fragment.player.stream
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.View
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.exoplayer2.Format
@@ -46,6 +50,11 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
 
         if(savedInstanceState == null)
             streamControls()
+
+        if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+            hideSystemUI()
+        else
+            showSystemUI()
     }
 
     internal abstract fun getStreamContainer(): View
@@ -89,8 +98,10 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
 
     override fun onSwiped(close: Boolean) {
         if(close)
-            if(isAdded)
+            if(isAdded) {
+                showSystemUI()
                 (parentFragment as PlayerFragment).dismissStream(this)
+            }
     }
 
     open fun onBackPressed(): Boolean{
@@ -124,6 +135,19 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
         streamPlayer.getVideoFormat()?.let {
             outState.putInt("quality", it.bitrate)
         }
+    }
+
+    private fun hideSystemUI() {
+        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, false)
+        WindowInsetsControllerCompat(requireActivity().window, getBackgroundView().rootView).let { controller ->
+            controller.hide(WindowInsetsCompat.Type.systemBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+    }
+
+    private fun showSystemUI() {
+        WindowCompat.setDecorFitsSystemWindows(requireActivity().window, true)
+        WindowInsetsControllerCompat(requireActivity().window, getBackgroundView().rootView).show(WindowInsetsCompat.Type.systemBars())
     }
 
     fun onKeyDown(keyCode: Int, event: KeyEvent?){
