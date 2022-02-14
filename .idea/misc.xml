@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/ic_iconoir_eye_alt.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.23489583333333333" />
         <entry key="app/src/main/res/drawable/ic_main.xml" value="0.234375" />
+        <entry key="app/src/main/res/drawable/ic_search.xml" value="0.2328125" />
         <entry key="app/src/main/res/drawable/outlined_edittext_focus.xml" value="0.23645833333333333" />
         <entry key="app/src/main/res/drawable/player_nav_linear_layout_background.xml" value="0.234375" />
         <entry key="app/src/main/res/drawable/player_nav_linear_layout_background_focused.xml" value="0.234375" />
@@ -62,7 +63,7 @@
         <entry key="app/src/main/res/layout/fragment_stream_channel.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_stream_controls.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_stream_controls_camera.xml" value="0.1272644927536232" />
-        <entry key="app/src/main/res/layout/fragment_stream_controls_channel.xml" value="0.375" />
+        <entry key="app/src/main/res/layout/fragment_stream_controls_channel.xml" value="0.5" />
         <entry key="app/src/main/res/layout/fragment_vidio.xml" value="0.1816123188405797" />
         <entry key="app/src/main/res/layout/recycler_view_cameras_item.xml" value="0.335" />
         <entry key="app/src/main/res/layout/recycler_view_channels_horizontal.xml" value="0.335" />
