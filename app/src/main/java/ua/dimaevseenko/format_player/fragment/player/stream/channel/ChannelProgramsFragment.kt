@@ -61,7 +61,17 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     private fun loadRecycler(programs: Programs){
-        recyclerAdapter = recyclerAdapterFactory.createChannelProgramsRecyclerAdapter(programs)
+        var clearPrograms = programs
+
+        if ((getStream() as Channel).allowCatchup == false){
+            clearPrograms = Programs()
+            programs.forEach { program ->
+                if(programs.getCurrentProgramId() <= program.gmtTime)
+                    clearPrograms.add(program)
+            }
+        }
+
+        recyclerAdapter = recyclerAdapterFactory.createChannelProgramsRecyclerAdapter(clearPrograms)
         recyclerAdapter.setListener(this)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())

@@ -34,7 +34,7 @@ class StreamPlayer @AssistedInject constructor(
         player.setMediaSource(createMediaSource())
     }
 
-    private fun createMediaSource(): HlsMediaSource {
+    private fun createMediaSource(stream: Stream = this.stream): HlsMediaSource {
         return HlsMediaSource.Factory(dataSourceFactory).createMediaSource(
             MediaItem.fromUri(stream.getStreamUrl())
         )
@@ -88,8 +88,7 @@ class StreamPlayer @AssistedInject constructor(
     }
 
     fun updateStream(stream: Stream){
-        this.stream = stream
-        player.setMediaSource(createMediaSource())
+        player.setMediaSource(createMediaSource(stream))
     }
 
     fun getPlayerPosition(): Long{
