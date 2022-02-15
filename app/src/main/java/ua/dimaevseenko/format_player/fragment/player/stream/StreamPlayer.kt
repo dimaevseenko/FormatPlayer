@@ -24,6 +24,11 @@ class StreamPlayer @AssistedInject constructor(
     private val context: Context
 ) {
 
+    var playDefault = true
+
+    val isPlaying: Boolean
+        get() = player.isPlaying
+
     init{
         playerView.player = player
         player.setMediaSource(createMediaSource())
@@ -96,8 +101,10 @@ class StreamPlayer @AssistedInject constructor(
     }
 
     fun start(){
-        player.prepare()
-        player.play()
+        if(playDefault) {
+            player.prepare()
+            player.play()
+        }
     }
 
     fun pause(){

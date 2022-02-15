@@ -50,9 +50,8 @@ class CatchupFragment @Inject constructor(): Fragment() {
         player.prepare()
         player.play()
 
-        Log.d("CHANELL", catchup.toString())
-        Log.d("CHANELL", catchup.getStreamUrl())
-        Log.d("CHANELL", ((catchup.getProgram().gmtTimeTo-catchup.getProgram().gmtTime)/60).toString())
+        binding.controlsContainer.setOnClickListener {  }
+        binding.controlsContainer.setOnTouchListener((parentFragment as ChannelStreamFragment).getSwipeHelper())
     }
 
     override fun onDestroy() {
@@ -64,6 +63,7 @@ class CatchupFragment @Inject constructor(): Fragment() {
     fun onBackPressed(): Boolean{
         parentFragment?.removeFragment(this, true, FragmentTransaction.TRANSIT_FRAGMENT_FADE)
         (parentFragment as ChannelStreamFragment).getStreamContainer().requestFocus()
+        (parentFragment as ChannelStreamFragment).startPlayer()
         return true
     }
 

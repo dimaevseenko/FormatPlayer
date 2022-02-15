@@ -82,6 +82,8 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
 
         val catchup = channel.getCatchup(program)
 
+        getChannelStreamFragment().pausePlayer()
+
         getChannelStreamFragment().replaceFragment(
             getChannelStreamFragment().getStreamContainer().id,
             appComponent.createCatchupFragment().apply { arguments = Bundle().apply { putParcelable("catchup", catchup) } },

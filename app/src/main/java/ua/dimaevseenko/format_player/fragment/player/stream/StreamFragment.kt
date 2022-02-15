@@ -2,6 +2,7 @@ package ua.dimaevseenko.format_player.fragment.player.stream
 
 import android.content.res.Configuration
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.core.view.WindowCompat
@@ -55,6 +56,20 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
             hideSystemUI()
         else
             showSystemUI()
+    }
+
+    fun pausePlayer(){
+        streamPlayer.playDefault = false
+        streamPlayer.pause()
+    }
+
+    fun startPlayer(){
+        streamPlayer.playDefault = true
+        streamPlayer.start()
+    }
+
+    fun getSwipeHelper(): SwipeHelper{
+        return swipeHelper
     }
 
     internal abstract fun getStreamContainer(): View
@@ -130,14 +145,16 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
         savedInstanceState?.let {
             streamPlayer.setQualityBitrate(it.getInt("quality"))
             streamPlayer.setPosition(it.getLong("position"))
+            streamPlayer.playDefault = it.getBoolean("isPlaying")
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         streamPlayer.getVideoFormat()?.let {
             outState.putInt("quality", it.bitrate)
-            outState.putLong("position", streamPlayer.getPlayerPosition())
         }
+        outState.putLong("position", streamPlayer.getPlayerPosition())
+        outState.putBoolean("isPlaying", streamPlayer.playDefault)
     }
 
     fun hideSystemUI() {
