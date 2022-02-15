@@ -12,12 +12,13 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import ua.dimaevseenko.format_player.model.Quality
+import ua.dimaevseenko.format_player.model.Stream
 
 class StreamPlayer @AssistedInject constructor(
     @Assisted("playerView")
     private val playerView: PlayerView,
-    @Assisted("streamUrl")
-    private val streamUrl: String,
+    @Assisted("stream")
+    private var stream: Stream,
     private val player: ExoPlayer,
     private val dataSourceFactory: DefaultDataSource.Factory,
     private val context: Context
@@ -30,7 +31,7 @@ class StreamPlayer @AssistedInject constructor(
 
     private fun createMediaSource(): HlsMediaSource {
         return HlsMediaSource.Factory(dataSourceFactory).createMediaSource(
-            MediaItem.fromUri(streamUrl)
+            MediaItem.fromUri(stream.getStreamUrl())
         )
     }
 
@@ -81,6 +82,19 @@ class StreamPlayer @AssistedInject constructor(
         return player.videoFormat
     }
 
+    fun updateStream(stream: Stream){
+        this.stream = stream
+        player.setMediaSource(createMediaSource())
+    }
+
+    fun getPlayerPosition(): Long{
+        return player.currentPosition
+    }
+
+    fun setPosition(position: Long){
+        player.seekTo(position)
+    }
+
     fun start(){
         player.prepare()
         player.play()
@@ -99,8 +113,8 @@ class StreamPlayer @AssistedInject constructor(
         fun createStreamPlayer(
             @Assisted("playerView")
             playerView: PlayerView,
-            @Assisted("streamUrl")
-            streamUrl: String
+            @Assisted("stream")
+            stream: Stream
         ): StreamPlayer
     }
 }

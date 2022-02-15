@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player.fragment.player.stream.channel
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,15 @@ import androidx.recyclerview.widget.LinearSmoothScroller
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentProgramsBinding
+import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
+import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Program
 import ua.dimaevseenko.format_player.model.Programs
+import ua.dimaevseenko.format_player.model.Stream
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.ProgramsResult
+import ua.dimaevseenko.format_player.playerFragment
+import ua.dimaevseenko.format_player.replaceFragment
 import ua.dimaevseenko.format_player.viewmodel.ProgramsViewModel
 import javax.inject.Inject
 
@@ -46,12 +52,7 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     private fun initView(){
-        val stream = if(parentFragment is ChannelStreamFragment)
-            (parentFragment as ChannelStreamFragment).getStream()
-        else
-            (parentFragment as ChannelControlsFragment).getStream()
-
-        programsViewModel.getPrograms(stream.getStreamId())?.let {
+        programsViewModel.getPrograms(getStream().getStreamId())?.let {
             loadRecycler(it)
         }
     }
@@ -74,7 +75,11 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     override fun onProgramSelected(program: Program, position: Int) {
-        println(program)
+        val catchup = (getStream() as Channel).getCatchup(program)
+
+        Log.d("CHANELL", catchup.toString())
+        Log.d("CHANELL", catchup.getStreamUrl())
+        Log.d("CHANELL", ((catchup.getProgram().gmtTimeTo-catchup.getProgram().gmtTime)/60).toString())
     }
 
     override fun onVerticalFocusChanged(position: Int) {
@@ -99,6 +104,13 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
                 return SNAP_TO_START
             }
         }
+    }
+
+    private fun getStream(): Stream{
+        return if(parentFragment is ChannelStreamFragment)
+            (parentFragment as ChannelStreamFragment).getStream()
+        else
+            (parentFragment as ChannelControlsFragment).getStream()
     }
 
     override fun onDestroy() {

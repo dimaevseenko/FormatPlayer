@@ -70,7 +70,11 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
             binding.programDate.text = "${program.getTimeStart()}   ${program.name}"
 
             binding.programDate.isClickable = true
-            binding.programDate.setOnClickListener { listener?.onProgramSelected(program, absoluteAdapterPosition) }
+            binding.programDate.setOnClickListener {
+                if(program.gmtTime < currentProgramId)
+                    listener?.onProgramSelected(program, absoluteAdapterPosition)
+            }
+
             binding.programDate.setOnFocusChangeListener { _, hasFocus ->
                 if(hasFocus)
                     listener?.onVerticalFocusChanged(absoluteAdapterPosition)

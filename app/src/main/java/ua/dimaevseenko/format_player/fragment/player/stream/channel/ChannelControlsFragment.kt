@@ -55,9 +55,6 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
 
     private fun settings(){
         appComponent.createChannelSettingsFragment().apply {
-            arguments = Bundle().apply {
-                putParcelable("stream", getStream())
-            }
             show(this@ChannelControlsFragment.parentFragmentManager, ChannelSettingsFragment.TAG)
         }
     }

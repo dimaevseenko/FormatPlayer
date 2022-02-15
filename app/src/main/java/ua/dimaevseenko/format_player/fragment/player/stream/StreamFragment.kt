@@ -46,7 +46,7 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
         getStreamContainer().setOnTouchListener(swipeHelper)
         getStreamContainer().setOnClickListener { streamControls() }
 
-        streamPlayer = streamPlayerFactory.createStreamPlayer(getPlayerView(), stream.getStreamUrl())
+        streamPlayer = streamPlayerFactory.createStreamPlayer(getPlayerView(), stream)
 
         if(savedInstanceState == null)
             streamControls()
@@ -128,12 +128,14 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
         super.onViewStateRestored(savedInstanceState)
         savedInstanceState?.let {
             streamPlayer.setQualityBitrate(it.getInt("quality"))
+            streamPlayer.setPosition(it.getLong("position"))
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         streamPlayer.getVideoFormat()?.let {
             outState.putInt("quality", it.bitrate)
+            outState.putLong("position", streamPlayer.getPlayerPosition())
         }
     }
 

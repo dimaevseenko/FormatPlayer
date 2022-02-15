@@ -47,14 +47,18 @@ class PlayerFragment @Inject constructor(): Fragment() {
         completionStreamFragment = completion
 
         val streamFragment =
-            if (stream is Channel) appComponent.createChannelStreamFragment() else appComponent.createCameraStreamFragment()
+            if (stream is Channel)
+                appComponent.createChannelStreamFragment()
+            else
+                appComponent.createCameraStreamFragment()
+
         streamFragment.arguments = Bundle().apply { putParcelable("stream", stream) }
 
         val existStreamFragment = getFragment<StreamFragment>(StreamFragment.TAG)
 
         if (existStreamFragment == null)
             addFragment(
-                R.id.playerContainer,
+                R.id.streamContainer,
                 streamFragment,
                 StreamFragment.TAG,
                 true,

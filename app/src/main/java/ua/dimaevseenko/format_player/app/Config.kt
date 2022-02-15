@@ -15,7 +15,7 @@ import kotlin.text.Charsets.UTF_8
 
 object Config {
 
-    const val SERVER_ADDRESS = "https://edge.format-tv.net:10443/"
+    const val SERVER_ADDRESS = "https://edge.format-tv.net/"
     const val SERVER_ADDRESS_F = "https://mobileapp.format-tv.net/formatplayer/"
 
     fun getFullToken(context: Context): String{

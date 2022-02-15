@@ -32,6 +32,10 @@ data class Channel(
     @SerializedName("server_time")
     val serverTime: String
 ): Stream{
+
+    val allowCatchup: Boolean
+        get() = catchup != "0"
+
     var imageBitmap: Bitmap? = null
 
     constructor(parcel: Parcel) : this(
@@ -92,6 +96,13 @@ data class Channel(
             Type.HD
         else
             Type.RADIO
+    }
+
+    fun getCatchup(program: Program): Catchup{
+        return Catchup(
+            this,
+            program
+        )
     }
 }
 
