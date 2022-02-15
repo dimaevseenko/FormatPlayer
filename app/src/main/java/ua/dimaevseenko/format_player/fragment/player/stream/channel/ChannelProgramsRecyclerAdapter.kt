@@ -81,15 +81,20 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
             }
 
             if(program.gmtTime == currentProgramId){
+                binding.imageView6.setImageResource(R.drawable.ic_livvee)
                 binding.programDate.setTextColor(Color.WHITE)
                 binding.programDate.requestFocus()
-            }
+            } else if(program.gmtTime < currentProgramId)
+                binding.imageView6.setImageResource(R.drawable.ic_play)
+            else
+                binding.imageView6.setImageResource(R.drawable.ic_stop)
 
             if(program.gmtTime == firstProgramId)
                 binding.programDate.apply { nextFocusUpId = id }
 
             if(program.gmtTime == lastProgramId)
                 binding.programDate.apply { nextFocusDownId = id }
+
         }
     }
 
