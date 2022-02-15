@@ -43,6 +43,7 @@
         <entry key="app/src/main/res/layout/fragment.xml" value="0.16304347826086957" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_cameras.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_catchup.xml" value="0.12047101449275362" />
         <entry key="app/src/main/res/layout/fragment_channels.xml" value="0.45" />
         <entry key="app/src/main/res/layout/fragment_chennels_list.xml" value="0.18478260869565216" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />

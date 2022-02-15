@@ -121,6 +121,7 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
 
     override fun onDestroy() {
         streamPlayer.stop()
+        streamPlayer.release()
         super.onDestroy()
     }
 

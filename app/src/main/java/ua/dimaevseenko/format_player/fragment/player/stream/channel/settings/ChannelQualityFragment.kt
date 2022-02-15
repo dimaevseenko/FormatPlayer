@@ -35,6 +35,8 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
     lateinit var settingsSwipeHelperFactory: SettingsSwipeHelper.Factory
     private lateinit var settingsSwipeHelper: SettingsSwipeHelper
 
+    private var isDismiss = false
+
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return Dialog(requireContext(), R.style.Theme_FormatPlayer_BottomSheetDialog)
     }
@@ -106,11 +108,13 @@ class ChannelQualityFragment @Inject constructor(): BottomSheetDialogFragment(),
     }
 
     override fun dismiss() {
-        settingsSwipeHelper.dismiss {
-            super.dismiss()
+        if(!isDismiss)
+            settingsSwipeHelper.dismiss {
+                super.dismiss()
 
-            if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
-                (parentFragment as ChannelStreamFragment).hideSystemUI()
-        }
+                if(resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE)
+                    (parentFragment as ChannelStreamFragment).hideSystemUI()
+            }
+        isDismiss = true
     }
 }

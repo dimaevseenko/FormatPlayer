@@ -78,7 +78,8 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     }
 
     interface Listener{
-        fun onProgramSelected(program: Program, position: Int)
+        fun onLiveProgramSelected(program: Program, position: Int)
+        fun onCatchupProgramSelected(program: Program, position: Int)
         fun onVerticalFocusChanged(position: Int)
     }
 
@@ -91,8 +92,10 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
 
             binding.programDate.isClickable = true
             binding.programDate.setOnClickListener {
-                if(program.gmtTime < currentProgramId)
-                    listener?.onProgramSelected(program, absoluteAdapterPosition)
+                if(program.gmtTime == currentProgramId)
+                    listener?.onLiveProgramSelected(program, absoluteAdapterPosition)
+                else
+                    listener?.onCatchupProgramSelected(program, absoluteAdapterPosition)
             }
 
             binding.programDate.setOnFocusChangeListener { _, hasFocus ->

@@ -9,18 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
-import ua.dimaevseenko.format_player.R
-import ua.dimaevseenko.format_player.appComponent
+import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentProgramsBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
-import ua.dimaevseenko.format_player.model.Channel
-import ua.dimaevseenko.format_player.model.Program
-import ua.dimaevseenko.format_player.model.Programs
-import ua.dimaevseenko.format_player.model.Stream
+import ua.dimaevseenko.format_player.fragment.player.stream.channel.catchup.CatchupFragment
+import ua.dimaevseenko.format_player.model.*
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.ProgramsResult
-import ua.dimaevseenko.format_player.playerFragment
-import ua.dimaevseenko.format_player.replaceFragment
 import ua.dimaevseenko.format_player.viewmodel.ProgramsViewModel
 import javax.inject.Inject
 
@@ -74,12 +69,25 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
         binding.recyclerView.scrollToPosition(programs.getCurrentProgramPosition())
     }
 
-    override fun onProgramSelected(program: Program, position: Int) {
-        val catchup = (getStream() as Channel).getCatchup(program)
+    override fun onLiveProgramSelected(program: Program, position: Int) {
+        getChannelStreamFragment().getFragment<CatchupFragment>(CatchupFragment.TAG)
+            ?.onBackPressed()
+    }
 
-        Log.d("CHANELL", catchup.toString())
-        Log.d("CHANELL", catchup.getStreamUrl())
-        Log.d("CHANELL", ((catchup.getProgram().gmtTimeTo-catchup.getProgram().gmtTime)/60).toString())
+    override fun onCatchupProgramSelected(program: Program, position: Int) {
+        val channel = (getStream() as Channel)
+
+        if(!channel.allowCatchup)
+            return
+
+        val catchup = channel.getCatchup(program)
+
+        getChannelStreamFragment().replaceFragment(
+            getChannelStreamFragment().getStreamContainer().id,
+            appComponent.createCatchupFragment().apply { arguments = Bundle().apply { putParcelable("catchup", catchup) } },
+            CatchupFragment.TAG,
+            true
+        )
     }
 
     override fun onVerticalFocusChanged(position: Int) {
@@ -107,10 +115,14 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     private fun getStream(): Stream{
+        return getChannelStreamFragment().getStream()
+    }
+
+    private fun getChannelStreamFragment(): ChannelStreamFragment{
         return if(parentFragment is ChannelStreamFragment)
-            (parentFragment as ChannelStreamFragment).getStream()
+            parentFragment as ChannelStreamFragment
         else
-            (parentFragment as ChannelControlsFragment).getStream()
+            (parentFragment as ChannelControlsFragment).parentFragment as ChannelStreamFragment
     }
 
     override fun onDestroy() {

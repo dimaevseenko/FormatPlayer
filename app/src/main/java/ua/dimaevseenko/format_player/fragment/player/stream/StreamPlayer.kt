@@ -108,6 +108,10 @@ class StreamPlayer @AssistedInject constructor(
         player.stop()
     }
 
+    fun release(){
+        player.release()
+    }
+
     @AssistedFactory
     interface Factory{
         fun createStreamPlayer(
