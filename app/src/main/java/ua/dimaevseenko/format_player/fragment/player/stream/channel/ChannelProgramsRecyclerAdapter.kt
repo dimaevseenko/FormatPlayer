@@ -94,7 +94,7 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
             binding.programDate.setOnClickListener {
                 if(program.gmtTime == currentProgramId)
                     listener?.onLiveProgramSelected(program, absoluteAdapterPosition)
-                else
+                else if(program.gmtTime < currentProgramId)
                     listener?.onCatchupProgramSelected(program, absoluteAdapterPosition)
             }
 
