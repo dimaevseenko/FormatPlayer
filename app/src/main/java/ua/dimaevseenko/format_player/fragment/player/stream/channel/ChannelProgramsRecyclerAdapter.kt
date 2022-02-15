@@ -1,5 +1,6 @@
 package ua.dimaevseenko.format_player.fragment.player.stream.channel
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -10,6 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.RecyclerViewProgramDateItemBinding
 import ua.dimaevseenko.format_player.databinding.RecyclerViewProgramItemBinding
@@ -26,6 +31,21 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
 
     fun setListener(listener: Listener){
         this.listener = listener
+    }
+
+    init{
+        update()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun update(){
+        CoroutineScope(Dispatchers.Default).launch {
+            delay(60000)
+            launch(Dispatchers.Main){
+                notifyDataSetChanged()
+                update()
+            }
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
