@@ -7,29 +7,33 @@
     tools:background="@drawable/background_land">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView4"
+        android:id="@+id/searchCardView"
         style="@style/Theme.FormatPlayer.EditTextCardView"
         android:layout_width="0dp"
         android:layout_height="40dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="32dp"
+        app:cardBackgroundColor="#331C1C1C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <EditText
-            android:id="@+id/editTextTextPersonName"
+            android:id="@+id/searchEditText"
             style="@style/Theme.FormatPlayer.EditText"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:ems="10"
+            android:hint="@string/search"
             android:inputType="textPersonName"
+            android:textColor="@color/green"
+            android:textColorHint="@color/transGreen"
             tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
     </androidx.cardview.widget.CardView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler"
+        android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="24dp"
@@ -38,5 +42,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+        app:layout_constraintTop_toBottomOf="@+id/searchCardView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

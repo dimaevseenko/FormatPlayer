@@ -37,4 +37,5 @@
     <string name="sd">SD</string>
     <string name="mid">Mid</string>
     <string name="low">Low</string>
+    <style name="search">Поиск</style>
 </resources>
