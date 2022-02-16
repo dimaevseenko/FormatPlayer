@@ -8,7 +8,7 @@ import ua.dimaevseenko.format_player.di.module.FocusAnimation
 import ua.dimaevseenko.format_player.di.module.UnFocusAnimation
 import javax.inject.Inject
 
-class ChannelScaleAnimator @Inject constructor(
+class FocusScaleAnimator @Inject constructor(
     private val context: Context
 ){
 

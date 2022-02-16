@@ -2,11 +2,14 @@ package ua.dimaevseenko.format_player.fragment.player.navigation.home
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import ua.dimaevseenko.format_player.R
+import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.databinding.FragmentHomeWaysBinding
 import ua.dimaevseenko.format_player.base.AnimatedFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.home.channels.FocusScaleAnimator
 import ua.dimaevseenko.format_player.isTV
 import javax.inject.Inject
 
@@ -26,6 +29,7 @@ class HomeWaysFragment @Inject constructor(): AnimatedFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        appComponent.inject(this)
         if(returnFragment)
             animateStartX(reverse = true)
 

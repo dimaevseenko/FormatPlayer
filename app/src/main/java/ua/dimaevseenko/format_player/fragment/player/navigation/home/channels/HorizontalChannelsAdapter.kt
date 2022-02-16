@@ -4,25 +4,19 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.ScaleAnimation
-import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.RecyclerViewChannelsHorizontalItemBinding
-import ua.dimaevseenko.format_player.di.module.FocusAnimation
-import ua.dimaevseenko.format_player.di.module.UnFocusAnimation
 import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Channels
-import javax.inject.Inject
 
 class HorizontalChannelsAdapter @AssistedInject constructor(
     @Assisted("channels")
     private val channels: Channels,
     private val context: Context,
-    private val channelScaleAnimator: ChannelScaleAnimator
+    private val focusScaleAnimator: FocusScaleAnimator
 ): RecyclerChannelsAdapter(
     channels
 ) {
@@ -32,7 +26,7 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
     }
 
     override fun getViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_channels_horizontal_item, parent, false), channelScaleAnimator)
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.recycler_view_channels_horizontal_item, parent, false), focusScaleAnimator)
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -44,7 +38,7 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
             0
     }
 
-    class ViewHolder(view: View, private val channelScaleAnimator: ChannelScaleAnimator): RecyclerChannelsAdapter.ViewHolder(view){
+    class ViewHolder(view: View, private val focusScaleAnimator: FocusScaleAnimator): RecyclerChannelsAdapter.ViewHolder(view){
         private var binding = RecyclerViewChannelsHorizontalItemBinding.bind(view)
 
         override fun bind(channel: Channel, listener: RecyclerChannelsAdapter.Listener?) {
@@ -55,9 +49,9 @@ class HorizontalChannelsAdapter @AssistedInject constructor(
                     if(listener is Listener)
                         listener.onHorizontalFocusChanged(absoluteAdapterPosition)
 
-                    channelScaleAnimator.animate(binding.card, true)
+                    focusScaleAnimator.animate(binding.card, true)
                 }else
-                    channelScaleAnimator.animate(binding.card, false)
+                    focusScaleAnimator.animate(binding.card, false)
             }
 
             if(itemViewType == 1)

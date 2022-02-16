@@ -153,6 +153,7 @@
         app:layout_constraintTop_toBottomOf="@id/camerasCardView">
 
         <LinearLayout
+            android:id="@+id/megogoLayout"
             style="@style/Theme.FormatPlayer.PlayerNavLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

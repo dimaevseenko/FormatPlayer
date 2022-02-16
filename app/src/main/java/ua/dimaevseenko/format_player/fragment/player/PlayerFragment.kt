@@ -44,7 +44,6 @@ class PlayerFragment @Inject constructor(): Fragment() {
             addFragment(R.id.playerContainer, playerNavFragment, PlayerNavFragment.TAG, true)
     }
 
-
     fun startChannel(channel: Channel, completion: ()->Unit){
         completionStreamFragment = completion
         startStream(stream = channel, appComponent.createChannelStreamFragment())
