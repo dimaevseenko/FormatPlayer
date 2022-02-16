@@ -17,6 +17,7 @@ import ua.dimaevseenko.format_player.fragment.splash.SplashFragment
 import ua.dimaevseenko.format_player.fragment.player.PlayerFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.LoaderFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.PlayerNavFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.favourite.FavouriteFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.channels.ChannelsFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.cameras.CamerasFragment
@@ -55,6 +56,7 @@ interface AppComponent {
     fun inject(channelSettingsFragment: ChannelSettingsFragment)
     fun inject(channelQualityFragment: ChannelQualityFragment)
     fun inject(searchFragment: SearchFragment)
+    fun inject(favouriteFragment: FavouriteFragment)
 
     fun createChannelStreamFragment(): ChannelStreamFragment
     fun createCameraStreamFragment(): CameraStreamFragment

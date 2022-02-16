@@ -11,6 +11,7 @@ import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentPlayerNavigationBinding
 import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.base.BaseFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.favourite.FavouriteFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.ProfileFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.search.SearchFragment
@@ -28,6 +29,7 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
 
     @Inject lateinit var homeFragment: HomeFragment
     @Inject lateinit var searchFragment: SearchFragment
+    @Inject lateinit var favouriteFragment: FavouriteFragment
     @Inject lateinit var profileFragment: ProfileFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -54,18 +56,19 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
         when(item.itemId){
             R.id.navMain -> { onNavItemSelected(homeFragment) }
             R.id.navSearch -> { onNavItemSelected(searchFragment) }
-            R.id.navFavourite -> { onNavItemSelected(homeFragment) }
+            R.id.navFavourite -> { onNavItemSelected(favouriteFragment) }
             R.id.navProfile -> { onNavItemSelected(profileFragment) }
         }
         return true
     }
 
     fun onBackPressed(): Boolean{
-        if(getFragment<SearchFragment>(SearchFragment.TAG) != null || getFragment<ProfileFragment>(ProfileFragment.TAG) != null){
+        if(getFragment<HomeFragment>(HomeFragment.TAG) == null){
             binding.playerNavigationView.selectedItemId = R.id.navMain
             return true
+        }else{
+            getFragment<HomeFragment>(HomeFragment.TAG)?.let { return it.onBackPressed() }
         }
-        getFragment<HomeFragment>(HomeFragment.TAG)?.let { return it.onBackPressed() }
         return false
     }
 
