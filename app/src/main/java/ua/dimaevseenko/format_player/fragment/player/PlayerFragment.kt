@@ -53,19 +53,7 @@ class PlayerFragment @Inject constructor(): Fragment() {
                 appComponent.createCameraStreamFragment()
 
         streamFragment.arguments = Bundle().apply { putParcelable("stream", stream) }
-
-        val existStreamFragment = getFragment<StreamFragment>(StreamFragment.TAG)
-
-        if (existStreamFragment == null)
-            addFragment(
-                R.id.streamContainer,
-                streamFragment,
-                StreamFragment.TAG,
-                true,
-                FragmentTransaction.TRANSIT_FRAGMENT_FADE
-            )
-        else
-            existStreamFragment.onBackPressed()
+        replaceFragment(R.id.streamContainer, streamFragment, StreamFragment.TAG)
     }
 
     fun dismissStream(streamFragment: StreamFragment){

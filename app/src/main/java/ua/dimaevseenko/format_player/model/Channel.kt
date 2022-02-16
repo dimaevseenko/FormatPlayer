@@ -6,6 +6,8 @@ import android.os.Parcelable
 import android.util.Base64
 import com.google.gson.annotations.SerializedName
 import ua.dimaevseenko.format_player.app.Config
+import java.util.*
+import kotlin.collections.ArrayList
 
 data class Channel(
     @SerializedName("id")
@@ -144,6 +146,18 @@ class Channels: ArrayList<Channel>(){
         }
 
         channels.reverse()
+        return channels
+    }
+
+    fun getChannelsForName(str: String): Channels{
+        if (str.trim() == "")
+            return this
+
+        val channels = Channels()
+        forEach { channel ->
+            if(channel.name.lowercase().contains(str.lowercase()))
+                channels.add(channel)
+        }
         return channels
     }
 }

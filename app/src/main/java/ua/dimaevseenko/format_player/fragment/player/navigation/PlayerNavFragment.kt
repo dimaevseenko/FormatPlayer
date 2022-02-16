@@ -13,6 +13,7 @@ import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.base.BaseFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.HomeFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.ProfileFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.search.SearchFragment
 import javax.inject.Inject
 
 class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnItemSelectedListener {
@@ -26,6 +27,7 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
     @Inject lateinit var loaderFragment: LoaderFragment
 
     @Inject lateinit var homeFragment: HomeFragment
+    @Inject lateinit var searchFragment: SearchFragment
     @Inject lateinit var profileFragment: ProfileFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -49,10 +51,9 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         if(getFragment<LoaderFragment>(LoaderFragment.TAG) != null)
             return false
-
         when(item.itemId){
             R.id.navMain -> { onNavItemSelected(homeFragment) }
-            R.id.navSearch -> { onNavItemSelected(homeFragment) }
+            R.id.navSearch -> { onNavItemSelected(searchFragment) }
             R.id.navFavourite -> { onNavItemSelected(homeFragment) }
             R.id.navProfile -> { onNavItemSelected(profileFragment) }
         }
@@ -60,6 +61,10 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
     }
 
     fun onBackPressed(): Boolean{
+        if(getFragment<SearchFragment>(SearchFragment.TAG) != null || getFragment<ProfileFragment>(ProfileFragment.TAG) != null){
+            binding.playerNavigationView.selectedItemId = R.id.navMain
+            return true
+        }
         getFragment<HomeFragment>(HomeFragment.TAG)?.let { return it.onBackPressed() }
         return false
     }

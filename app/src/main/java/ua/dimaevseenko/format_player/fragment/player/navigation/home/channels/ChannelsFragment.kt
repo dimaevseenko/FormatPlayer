@@ -34,8 +34,6 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
     @Inject lateinit var verticalChannelsAdapterFactory: VerticalChannelsAdapter.Factory
     @Inject lateinit var verticalChannelRecyclersAdapterFactory: VerticalChannelRecyclersAdapter.Factory
 
-    private var lastFocusView: View? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentChannelsBinding.bind(inflater.inflate(R.layout.fragment_channels, container, false))
         return binding.root
@@ -111,13 +109,10 @@ class ChannelsFragment @Inject constructor(): AnimatedFragment(), TabLayout.OnTa
 
         binding.backImageView.setOnClickListener {}
 
-        if(requireContext().isTV)
-            focusedView?.let { lastFocusView = it }
-
         playerFragment.startStream(channel){
             binding.backImageView.setOnClickListener { dismiss() }
             if(requireContext().isTV)
-                lastFocusView?.requestFocus()
+                focusedView?.requestFocus()
         }
     }
 

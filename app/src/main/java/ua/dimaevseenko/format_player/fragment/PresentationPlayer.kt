@@ -12,15 +12,11 @@ import dagger.assisted.AssistedInject
 class PresentationPlayer @AssistedInject constructor(
     @Assisted("view")
     private val playerView: PlayerView,
-
     @Assisted("repeat")
     private val repeat: Boolean,
-
     @Assisted("name")
     private val name: String,
-
     private val player: ExoPlayer,
-
     @Assisted("completion")
     private var completion: (()->Unit)?
 ): Player.Listener {
