@@ -93,4 +93,13 @@ class Programs: ArrayList<Program>(){
         }
         return index
     }
+
+    fun getProgramsWithoutPast(): Programs{
+        val programs = Programs()
+        forEach { program ->
+            if(getCurrentProgramId() <= program.gmtTime)
+                programs.add(program)
+        }
+        return programs
+    }
 }

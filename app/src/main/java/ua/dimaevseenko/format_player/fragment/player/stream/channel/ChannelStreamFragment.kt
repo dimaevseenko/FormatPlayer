@@ -10,7 +10,6 @@ import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentStreamChannelBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.ControlsFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
-import ua.dimaevseenko.format_player.fragment.player.stream.channel.catchup.CatchupFragment
 import ua.dimaevseenko.format_player.viewmodel.ProgramsViewModel
 import javax.inject.Inject
 
@@ -60,7 +59,6 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment() {
     }
 
     override fun onBackPressed(): Boolean {
-        getFragment<CatchupFragment>(CatchupFragment.TAG)?.let { return it.onBackPressed() }
         getFragment<ChannelControlsFragment>(ControlsFragment.TAG)?.let {
             if(it.onBackPressed())
                 return true

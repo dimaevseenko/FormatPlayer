@@ -23,7 +23,9 @@ import ua.dimaevseenko.format_player.model.Programs
 
 class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     @Assisted("programs")
-    private val programs: Programs,
+    private var programs: Programs,
+    @Assisted("allowCatchup")
+    private val allowCatchup: Boolean,
     private val context: Context
 ): RecyclerView.Adapter<ChannelProgramsRecyclerAdapter.ItemViewHolder>() {
 
@@ -41,6 +43,8 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     private fun update(){
         CoroutineScope(Dispatchers.Default).launch {
             delay(60000)
+            if (!allowCatchup)
+                programs = programs.getProgramsWithoutPast()
             launch(Dispatchers.Main){
                 notifyDataSetChanged()
                 update()
@@ -134,7 +138,9 @@ class ChannelProgramsRecyclerAdapter @AssistedInject constructor(
     interface Factory{
         fun createChannelProgramsRecyclerAdapter(
             @Assisted("programs")
-            programs: Programs
+            programs: Programs,
+            @Assisted("allowCatchup")
+            allowCatchup: Boolean
         ): ChannelProgramsRecyclerAdapter
     }
 }

@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentProgramsBinding
-import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
-import ua.dimaevseenko.format_player.fragment.player.stream.channel.catchup.CatchupFragment
 import ua.dimaevseenko.format_player.model.*
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.ProgramsResult
@@ -47,7 +45,7 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     private fun initView(){
-        programsViewModel.getPrograms(getStream().getStreamId())?.let {
+        programsViewModel.getPrograms(getChannel().id)?.let {
             loadRecycler(it)
         }
     }
@@ -61,17 +59,12 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     private fun loadRecycler(programs: Programs){
-        var clearPrograms = programs
+        val clearPrograms = if(!getChannel().allowCatchup)
+            programs.getProgramsWithoutPast()
+        else
+            programs
 
-        if ((getStream() as Channel).allowCatchup == false){
-            clearPrograms = Programs()
-            programs.forEach { program ->
-                if(programs.getCurrentProgramId() <= program.gmtTime)
-                    clearPrograms.add(program)
-            }
-        }
-
-        recyclerAdapter = recyclerAdapterFactory.createChannelProgramsRecyclerAdapter(clearPrograms)
+        recyclerAdapter = recyclerAdapterFactory.createChannelProgramsRecyclerAdapter(clearPrograms, getChannel().allowCatchup)
         recyclerAdapter.setListener(this)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -80,26 +73,12 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     override fun onLiveProgramSelected(program: Program, position: Int) {
-        getChannelStreamFragment().getFragment<CatchupFragment>(CatchupFragment.TAG)
-            ?.onBackPressed()
+
     }
 
     override fun onCatchupProgramSelected(program: Program, position: Int) {
-        val channel = (getStream() as Channel)
-
-        if(!channel.allowCatchup)
+        if(!getChannel().allowCatchup)
             return
-
-        val catchup = channel.getCatchup(program)
-
-        getChannelStreamFragment().pausePlayer()
-
-        getChannelStreamFragment().replaceFragment(
-            getChannelStreamFragment().getStreamContainer().id,
-            appComponent.createCatchupFragment().apply { arguments = Bundle().apply { putParcelable("catchup", catchup) } },
-            CatchupFragment.TAG,
-            true
-        )
     }
 
     override fun onVerticalFocusChanged(position: Int) {
@@ -126,8 +105,8 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
         }
     }
 
-    private fun getStream(): Stream{
-        return getChannelStreamFragment().getStream()
+    private fun getChannel(): Channel{
+        return getChannelStreamFragment().getStream() as Channel
     }
 
     private fun getChannelStreamFragment(): ChannelStreamFragment{
