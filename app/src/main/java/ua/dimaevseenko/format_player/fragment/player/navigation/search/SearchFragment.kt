@@ -56,6 +56,9 @@ class SearchFragment @Inject constructor(): AnimatedFragment(), RecyclerChannels
         ).apply {
             setListener(this@SearchFragment)
         }
+
+        if(requireContext().isTV)
+            binding.editTextTextPersonName.requestFocus()
     }
 
     override fun onSelectedChannel(channel: Channel, position: Int, focusedView: View?) {
@@ -69,7 +72,7 @@ class SearchFragment @Inject constructor(): AnimatedFragment(), RecyclerChannels
         override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(s: Editable?) {
-            (binding.recycler.adapter as VerticalChannelsAdapter).updateChannels(playlistViewModel.getChannels()!!.getChannelsForName(s.toString()))
+            (binding.recycler.adapter as VerticalChannelsAdapter).updateChannels(playlistViewModel.getChannels()!!.getChannelsForName(s.toString().trim()))
             binding.recycler.scrollToPosition(0)
         }
     }
