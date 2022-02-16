@@ -15,6 +15,7 @@ import ua.dimaevseenko.format_player.fragment.player.navigation.PlayerNavFragmen
 import ua.dimaevseenko.format_player.fragment.player.stream.StreamFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.camera.CameraStreamFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.channel.ChannelStreamFragment
+import ua.dimaevseenko.format_player.model.Cam
 import ua.dimaevseenko.format_player.model.Channel
 import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
@@ -43,15 +44,18 @@ class PlayerFragment @Inject constructor(): Fragment() {
             addFragment(R.id.playerContainer, playerNavFragment, PlayerNavFragment.TAG, true)
     }
 
-    fun startStream(stream: Stream, completion: ()->Unit) {
+
+    fun startChannel(channel: Channel, completion: ()->Unit){
         completionStreamFragment = completion
+        startStream(stream = channel, appComponent.createChannelStreamFragment())
+    }
 
-        val streamFragment =
-            if (stream is Channel)
-                appComponent.createChannelStreamFragment()
-            else
-                appComponent.createCameraStreamFragment()
+    fun startCamera(camera: Cam, completion: () -> Unit){
+        completionStreamFragment = completion
+        startStream(stream = camera, appComponent.createCameraStreamFragment())
+    }
 
+    private fun startStream(stream: Stream, streamFragment: StreamFragment) {
         streamFragment.arguments = Bundle().apply { putParcelable("stream", stream) }
         replaceFragment(R.id.streamContainer, streamFragment, StreamFragment.TAG)
     }

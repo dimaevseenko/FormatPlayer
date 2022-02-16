@@ -59,7 +59,7 @@ class SearchFragment @Inject constructor(): AnimatedFragment(), RecyclerChannels
     }
 
     override fun onSelectedChannel(channel: Channel, position: Int, focusedView: View?) {
-        playerFragment.startStream(channel){
+        playerFragment.startChannel(channel){
             if(requireContext().isTV)
                 focusedView?.requestFocus()
         }

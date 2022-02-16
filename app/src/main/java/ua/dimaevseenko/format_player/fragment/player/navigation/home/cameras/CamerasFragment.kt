@@ -60,7 +60,7 @@ class CamerasFragment @Inject constructor(): AnimatedFragment(), RecyclerCameras
     override fun onSelectedCam(cam: Cam, position: Int, focusedView: View?) {
         binding.backImageView.setOnClickListener {}
 
-        playerFragment.startStream(cam){
+        playerFragment.startCamera(cam){
             binding.backImageView.setOnClickListener { dismiss() }
             if(requireContext().isTV)
                 focusedView?.requestFocus()
