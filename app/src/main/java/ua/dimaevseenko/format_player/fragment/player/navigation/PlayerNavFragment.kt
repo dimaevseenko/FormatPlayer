@@ -66,9 +66,8 @@ class PlayerNavFragment @Inject constructor(): Fragment(), NavigationBarView.OnI
         if(getFragment<HomeFragment>(HomeFragment.TAG) == null){
             binding.playerNavigationView.selectedItemId = R.id.navMain
             return true
-        }else{
+        }else
             getFragment<HomeFragment>(HomeFragment.TAG)?.let { return it.onBackPressed() }
-        }
         return false
     }
 
