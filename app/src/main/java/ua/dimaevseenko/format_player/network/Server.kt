@@ -41,7 +41,8 @@ object Server {
                 "jgetchannellist" -> { playlist.get().getPlaylist(callback = callback as Callback<PlaylistResult>) }
                 "jgetjsoniconschannels" -> { icons.get().getIcons(callback = callback as Callback<IconsResult>) }
                 "getProgramsById" -> { programs.get().getPrograms(bundle, callback = callback as Callback<ProgramsResult>) }
-                "authClient" -> { client.get().authClient(callback = callback as Callback<ResponseBody>) }
+                "authClient" -> { client.get().authClient(callback = callback as Callback<ClientResult>) }
+                "getClientInfo" -> { client.get().getClientInfo(bundle, callback = callback as Callback<InfoResult>)}
             }
         }
     }
@@ -125,8 +126,12 @@ object Server {
     class Client @Inject constructor(){
         @Inject lateinit var rClient: RClient
 
-        fun authClient(callback: Callback<ResponseBody>){
+        fun authClient(callback: Callback<ClientResult>){
             rClient.authClient().enqueue(callback)
+        }
+
+        fun getClientInfo(bundle: Bundle, callback: Callback<InfoResult>){
+            rClient.getClientInfo(clientId = bundle.getString("clientId")!!).enqueue(callback)
         }
     }
 }
