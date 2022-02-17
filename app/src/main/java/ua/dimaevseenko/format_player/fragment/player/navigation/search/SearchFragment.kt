@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import ua.dimaevseenko.format_player.R
+import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.databinding.FragmentSearchBinding
@@ -20,6 +21,7 @@ import ua.dimaevseenko.format_player.fragment.player.navigation.home.channels.Ve
 import ua.dimaevseenko.format_player.fragment.player.navigation.home.channels.VerticalChannelsAdapter
 import ua.dimaevseenko.format_player.isTV
 import ua.dimaevseenko.format_player.model.Channel
+import ua.dimaevseenko.format_player.model.LastWatchedChannel
 import ua.dimaevseenko.format_player.playerFragment
 import ua.dimaevseenko.format_player.viewmodel.PlaylistViewModel
 import javax.inject.Inject
@@ -80,6 +82,10 @@ class SearchFragment @Inject constructor(): AnimatedFragment(), HorizontalChanne
     }
 
     override fun onSelectedChannel(channel: Channel, position: Int, focusedView: View?) {
+        Config.Values.lastWatchedChannelsIds.add(LastWatchedChannel(channel.id, System.currentTimeMillis()))
+        Config.Values.lastWatchedChannelsIds.sortBy { it.dateAdded }
+        Config.Values.save(requireContext())
+
         playerFragment.startChannel(channel){
             if(requireContext().isTV)
                 focusedView?.requestFocus()
