@@ -6,8 +6,10 @@ import dagger.Lazy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import okhttp3.ResponseBody
 import retrofit2.Callback
 import ua.dimaevseenko.format_player.app.Config
+import ua.dimaevseenko.format_player.network.request.RClient
 import ua.dimaevseenko.format_player.network.request.RPlaylist
 import ua.dimaevseenko.format_player.network.request.RPrograms
 import ua.dimaevseenko.format_player.network.request.RUser
@@ -29,6 +31,7 @@ object Server {
         @Inject lateinit var playlist: Lazy<Playlist>
         @Inject lateinit var icons: Lazy<Icons>
         @Inject lateinit var programs: Lazy<Programs>
+        @Inject lateinit var client: Lazy<Client>
 
         fun<T> request(bundle: Bundle, callback: Callback<T>){
             when(bundle.getString("action")){
@@ -38,6 +41,7 @@ object Server {
                 "jgetchannellist" -> { playlist.get().getPlaylist(callback = callback as Callback<PlaylistResult>) }
                 "jgetjsoniconschannels" -> { icons.get().getIcons(callback = callback as Callback<IconsResult>) }
                 "getProgramsById" -> { programs.get().getPrograms(bundle, callback = callback as Callback<ProgramsResult>) }
+                "authClient" -> { client.get().authClient(callback = callback as Callback<ResponseBody>) }
             }
         }
     }
@@ -115,6 +119,14 @@ object Server {
 
         fun getPrograms(bundle: Bundle, callback: Callback<ProgramsResult>){
             rPrograms.getPrograms(id = bundle.getString("id")!!).enqueue(callback)
+        }
+    }
+
+    class Client @Inject constructor(){
+        @Inject lateinit var rClient: RClient
+
+        fun authClient(callback: Callback<ResponseBody>){
+            rClient.authClient().enqueue(callback)
         }
     }
 }

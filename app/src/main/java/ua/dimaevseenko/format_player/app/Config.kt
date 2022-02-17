@@ -17,6 +17,7 @@ object Config {
 
     const val SERVER_ADDRESS = "https://edge.format-tv.net/"
     const val SERVER_ADDRESS_F = "https://mobileapp.format-tv.net/formatplayer/"
+    const val SERVER_ADDRESS_FORMAT24 = "https://mobileapp.format-tv.net/format24_v2.0/"
 
     fun getFullToken(context: Context): String{
         return "${Values.mToken}.${Device.getUniqueDeviceID(context)}"
@@ -26,6 +27,7 @@ object Config {
         private const val PREFERENCES_NAME = "config"
 
         var login: String? = null
+        var password: String? = null
         var mToken: String? = null
 
         var lastWatchedChannelsIds = LastWatchedChannels()
@@ -33,6 +35,7 @@ object Config {
         fun save(context: Context){
             context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE).edit().apply {
                 putString("login", login)
+                putString("password", password)
                 putString("mToken", mToken)
                 putString("lastWatched", Gson().toJson(lastWatchedChannelsIds))
                 apply()
@@ -42,6 +45,7 @@ object Config {
         fun load(context: Context){
             context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE).apply {
                 login = getString("login", null)
+                password = getString("password", null)
                 mToken = getString("mToken", null)
 
                 getString("lastWatched", null)?.let {

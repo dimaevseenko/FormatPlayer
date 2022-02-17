@@ -1,5 +1,6 @@
 package ua.dimaevseenko.format_player.di.module
 
+import android.annotation.SuppressLint
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -9,9 +10,7 @@ import ua.dimaevseenko.format_player.app.Config
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import javax.inject.Qualifier
-import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
-import javax.net.ssl.SSLSession
 import javax.net.ssl.X509TrustManager
 
 @Module(includes = [OkHttpModule::class])
@@ -36,6 +35,16 @@ object RetrofitModule{
             .client(okHttpClient)
             .build()
     }
+
+    @Format24
+    @Provides
+    fun provideRetrofitFormat24(okHttpClient: OkHttpClient): Retrofit{
+        return Retrofit.Builder()
+            .addConverterFactory(GsonConverterFactory.create())
+            .baseUrl(Config.SERVER_ADDRESS_FORMAT24)
+            .client(okHttpClient)
+            .build()
+    }
 }
 
 @Module
@@ -43,8 +52,11 @@ object OkHttpModule{
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient{
-        val trustManager = object : X509TrustManager {
+        val trustManager = @SuppressLint("CustomX509TrustManager")
+        object : X509TrustManager {
+            @SuppressLint("TrustAllX509TrustManager")
             override fun checkClientTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
+            @SuppressLint("TrustAllX509TrustManager")
             override fun checkServerTrusted(chain: Array<out X509Certificate>?, authType: String?) {}
             override fun getAcceptedIssuers(): Array<X509Certificate> { return emptyArray() }
         }
@@ -66,3 +78,6 @@ annotation class EdgeServer
 
 @Qualifier
 annotation class MobileServer
+
+@Qualifier
+annotation class Format24
