@@ -9,6 +9,7 @@ import android.util.Base64
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import ua.dimaevseenko.format_player.app.Config.Utils.toHex
+import ua.dimaevseenko.format_player.model.FavouriteChannels
 import ua.dimaevseenko.format_player.model.LastWatchedChannels
 import java.security.MessageDigest
 import kotlin.text.Charsets.UTF_8
@@ -31,6 +32,7 @@ object Config {
         var mToken: String? = null
 
         var lastWatchedChannelsIds = LastWatchedChannels()
+        var favouriteChannels = FavouriteChannels()
 
         fun save(context: Context){
             context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE).edit().apply {
@@ -38,6 +40,7 @@ object Config {
                 putString("password", password)
                 putString("mToken", mToken)
                 putString("lastWatched", Gson().toJson(lastWatchedChannelsIds))
+                putString("favourite", Gson().toJson(favouriteChannels))
                 apply()
             }
         }
@@ -51,6 +54,11 @@ object Config {
                 getString("lastWatched", null)?.let {
                     val type = object : TypeToken<LastWatchedChannels>() {}.type
                     lastWatchedChannelsIds = Gson().fromJson(it, type)
+                }
+
+                getString("favourite", null)?.let {
+                    val type = object : TypeToken<FavouriteChannels>(){}.type
+                    favouriteChannels = Gson().fromJson(it, type)
                 }
             }
         }

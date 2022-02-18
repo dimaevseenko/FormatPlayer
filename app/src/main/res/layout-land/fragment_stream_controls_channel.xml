@@ -8,6 +8,24 @@
     android:focusable="true">
 
     <ImageButton
+        android:id="@+id/favouriteImageButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/back_selector"
+        android:padding="8dp"
+        android:scaleType="fitCenter"
+        android:nextFocusDown="@id/fullscreenImageButton"
+        android:nextFocusUp="@id/favouriteImageButton"
+        android:nextFocusRight="@id/favouriteImageButton"
+        android:nextFocusLeft="@id/hidePlayerImageButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_heart_fill"
+        tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
+
+    <ImageButton
         android:id="@+id/hidePlayerImageButton"
         android:layout_width="35dp"
         android:layout_height="35dp"
@@ -16,7 +34,7 @@
         android:background="@drawable/back_selector"
         android:focusable="true"
         android:nextFocusLeft="@id/hidePlayerImageButton"
-        android:nextFocusRight="@id/hidePlayerImageButton"
+        android:nextFocusRight="@id/favouriteImageButton"
         android:nextFocusUp="@id/hidePlayerImageButton"
         android:nextFocusDown="@id/programsImageButton"
         android:padding="8dp"
@@ -52,7 +70,7 @@
         android:background="@drawable/back_selector"
         android:nextFocusLeft="@id/settingsImageButton"
         android:nextFocusRight="@id/fullscreenImageButton"
-        android:nextFocusUp="@id/hidePlayerImageButton"
+        android:nextFocusUp="@id/favouriteImageButton"
         android:nextFocusDown="@id/fullscreenImageButton"
         android:padding="8dp"
         android:scaleType="fitCenter"
@@ -114,7 +132,7 @@
         android:background="@drawable/back_selector"
         android:nextFocusLeft="@id/programsImageButton"
         android:nextFocusRight="@id/fullscreenImageButton"
-        android:nextFocusUp="@id/hidePlayerImageButton"
+        android:nextFocusUp="@id/favouriteImageButton"
         android:nextFocusDown="@id/settingsImageButton"
         android:padding="6dp"
         android:scaleType="fitCenter"

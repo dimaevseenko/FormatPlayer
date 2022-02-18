@@ -10,9 +10,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModelProvider
 import ua.dimaevseenko.format_player.*
+import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentStreamControlsChannelBinding
 import ua.dimaevseenko.format_player.fragment.player.stream.ControlsFragment
 import ua.dimaevseenko.format_player.fragment.player.stream.channel.settings.ChannelSettingsFragment
+import ua.dimaevseenko.format_player.model.FavouriteChannel
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.ProgramsResult
 import ua.dimaevseenko.format_player.viewmodel.ProgramsViewModel
@@ -25,6 +27,8 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
     private lateinit var programsViewModel: ProgramsViewModel
 
     @Inject lateinit var channelProgramsFragment: ChannelProgramsFragment
+
+    private var isFav = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentStreamControlsChannelBinding.bind(inflater.inflate(R.layout.fragment_stream_controls_channel, container, false))
@@ -44,13 +48,34 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
         if(requireContext().isTV)
             binding.hidePlayerImageButton.requestFocus()
 
+        updateFavouriteIcon()
+
         binding.titleTextView.text = getStream().getStreamTitle()
         binding.hidePlayerImageButton.setOnClickListener { dismissStream() }
         programsViewModel.getCurrentProgram(getStream().getStreamId())?.let { binding.nameTextView.text = it.name }
 
         binding.fullscreenImageButton.setOnClickListener { fullscreen() }
         binding.settingsImageButton.setOnClickListener { settings() }
+        binding.favouriteImageButton.setOnClickListener { favourite() }
         binding.programsImageButton?.let { it.setOnClickListener { programs() } }
+    }
+
+    private fun updateFavouriteIcon(){
+        if(Config.Values.favouriteChannels.findFavourite(getStream().getStreamId()) != null)
+            binding.favouriteImageButton.setImageResource(R.drawable.ic_heart)
+        else
+            binding.favouriteImageButton.setImageResource(R.drawable.ic_heart_fill)
+    }
+
+    private fun favourite(){
+        if(Config.Values.favouriteChannels.findFavourite(getStream().getStreamId()) != null)
+            Config.Values.favouriteChannels.remove(Config.Values.favouriteChannels.findFavourite(getStream().getStreamId()))
+        else
+            Config.Values.favouriteChannels.add(FavouriteChannel(getStream().getStreamId(), System.currentTimeMillis()))
+
+        Config.Values.favouriteChannels.sortBy { it.dateAdded }
+        Config.Values.save(requireContext())
+        updateFavouriteIcon()
     }
 
     private fun settings(){

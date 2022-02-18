@@ -101,6 +101,7 @@ class ClientViewModel @Inject constructor(): ViewModel(){
 
         override fun onFailure(call: Call<PaymentsResult>, t: Throwable) {
             isLoading = false
+            listener?.onFailure(t)
         }
     }
 
