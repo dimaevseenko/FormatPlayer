@@ -4,6 +4,7 @@ import android.content.Context
 import com.google.android.exoplayer2.ExoPlayer
 import com.google.android.exoplayer2.Format
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.source.hls.HlsMediaSource
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector
 import com.google.android.exoplayer2.ui.PlayerView
@@ -24,6 +25,7 @@ class StreamPlayer @AssistedInject constructor(
     private val context: Context
 ) {
 
+
     var playDefault = true
 
     val isPlaying: Boolean
@@ -32,6 +34,10 @@ class StreamPlayer @AssistedInject constructor(
     init{
         playerView.player = player
         player.setMediaSource(createMediaSource())
+    }
+
+    fun addListener(listener: Player.Listener){
+        player.addListener(listener)
     }
 
     private fun createMediaSource(stream: Stream = this.stream): HlsMediaSource {
@@ -99,11 +105,13 @@ class StreamPlayer @AssistedInject constructor(
         player.seekTo(position)
     }
 
+    fun prepare(){
+        player.prepare()
+    }
+
     fun start(){
-        if(playDefault) {
-            player.prepare()
+        if(playDefault)
             player.play()
-        }
     }
 
     fun pause(){

@@ -43,6 +43,7 @@ object Server {
                 "getProgramsById" -> { programs.get().getPrograms(bundle, callback = callback as Callback<ProgramsResult>) }
                 "authClient" -> { client.get().authClient(callback = callback as Callback<ClientResult>) }
                 "getClientInfo" -> { client.get().getClientInfo(bundle, callback = callback as Callback<InfoResult>)}
+                "getClientPayments" -> { client.get().getClientPayments(bundle, callback = callback as Callback<PaymentsResult>) }
             }
         }
     }
@@ -132,6 +133,10 @@ object Server {
 
         fun getClientInfo(bundle: Bundle, callback: Callback<InfoResult>){
             rClient.getClientInfo(clientId = bundle.getString("clientId")!!).enqueue(callback)
+        }
+
+        fun getClientPayments(bundle: Bundle, callback: Callback<PaymentsResult>){
+            rClient.getClientPayments(clientId = bundle.getString("clientId")!!).enqueue(callback)
         }
     }
 }

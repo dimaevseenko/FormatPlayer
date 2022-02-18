@@ -8,6 +8,7 @@ import retrofit2.http.POST
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.network.result.ClientResult
 import ua.dimaevseenko.format_player.network.result.InfoResult
+import ua.dimaevseenko.format_player.network.result.PaymentsResult
 
 interface RClient {
     @FormUrlEncoded
@@ -24,4 +25,11 @@ interface RClient {
         @Field("action") action: String = "getClientInfo",
         @Field("clientId") clientId: String
     ): Call<InfoResult>
+
+    @FormUrlEncoded
+    @POST(".")
+    fun getClientPayments(
+        @Field("action") action: String = "getPayments",
+        @Field("clientId") clientId: String
+    ): Call<PaymentsResult>
 }

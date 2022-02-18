@@ -56,7 +56,9 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(), Server.Listener
         requestViewModel.listener = this
 
         binding.personalLayout.setOnClickListener {
-            clientViewModel.getClient()?.let { Log.d("CHANNELL", it.toString()) }
+            clientViewModel.getClient()?.let {
+                Log.d("CHANNELL", it.toString())
+            }
         }
 
         binding.button.setOnClickListener { unLogin() }

@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsControllerCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.exoplayer2.Format
+import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.ui.PlayerView
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.fragment.player.PlayerFragment
@@ -18,7 +19,7 @@ import ua.dimaevseenko.format_player.model.Quality
 import ua.dimaevseenko.format_player.model.Stream
 import javax.inject.Inject
 
-abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
+abstract class StreamFragment: Fragment(), SwipeHelper.Listener, Player.Listener {
 
     companion object{
         const val TAG = "StreamFragment"
@@ -48,6 +49,7 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
         getStreamContainer().setOnClickListener { streamControls() }
 
         streamPlayer = streamPlayerFactory.createStreamPlayer(getPlayerView(), stream)
+        streamPlayer.addListener(this)
 
         if(savedInstanceState == null)
             streamControls()
@@ -56,6 +58,15 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
             hideSystemUI()
         else
             showSystemUI()
+    }
+
+    override fun onPlaybackStateChanged(playbackState: Int) {
+        when(playbackState){
+            Player.STATE_READY -> { streamPlayer.start() }
+            Player.STATE_BUFFERING -> { }
+            Player.STATE_ENDED -> { }
+            Player.STATE_IDLE -> { }
+        }
     }
 
     fun pausePlayer(){
@@ -125,7 +136,7 @@ abstract class StreamFragment: Fragment(), SwipeHelper.Listener {
     }
 
     override fun onResume() {
-        streamPlayer.start()
+        streamPlayer.prepare()
         super.onResume()
     }
 

@@ -5,12 +5,15 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.ClientResult
 import ua.dimaevseenko.format_player.network.result.InfoResult
+import ua.dimaevseenko.format_player.network.result.PaymentsResult
 import javax.inject.Inject
 
 class ClientViewModel @Inject constructor(): ViewModel(){
@@ -49,6 +52,7 @@ class ClientViewModel @Inject constructor(): ViewModel(){
         }
 
         override fun onFailure(call: Call<ClientResult>, t: Throwable) {
+            isLoading = false
             listener?.onFailure(t)
         }
     }
@@ -66,12 +70,37 @@ class ClientViewModel @Inject constructor(): ViewModel(){
 
     private inner class ClientInfo: Callback<InfoResult>{
         override fun onResponse(call: Call<InfoResult>, response: Response<InfoResult>) {
+            isLoading = false
             clientLiveData.value?.info = response.body()?.data?.info
-            clientLiveData.value?.let { listener?.onResponse(it) }
+            loadPayments()
         }
 
         override fun onFailure(call: Call<InfoResult>, t: Throwable) {
+            isLoading = false
             listener?.onFailure(t)
+        }
+    }
+
+    private fun loadPayments(){
+        isLoading = true
+        request.request(
+            Bundle().apply {
+                putString("action", "getClientPayments")
+                putSerializable("clientId", clientLiveData.value?.data?.clientId)
+            },
+            ClientPayments()
+        )
+    }
+
+    private inner class ClientPayments: Callback<PaymentsResult>{
+        override fun onResponse(call: Call<PaymentsResult>, response: Response<PaymentsResult>) {
+            isLoading = false
+            clientLiveData.value?.payments = response.body()?.payments
+            clientLiveData.value?.let { listener?.onResponse(it) }
+        }
+
+        override fun onFailure(call: Call<PaymentsResult>, t: Throwable) {
+            isLoading = false
         }
     }
 
