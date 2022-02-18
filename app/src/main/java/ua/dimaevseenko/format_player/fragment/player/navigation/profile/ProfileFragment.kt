@@ -15,6 +15,7 @@ import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.databinding.FragmentProfileBinding
 import ua.dimaevseenko.format_player.base.AnimatedFragment
+import ua.dimaevseenko.format_player.model.FavouriteChannels
 import ua.dimaevseenko.format_player.model.LastWatchedChannels
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.ClientResult
@@ -79,6 +80,7 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(), Server.Listener
         Config.Values.password = null
         Config.Values.mToken = null
         Config.Values.lastWatchedChannelsIds = LastWatchedChannels()
+        Config.Values.favouriteChannels = FavouriteChannels()
         Config.Values.save(requireContext())
         mainFragment.authFragment()
     }
