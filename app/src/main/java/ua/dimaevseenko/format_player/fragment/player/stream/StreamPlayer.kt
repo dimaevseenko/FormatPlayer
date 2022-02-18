@@ -25,7 +25,6 @@ class StreamPlayer @AssistedInject constructor(
     private val context: Context
 ) {
 
-
     var playDefault = true
 
     val isPlaying: Boolean
