@@ -45,8 +45,6 @@ class PlaylistViewModel @Inject constructor(): ViewModel(){
     }
 
     fun loadPlaylist(){
-        this.listener = listener
-
         serverRequest.request(
             Bundle().apply {
                 putString("action", "jgetchannellist")

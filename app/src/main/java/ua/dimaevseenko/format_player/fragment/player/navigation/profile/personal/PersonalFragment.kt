@@ -31,7 +31,6 @@ class PersonalFragment @Inject constructor(): AnimatedFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         clientViewModel = ViewModelProvider(requireActivity()).get(ClientViewModel::class.java)
 
         if(savedInstanceState == null)

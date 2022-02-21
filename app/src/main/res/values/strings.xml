@@ -51,4 +51,9 @@
     <string name="current_state">По состоянию на</string>
     <string name="active">Активный</string>
     <string name="not_active">Не активный</string>
+    <string name="payment_in">Пополнение</string>
+    <string name="payment_out">Списание</string>
+    <string name="time">Время</string>
+    <string name="amount">Сумма</string>
+    <string name="note">Примечание</string>
 </resources>
