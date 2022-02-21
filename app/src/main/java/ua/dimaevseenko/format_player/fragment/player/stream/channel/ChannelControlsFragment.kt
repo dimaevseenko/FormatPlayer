@@ -28,8 +28,6 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
 
     @Inject lateinit var channelProgramsFragment: ChannelProgramsFragment
 
-    private var isFav = false
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentStreamControlsChannelBinding.bind(inflater.inflate(R.layout.fragment_stream_controls_channel, container, false))
         return binding.root

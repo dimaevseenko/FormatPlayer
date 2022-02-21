@@ -68,7 +68,6 @@ class ChannelStreamFragment @Inject constructor(): StreamFragment(), Server.List
     override fun onResponse(result: ProgramsResult) {}
 
     override fun onFailure(t: Throwable) {
-        Log.d("CHANNELL", "update...")
         jobUpdate?.cancel()
         jobUpdate = null
         jobUpdate = CoroutineScope(Dispatchers.Default).launch {
