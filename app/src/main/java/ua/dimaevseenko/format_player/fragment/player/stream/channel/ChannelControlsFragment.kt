@@ -52,12 +52,19 @@ class ChannelControlsFragment @Inject constructor(): ControlsFragment(), Server.
 
         binding.titleTextView.text = getStream().getStreamTitle()
         binding.hidePlayerImageButton.setOnClickListener { dismissStream() }
-        programsViewModel.getCurrentProgram(getStream().getStreamId())?.let { binding.nameTextView.text = it.name }
+        loadName()
 
         binding.fullscreenImageButton.setOnClickListener { fullscreen() }
         binding.settingsImageButton.setOnClickListener { settings() }
         binding.favouriteImageButton.setOnClickListener { favourite() }
         binding.programsImageButton?.let { it.setOnClickListener { programs() } }
+    }
+
+    private fun loadName(){
+        if(programsViewModel.getCurrentProgram(getStream().getStreamId()) != null)
+            binding.nameTextView.text = programsViewModel.getCurrentProgram(getStream().getStreamId())!!.name
+        else
+            binding.nameTextView.text = getString(R.string.updating)
     }
 
     private fun updateFavouriteIcon(){

@@ -39,4 +39,5 @@
     <string name="low">Low</string>
     <string name="personal_account">Личный кабинет</string>
     <string name="payments">История платежей</string>
+    <string name="updating">Обновление...</string>
 </resources>

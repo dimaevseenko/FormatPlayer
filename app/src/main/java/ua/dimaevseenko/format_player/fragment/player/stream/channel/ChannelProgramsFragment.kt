@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
+import kotlinx.coroutines.*
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentProgramsBinding
 import ua.dimaevseenko.format_player.model.*
@@ -30,6 +31,8 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
 
     private lateinit var binding: FragmentProgramsBinding
 
+    private var jobUpdate: Job? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentProgramsBinding.bind(inflater.inflate(R.layout.fragment_programs, container, false))
         return binding.root
@@ -41,13 +44,7 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
         programsViewModel = ViewModelProvider(requireActivity()).get(ProgramsViewModel::class.java)
         programsViewModel.addListener(TAG, this)
 
-        initView()
-    }
-
-    private fun initView(){
-        programsViewModel.getPrograms(getChannel().id)?.let {
-            loadRecycler(it)
-        }
+        programsViewModel.getPrograms(getChannel().id)?.let { loadRecycler(it) }
     }
 
     override fun onResponse(result: ProgramsResult) {
@@ -55,10 +52,17 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     override fun onFailure(t: Throwable) {
-
+        jobUpdate?.cancel()
+        jobUpdate = null
+        jobUpdate = CoroutineScope(Dispatchers.Default).launch {
+            delay(5000)
+            launch(Dispatchers.Main) { programsViewModel.getPrograms(getChannel().id) }
+        }
     }
 
     private fun loadRecycler(programs: Programs){
+        binding.programsLoading.visibility = View.GONE
+
         val clearPrograms = if(!getChannel().allowCatchup)
             programs.getProgramsWithoutPast()
         else
@@ -117,6 +121,8 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     override fun onDestroy() {
+        jobUpdate?.cancel()
+        jobUpdate = null
         programsViewModel.removeListener(TAG)
         super.onDestroy()
     }
