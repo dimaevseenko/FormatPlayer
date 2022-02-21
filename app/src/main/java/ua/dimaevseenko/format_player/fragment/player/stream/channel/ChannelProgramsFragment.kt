@@ -31,8 +31,6 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
 
     private lateinit var binding: FragmentProgramsBinding
 
-    private var jobUpdate: Job? = null
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentProgramsBinding.bind(inflater.inflate(R.layout.fragment_programs, container, false))
         return binding.root
@@ -52,12 +50,7 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     override fun onFailure(t: Throwable) {
-        jobUpdate?.cancel()
-        jobUpdate = null
-        jobUpdate = CoroutineScope(Dispatchers.Default).launch {
-            delay(5000)
-            launch(Dispatchers.Main) { programsViewModel.getPrograms(getChannel().id) }
-        }
+
     }
 
     private fun loadRecycler(programs: Programs){
@@ -121,8 +114,6 @@ class ChannelProgramsFragment @Inject constructor(): Fragment(), Server.Listener
     }
 
     override fun onDestroy() {
-        jobUpdate?.cancel()
-        jobUpdate = null
         programsViewModel.removeListener(TAG)
         super.onDestroy()
     }
