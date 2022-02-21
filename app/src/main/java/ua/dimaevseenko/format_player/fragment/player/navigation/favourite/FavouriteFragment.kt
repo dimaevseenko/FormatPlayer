@@ -29,4 +29,8 @@ class FavouriteFragment @Inject constructor(): AnimatedFragment() {
         if(savedInstanceState == null)
             animateStartY()
     }
+
+    override fun tag(): String {
+        return TAG
+    }
 }

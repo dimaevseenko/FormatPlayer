@@ -24,7 +24,7 @@ import ua.dimaevseenko.format_player.viewmodel.ClientViewModel
 import ua.dimaevseenko.format_player.viewmodel.RequestViewModel
 import javax.inject.Inject
 
-class ProfileFragment @Inject constructor(): AnimatedFragment(), Server.Listener<UnLoginResult> {
+class ProfileFragment @Inject constructor(): AnimatedFragment(){
 
     companion object{
         const val TAG = "ProfileFragment"
@@ -32,12 +32,8 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(), Server.Listener
 
     private lateinit var binding: FragmentProfileBinding
 
-    @Inject lateinit var request: Server.Request
-
-    private lateinit var clientViewModel: ClientViewModel
-
-    @Inject lateinit var requestViewModelFactory: RequestViewModel.Factory<UnLoginResult>
-    private lateinit var requestViewModel: RequestViewModel<UnLoginResult>
+    @Inject lateinit var profileLoaderFragment: ProfileLoaderFragment
+    @Inject lateinit var profileWaysFragment: ProfileWaysFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentProfileBinding.bind(inflater.inflate(R.layout.fragment_profile, container, false))
@@ -45,59 +41,15 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(), Server.Listener
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if(savedInstanceState == null)
-            animateStartY()
-
         appComponent.inject(this)
 
-        clientViewModel = ViewModelProvider(requireActivity()).get(ClientViewModel::class.java)
-
-        requestViewModel = ViewModelProvider(viewModelStore, requestViewModelFactory).get(
-            RequestViewModel::class.java) as RequestViewModel<UnLoginResult>
-        requestViewModel.listener = this
-
-        binding.personalLayout.setOnClickListener {
-            clientViewModel.getClient()?.let {
-                Log.d("CHANNELL", it.toString())
-            }
-        }
-
-        binding.button.setOnClickListener { unLogin() }
+        if(savedInstanceState == null)
+            replaceFragment(R.id.profileContainer, profileLoaderFragment, ProfileLoaderFragment.TAG, true)
     }
 
-    private fun unLogin(){
-        showProgressDialog()
-        requestViewModel.request(
-            Bundle().apply {
-                putString("action", "jdeldevice")
-                putString("authmac", Config.getFullToken(requireContext()))
-            }
-        )
-    }
-
-    private fun unLoginSuccess(){
-        Config.Values.login = null
-        Config.Values.password = null
-        Config.Values.mToken = null
-        Config.Values.lastWatchedChannelsIds = LastWatchedChannels()
-        Config.Values.favouriteChannels = FavouriteChannels()
-        Config.Values.save(requireContext())
-        mainFragment.authFragment()
-    }
-
-    override fun onResponse(result: UnLoginResult) {
-        dismissProgressDialog()
-        if(result.status == 0)
-            unLoginSuccess()
-    }
-
-    override fun onFailure(t: Throwable) {
-        dismissProgressDialog()
-    }
-
-    override fun onDestroy() {
-        requestViewModel.listener = null
-        super.onDestroy()
+    fun clientLoaded(){
+        if(isAdded)
+            replaceFragment(R.id.profileContainer, profileWaysFragment, ProfileWaysFragment.TAG, true)
     }
 
     override fun tag(): String {

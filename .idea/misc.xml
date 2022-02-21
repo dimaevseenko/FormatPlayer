@@ -56,6 +56,8 @@
         <entry key="app/src/main/res/layout/fragment_player.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_player_navigation.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_profile_loader.xml" value="0.15625" />
+        <entry key="app/src/main/res/layout/fragment_profile_ways.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_programs.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_register.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_search.xml" value="0.375" />
