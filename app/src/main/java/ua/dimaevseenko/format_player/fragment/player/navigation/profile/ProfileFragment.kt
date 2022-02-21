@@ -34,6 +34,7 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(){
 
     @Inject lateinit var profileLoaderFragment: ProfileLoaderFragment
     @Inject lateinit var profileWaysFragment: ProfileWaysFragment
+    @Inject lateinit var personalFragment: PersonalFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentProfileBinding.bind(inflater.inflate(R.layout.fragment_profile, container, false))
@@ -50,6 +51,23 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(){
     fun clientLoaded(){
         if(isAdded)
             replaceFragment(R.id.profileContainer, profileWaysFragment, ProfileWaysFragment.TAG, true)
+    }
+
+    fun profileWaysFragment(){
+        profileWaysFragment.returnFragment = true
+        replaceFragment(R.id.profileContainer, profileWaysFragment, ProfileWaysFragment.TAG, true)
+    }
+
+    fun personalFragment(){
+        replaceFragment(R.id.profileContainer, personalFragment, PersonalFragment.TAG, true)
+    }
+
+    fun onBackPressed(): Boolean{
+        getFragment<PersonalFragment>(PersonalFragment.TAG)?.let {
+            it.dismiss()
+            return true
+        }
+        return false
     }
 
     override fun tag(): String {

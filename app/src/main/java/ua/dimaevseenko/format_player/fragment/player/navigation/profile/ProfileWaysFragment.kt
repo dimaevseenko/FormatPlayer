@@ -26,10 +26,10 @@ class ProfileWaysFragment @Inject constructor(): AnimatedFragment(), Server.List
 
     private lateinit var binding: FragmentProfileWaysBinding
 
-    private lateinit var clientViewModel: ClientViewModel
-
     @Inject lateinit var requestViewModelFactory: RequestViewModel.Factory<UnLoginResult>
     private lateinit var requestViewModel: RequestViewModel<UnLoginResult>
+
+    var returnFragment = false
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentProfileWaysBinding.bind(inflater.inflate(R.layout.fragment_profile_ways, container, false))
@@ -39,14 +39,26 @@ class ProfileWaysFragment @Inject constructor(): AnimatedFragment(), Server.List
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         appComponent.inject(this)
 
-        clientViewModel = ViewModelProvider(requireActivity()).get(ClientViewModel::class.java)
+        if(returnFragment)
+            animateStartX(true)
+
+        returnFragment = false
+
         requestViewModel = ViewModelProvider(this, requestViewModelFactory).get(RequestViewModel::class.java) as RequestViewModel<UnLoginResult>
         requestViewModel.listener = this
 
-        binding.personalLayout.setOnClickListener {
-            Log.d("CHANNELL", clientViewModel.getClient()!!.toString())
-        }
+        binding.personalLayout.setOnClickListener { personal() }
         binding.button.setOnClickListener { unLogin() }
+
+        if(requireContext().isTV)
+            binding.personalLayout.requestFocus()
+    }
+
+    private fun personal(){
+        if(isAnimated) {
+            dismiss()
+            (parentFragment as ProfileFragment).personalFragment()
+        }
     }
 
     private fun unLogin(){
@@ -81,6 +93,10 @@ class ProfileWaysFragment @Inject constructor(): AnimatedFragment(), Server.List
     override fun onDestroy() {
         requestViewModel.listener = null
         super.onDestroy()
+    }
+
+    private fun dismiss(){
+        animateEndX(true)
     }
 
     override fun tag(): String {
