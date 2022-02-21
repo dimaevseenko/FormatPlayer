@@ -36,94 +36,315 @@
                 app:tint="@color/back_image_button_selector"
                 tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-            <Button
-                android:id="@+id/button2"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button"
+                android:layout_marginStart="16dp"
+                android:fontFamily="@font/inter"
+                android:text="@string/personal_account"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/backImageView"
+                app:layout_constraintStart_toEndOf="@+id/backImageView"
+                app:layout_constraintTop_toTopOf="@+id/backImageView" />
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:fillViewport="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/backImageView"
-                tools:layout_editor_absoluteX="114dp" />
+                tools:ignore="SpeakableTextPresentCheck">
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Button"
-                app:layout_constraintTop_toBottomOf="@+id/button2"
-                tools:layout_editor_absoluteX="97dp" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/button4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Button"
-                app:layout_constraintTop_toBottomOf="@+id/button3"
-                tools:layout_editor_absoluteX="85dp" />
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/personalInfoCardView"
+                        style="@style/Theme.FormatPlayer.PlayerNavCardView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginEnd="24dp"
+                        android:layout_marginBottom="24dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/button5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Button"
-                app:layout_constraintTop_toBottomOf="@+id/button4"
-                tools:layout_editor_absoluteX="107dp" />
+                        <LinearLayout
+                            style="@style/Theme.FormatPlayer.PlayerNavLinearLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:orientation="vertical">
 
-            <Button
-                android:id="@+id/button6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Button"
-                app:layout_constraintTop_toBottomOf="@+id/button5"
-                tools:layout_editor_absoluteX="99dp" />
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
-            <Button
-                android:id="@+id/button7"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Button"
-                app:layout_constraintTop_toBottomOf="@+id/button6"
-                tools:layout_editor_absoluteX="97dp" />
+                                <TextView
+                                    android:id="@+id/personalCurrentState"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="TextView"
+                                    android:textColor="@color/lightGreen"
+                                    android:textStyle="bold"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalCurrentStateTitle" />
 
-            <Button
-                android:id="@+id/button8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Button"
-                app:layout_constraintTop_toBottomOf="@+id/button7"
-                tools:layout_editor_absoluteX="94dp" />
+                                <TextView
+                                    android:id="@+id/personalCurrentStateTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="@string/current_state"
+                                    android:textColor="#FFFFFF"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalEmail" />
 
-            <Button
-                android:id="@+id/button9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="Button"
-                app:layout_constraintTop_toBottomOf="@+id/button8"
-                tools:layout_editor_absoluteX="99dp" />
+                                <TextView
+                                    android:id="@+id/personalEmail"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="TextView"
+                                    android:textColor="@color/lightGreen"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalEmailTitle" />
 
-            <Button
-                android:id="@+id/button10"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Button"
-                app:layout_constraintTop_toBottomOf="@+id/button9"
-                tools:layout_editor_absoluteX="99dp" />
+                                <TextView
+                                    android:id="@+id/personalEmailTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="@string/email"
+                                    android:textColor="#FFFFFF"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalAddress" />
 
-            <Button
-                android:id="@+id/button11"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
-                android:text="Button"
-                app:layout_constraintTop_toBottomOf="@+id/button10"
-                tools:layout_editor_absoluteX="114dp" />
+                                <TextView
+                                    android:id="@+id/personalAddress"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="TextView"
+                                    android:textColor="@color/lightGreen"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalAddressTitle" />
+
+                                <TextView
+                                    android:id="@+id/personalAddressTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="@string/address"
+                                    android:textColor="#FFFFFF"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalFio" />
+
+                                <TextView
+                                    android:id="@+id/personalFio"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="TextView"
+                                    android:textColor="@color/lightGreen"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalFioTitle" />
+
+                                <TextView
+                                    android:id="@+id/personalFioTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="@string/fio"
+                                    android:textColor="#FFFFFF"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalState" />
+
+                                <TextView
+                                    android:id="@+id/personalState"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="TextView"
+                                    android:textColor="@color/lightGreen"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalStateTitle" />
+
+                                <TextView
+                                    android:id="@+id/personalStateTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="@string/state"
+                                    android:textColor="#FFFFFF"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalPeriodEnd" />
+
+                                <TextView
+                                    android:id="@+id/personalPeriodEnd"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="TextView"
+                                    android:textColor="@color/lightGreen"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalPeriodEndTitle" />
+
+                                <TextView
+                                    android:id="@+id/personalPeriodEndTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="@string/period_end"
+                                    android:textColor="#FFFFFF"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalBonusBalance" />
+
+                                <TextView
+                                    android:id="@+id/personalBonusBalance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="TextView"
+                                    android:textColor="@color/lightGreen"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalBonusBalanceTitle" />
+
+                                <TextView
+                                    android:id="@+id/personalBonusBalanceTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="@string/bonus_balance"
+                                    android:textColor="#FFFFFF"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalBalance" />
+
+                                <TextView
+                                    android:id="@+id/personalBalance"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="TextView"
+                                    android:textColor="@color/lightGreen"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalBalanceTitle" />
+
+                                <TextView
+                                    android:id="@+id/personalBalanceTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="@string/balance"
+                                    android:textColor="#FFFFFF"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalTariff" />
+
+                                <TextView
+                                    android:id="@+id/personalTariff"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="TextView"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalTariffTitle"
+                                    android:textColor="@color/lightGreen" />
+
+                                <TextView
+                                    android:id="@+id/personalLoginTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="@string/personal_login"
+                                    android:textColor="#FFFFFF"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/personalLoginTextView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="4dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="TextView"
+                                    android:textColor="@color/lightGreen"
+                                    android:textStyle="bold"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalLoginTitle" />
+
+                                <TextView
+                                    android:id="@+id/personalTariffTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="8dp"
+                                    android:fontFamily="@font/inter"
+                                    android:text="@string/tariff"
+                                    android:textColor="#FFFFFF"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toBottomOf="@+id/personalLoginTextView" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </ScrollView>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

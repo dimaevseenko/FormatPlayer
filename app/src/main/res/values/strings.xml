@@ -40,4 +40,13 @@
     <string name="personal_account">Личный кабинет</string>
     <string name="payments">История платежей</string>
     <string name="updating">Обновление...</string>
+    <string name="personal_login">Лицевой счёт</string>
+    <string name="tariff">Тариф</string>
+    <string name="balance">Баланс</string>
+    <string name="bonus_balance">Бонусный счёт</string>
+    <string name="period_end">Действителен до</string>
+    <string name="state">Состояние</string>
+    <string name="address">Адрес</string>
+    <string name="email">Email</string>
+    <string name="current_state">По состоянию на</string>
 </resources>
