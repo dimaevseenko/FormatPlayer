@@ -1,4 +1,4 @@
-package ua.dimaevseenko.format_player.fragment.player.navigation.profile
+package ua.dimaevseenko.format_player.fragment.player.navigation.profile.personal
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.databinding.FragmentPersonalBinding
+import ua.dimaevseenko.format_player.fragment.player.navigation.profile.ProfileFragment
 import ua.dimaevseenko.format_player.isTV
 import ua.dimaevseenko.format_player.model.Info
 import ua.dimaevseenko.format_player.viewmodel.ClientViewModel
@@ -50,7 +51,7 @@ class PersonalFragment @Inject constructor(): AnimatedFragment() {
         binding.personalBalance.text = info.deposit
         binding.personalBonusBalance.text = info.bonus
         binding.personalPeriodEnd.text = info.periodEnd
-        binding.personalState.text = info.state
+        binding.personalState.text = if(info.state == "0") getString(R.string.not_active) else getString(R.string.active)
         binding.personalFio.text = "${info.lastName} ${info.firstName} ${info.middleName}"
         binding.personalAddress.text = "${info.address.street} ${info.address.house}, ${info.address.apartment}"
         binding.personalEmail.text = info.email

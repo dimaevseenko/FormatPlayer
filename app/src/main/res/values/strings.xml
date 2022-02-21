@@ -49,4 +49,6 @@
     <string name="address">Адрес</string>
     <string name="email">Email</string>
     <string name="current_state">По состоянию на</string>
+    <string name="active">Активный</string>
+    <string name="not_active">Не активный</string>
 </resources>

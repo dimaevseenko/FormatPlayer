@@ -90,16 +90,18 @@
 
                                 <TextView
                                     android:id="@+id/personalCurrentState"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="8dp"
+                                    android:layout_marginEnd="16dp"
                                     android:layout_marginBottom="16dp"
                                     android:fontFamily="@font/inter"
                                     android:text="TextView"
                                     android:textColor="@color/lightGreen"
                                     android:textStyle="bold"
                                     app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/personalCurrentStateTitle" />
 
@@ -117,14 +119,16 @@
 
                                 <TextView
                                     android:id="@+id/personalEmail"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="4dp"
+                                    android:layout_marginEnd="16dp"
                                     android:fontFamily="@font/inter"
                                     android:text="TextView"
                                     android:textColor="@color/lightGreen"
                                     android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/personalEmailTitle" />
 
@@ -142,14 +146,16 @@
 
                                 <TextView
                                     android:id="@+id/personalAddress"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="4dp"
+                                    android:layout_marginEnd="16dp"
                                     android:fontFamily="@font/inter"
                                     android:text="TextView"
                                     android:textColor="@color/lightGreen"
                                     android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/personalAddressTitle" />
 
@@ -167,14 +173,16 @@
 
                                 <TextView
                                     android:id="@+id/personalFio"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="4dp"
+                                    android:layout_marginEnd="16dp"
                                     android:fontFamily="@font/inter"
                                     android:text="TextView"
                                     android:textColor="@color/lightGreen"
                                     android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/personalFioTitle" />
 
@@ -192,14 +200,16 @@
 
                                 <TextView
                                     android:id="@+id/personalState"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="4dp"
+                                    android:layout_marginEnd="16dp"
                                     android:fontFamily="@font/inter"
                                     android:text="TextView"
                                     android:textColor="@color/lightGreen"
                                     android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/personalStateTitle" />
 
@@ -217,14 +227,16 @@
 
                                 <TextView
                                     android:id="@+id/personalPeriodEnd"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="4dp"
+                                    android:layout_marginEnd="16dp"
                                     android:fontFamily="@font/inter"
                                     android:text="TextView"
                                     android:textColor="@color/lightGreen"
                                     android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/personalPeriodEndTitle" />
 
@@ -242,14 +254,16 @@
 
                                 <TextView
                                     android:id="@+id/personalBonusBalance"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="4dp"
+                                    android:layout_marginEnd="16dp"
                                     android:fontFamily="@font/inter"
                                     android:text="TextView"
                                     android:textColor="@color/lightGreen"
                                     android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/personalBonusBalanceTitle" />
 
@@ -267,14 +281,16 @@
 
                                 <TextView
                                     android:id="@+id/personalBalance"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="4dp"
+                                    android:layout_marginEnd="16dp"
                                     android:fontFamily="@font/inter"
                                     android:text="TextView"
                                     android:textColor="@color/lightGreen"
                                     android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/personalBalanceTitle" />
 
@@ -292,16 +308,18 @@
 
                                 <TextView
                                     android:id="@+id/personalTariff"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="4dp"
                                     android:fontFamily="@font/inter"
                                     android:text="TextView"
+                                    android:textColor="@color/lightGreen"
                                     android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/personalTariffTitle"
-                                    android:textColor="@color/lightGreen" />
+                                    android:layout_marginEnd="16dp" />
 
                                 <TextView
                                     android:id="@+id/personalLoginTitle"
@@ -317,14 +335,16 @@
 
                                 <TextView
                                     android:id="@+id/personalLoginTextView"
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_marginStart="16dp"
                                     android:layout_marginTop="4dp"
+                                    android:layout_marginEnd="16dp"
                                     android:fontFamily="@font/inter"
                                     android:text="TextView"
                                     android:textColor="@color/lightGreen"
                                     android:textStyle="bold"
+                                    app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintTop_toBottomOf="@+id/personalLoginTitle" />
 

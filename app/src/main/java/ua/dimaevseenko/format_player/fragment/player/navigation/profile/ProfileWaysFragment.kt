@@ -48,6 +48,7 @@ class ProfileWaysFragment @Inject constructor(): AnimatedFragment(), Server.List
         requestViewModel.listener = this
 
         binding.personalLayout.setOnClickListener { personal() }
+        binding.paymentsLayout.setOnClickListener { payments() }
         binding.button.setOnClickListener { unLogin() }
 
         if(requireContext().isTV)
@@ -58,6 +59,13 @@ class ProfileWaysFragment @Inject constructor(): AnimatedFragment(), Server.List
         if(isAnimated) {
             dismiss()
             (parentFragment as ProfileFragment).personalFragment()
+        }
+    }
+
+    private fun payments(){
+        if(isAnimated) {
+            dismiss()
+            (parentFragment as ProfileFragment).paymentsFragment()
         }
     }
 
