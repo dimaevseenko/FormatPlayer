@@ -90,7 +90,7 @@ class ClientViewModel @Inject constructor(): ViewModel(){
         request.request(
             Bundle().apply {
                 putString("action", "getClientPayments")
-                putSerializable("clientId", clientLiveData.value?.data?.clientId)
+                putString("clientId", clientLiveData.value?.data?.clientId)
             },
             ClientPayments()
         )
