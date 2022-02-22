@@ -26,6 +26,10 @@ class ClientViewModel @Inject constructor(): ViewModel(){
 
     private var isLoading = false
 
+    fun clearClient(){
+        clientLiveData.value = null
+    }
+
     fun getClient(): ClientResult?{
         if(clientLiveData.value == null)
             if(!isLoading)

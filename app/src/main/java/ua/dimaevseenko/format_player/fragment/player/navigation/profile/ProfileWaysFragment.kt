@@ -26,6 +26,8 @@ class ProfileWaysFragment @Inject constructor(): AnimatedFragment(), Server.List
 
     private lateinit var binding: FragmentProfileWaysBinding
 
+    private lateinit var clientViewModel: ClientViewModel
+
     @Inject lateinit var requestViewModelFactory: RequestViewModel.Factory<UnLoginResult>
     private lateinit var requestViewModel: RequestViewModel<UnLoginResult>
 
@@ -43,6 +45,8 @@ class ProfileWaysFragment @Inject constructor(): AnimatedFragment(), Server.List
             animateStartX(true)
 
         returnFragment = false
+
+        clientViewModel = ViewModelProvider(requireActivity()).get(ClientViewModel::class.java)
 
         requestViewModel = ViewModelProvider(this, requestViewModelFactory).get(RequestViewModel::class.java) as RequestViewModel<UnLoginResult>
         requestViewModel.listener = this
@@ -89,6 +93,7 @@ class ProfileWaysFragment @Inject constructor(): AnimatedFragment(), Server.List
     }
 
     private fun unLoginSuccess(){
+        clientViewModel.clearClient()
         Config.Values.login = null
         Config.Values.password = null
         Config.Values.mToken = null

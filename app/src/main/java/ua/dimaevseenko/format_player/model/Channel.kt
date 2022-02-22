@@ -149,6 +149,18 @@ class Channels: ArrayList<Channel>(){
         return channels
     }
 
+    fun getFavourite(): Channels{
+        val channels = Channels()
+        Config.Values.favouriteChannels.forEach { favouriteChannel ->
+            forEach { channel ->
+                if(favouriteChannel.channelId == channel.id)
+                    channels.add(channel)
+            }
+        }
+        channels.reverse()
+        return channels
+    }
+
     fun getChannelsForName(str: String): Channels{
         if (str.trim() == "")
             return this

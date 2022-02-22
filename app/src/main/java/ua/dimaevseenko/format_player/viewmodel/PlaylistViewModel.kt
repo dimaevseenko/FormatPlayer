@@ -22,11 +22,11 @@ import ua.dimaevseenko.format_player.network.result.IconsResult
 import ua.dimaevseenko.format_player.network.result.PlaylistResult
 import javax.inject.Inject
 
-class PlaylistViewModel @Inject constructor(): ViewModel(){
+class PlaylistViewModel @Inject constructor(
+    private val context: Context
+): ViewModel(){
 
     @Inject lateinit var serverRequest: Server.Request
-
-    @Inject lateinit var context: Context
 
     private val playlistLiveData = MutableLiveData<PlaylistResult>()
 

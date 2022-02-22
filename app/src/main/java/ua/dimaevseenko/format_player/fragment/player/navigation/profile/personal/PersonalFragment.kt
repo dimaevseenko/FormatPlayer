@@ -33,15 +33,14 @@ class PersonalFragment @Inject constructor(): AnimatedFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         clientViewModel = ViewModelProvider(requireActivity()).get(ClientViewModel::class.java)
 
-        if(savedInstanceState == null)
-            animateStartX()
-
         if(requireContext().isTV)
             binding.backImageView.requestFocus()
 
         binding.backImageView.setOnClickListener { dismiss() }
-
         initView(clientViewModel.getClient()!!.info!!)
+
+        if(savedInstanceState == null)
+            animateStartX()
     }
 
     private fun initView(info: Info){
