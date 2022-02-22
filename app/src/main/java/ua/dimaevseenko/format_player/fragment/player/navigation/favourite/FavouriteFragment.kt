@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearSmoothScroller
 import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.base.AnimatedFragment
@@ -20,7 +21,7 @@ import ua.dimaevseenko.format_player.playerFragment
 import ua.dimaevseenko.format_player.viewmodel.PlaylistViewModel
 import javax.inject.Inject
 
-class FavouriteFragment @Inject constructor(): AnimatedFragment(), RecyclerChannelsAdapter.Listener {
+class FavouriteFragment @Inject constructor(): AnimatedFragment(), HorizontalChannelsAdapter.Listener {
 
     companion object{
         const val TAG = "FavouriteFragment"
@@ -65,6 +66,30 @@ class FavouriteFragment @Inject constructor(): AnimatedFragment(), RecyclerChann
 
             if(requireContext().isTV)
                 focusedView?.requestFocus()
+        }
+    }
+
+    override fun onHorizontalFocusChanged(position: Int) {
+        val lm = (binding.recyclerView.layoutManager as LinearLayoutManager)
+
+        val first = lm.findFirstVisibleItemPosition()
+        val last = lm.findLastVisibleItemPosition()
+
+        val center = (last - first)/2
+
+        val smoothScroller = getLinearSmoothScroller()
+
+        if(position >= center) {
+            smoothScroller.targetPosition = position-center
+            lm.startSmoothScroll(smoothScroller)
+        }
+    }
+
+    private fun getLinearSmoothScroller(): LinearSmoothScroller {
+        return object : LinearSmoothScroller(context){
+            override fun getHorizontalSnapPreference(): Int {
+                return SNAP_TO_START
+            }
         }
     }
 
