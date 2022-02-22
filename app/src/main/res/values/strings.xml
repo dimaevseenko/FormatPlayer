@@ -56,4 +56,5 @@
     <string name="time">Время</string>
     <string name="amount">Сумма</string>
     <string name="note">Примечание</string>
+    <string name="favourite_empty">К сожалению список избранных пустой...</string>
 </resources>

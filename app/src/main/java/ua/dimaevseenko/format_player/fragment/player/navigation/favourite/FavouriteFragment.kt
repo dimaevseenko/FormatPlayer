@@ -47,12 +47,21 @@ class FavouriteFragment @Inject constructor(): AnimatedFragment(), RecyclerChann
         if(savedInstanceState == null)
             animateStartY()
 
+        checkEmpty()
         initView()
+    }
+
+    private fun checkEmpty(){
+        if(playlistViewModel.getChannels()!!.getFavourite().size > 0)
+            binding.favouriteEmptyTextView.visibility = View.GONE
+        else
+            binding.favouriteEmptyTextView.visibility = View.VISIBLE
     }
 
     override fun onSelectedChannel(channel: Channel, position: Int, focusedView: View?) {
         playerFragment.startChannel(channel){
             recyclerChannelsAdapter.updateChannels(playlistViewModel.getChannels()!!.getFavourite())
+            checkEmpty()
 
             if(requireContext().isTV)
                 focusedView?.requestFocus()
