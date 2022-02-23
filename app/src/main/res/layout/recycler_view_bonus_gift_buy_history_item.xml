@@ -31,116 +31,134 @@
 
                 <TextView
                     android:id="@+id/buyHistoryTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/inter"
                     android:text="TextView"
                     android:textColor="@color/white"
                     android:textSize="16sp"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/buyHistoryTimeTitleTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/inter"
                     android:text="@string/time"
                     android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buyHistoryTitle" />
 
                 <TextView
                     android:id="@+id/buyHistoryTimeTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/inter"
                     android:text="TextView"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buyHistoryTimeTitleTextView" />
 
                 <TextView
                     android:id="@+id/buyHistoryPriceTitleTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/inter"
                     android:text="@string/price"
                     android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buyHistoryTimeTextView" />
 
                 <TextView
                     android:id="@+id/buyHistoryPriceTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/inter"
                     android:text="TextView"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buyHistoryPriceTitleTextView" />
 
                 <TextView
                     android:id="@+id/buyHistoryCodeTitleTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/inter"
                     android:text="@string/code"
                     android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buyHistoryPriceTextView" />
 
                 <TextView
                     android:id="@+id/buyHistoryCodeTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/inter"
                     android:text="-"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buyHistoryCodeTitleTextView" />
 
                 <TextView
                     android:id="@+id/buyHistoryIssueTitleTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
                     android:fontFamily="@font/inter"
                     android:text="@string/issue_info"
                     android:textColor="@color/white"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buyHistoryCodeTextView" />
 
                 <TextView
                     android:id="@+id/buyHistoryIssueTextView"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/inter"
                     android:text="-"
                     android:textColor="@color/lightGreen"
                     android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/buyHistoryIssueTitleTextView" />
             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -72,4 +72,8 @@
     <string name="issue_info">Информация о выдаче</string>
     <string name="bit">Ставка</string>
     <string name="status">Статус</string>
+    <string name="status_0">Аукцион не закончен, ставка перебита</string>
+    <string name="status_1">Аукцион закончен, ставка перебита</string>
+    <string name="status_2">Аукцион не закончен, ставка не перебита</string>
+    <string name="status_3">Аукцион закончен, ставка не перебита</string>
 </resources>

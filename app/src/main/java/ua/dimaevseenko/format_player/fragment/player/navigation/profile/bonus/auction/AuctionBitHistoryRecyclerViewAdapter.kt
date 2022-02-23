@@ -1,6 +1,7 @@
 package ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.auction
 
 import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,7 +25,7 @@ class AuctionBitHistoryRecyclerViewAdapter @AssistedInject constructor(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(auctions[position])
+        holder.bind(context, auctions[position])
     }
 
     override fun getItemCount(): Int {
@@ -34,19 +35,24 @@ class AuctionBitHistoryRecyclerViewAdapter @AssistedInject constructor(
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         private val binding = RecyclerViewBonusAuctionBitHistoryItemBinding.bind(view)
 
-        fun bind(auction: Auction){
+        fun bind(context: Context, auction: Auction){
             binding.bitHistoryTitle.text = auction.title
             binding.bitHistoryTimeTextView.text = auction.betTime
             binding.bitHistoryBitTextView.text = auction.lastBet?.betAmount
-            binding.bitHistoryStatusTextView.text = getStatus(auction.status!!)
+            binding.bitHistoryStatusTextView.text = getStatus(context.resources, auction.status!!)
             auction.issue?.let {
                 binding.bitHistoryCodeTextView.text = it.code
                 binding.bitHistoryIssueTextView.text = it.issueDate
             }
         }
 
-        private fun getStatus(status: Int): String{
-            return "sss"
+        private fun getStatus(resources: Resources, status: Int): String{
+            return when(status){
+                0 -> resources.getString(R.string.status_0)
+                1 -> resources.getString(R.string.status_1)
+                2 -> resources.getString(R.string.status_2)
+                else -> resources.getString(R.string.status_3)
+            }
         }
     }
 
