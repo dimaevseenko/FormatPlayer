@@ -9,10 +9,10 @@ import kotlinx.coroutines.launch
 import okhttp3.ResponseBody
 import retrofit2.Callback
 import ua.dimaevseenko.format_player.app.Config
-import ua.dimaevseenko.format_player.network.request.RClient
-import ua.dimaevseenko.format_player.network.request.RPlaylist
-import ua.dimaevseenko.format_player.network.request.RPrograms
-import ua.dimaevseenko.format_player.network.request.RUser
+import ua.dimaevseenko.format_player.model.Auctions
+import ua.dimaevseenko.format_player.model.Bonus
+import ua.dimaevseenko.format_player.model.Gifts
+import ua.dimaevseenko.format_player.network.request.*
 import ua.dimaevseenko.format_player.network.result.*
 import javax.inject.Inject
 
@@ -32,6 +32,7 @@ object Server {
         @Inject lateinit var icons: Lazy<Icons>
         @Inject lateinit var programs: Lazy<Programs>
         @Inject lateinit var client: Lazy<Client>
+        @Inject lateinit var bonus: Lazy<Bonus>
 
         fun<T> request(bundle: Bundle, callback: Callback<T>){
             when(bundle.getString("action")){
@@ -44,6 +45,10 @@ object Server {
                 "authClient" -> { client.get().authClient(callback = callback as Callback<ClientResult>) }
                 "getClientInfo" -> { client.get().getClientInfo(bundle, callback = callback as Callback<InfoResult>)}
                 "getClientPayments" -> { client.get().getClientPayments(bundle, callback = callback as Callback<PaymentsResult>) }
+                "getBonusGiftItems" -> { bonus.get().getBonusGiftItems(callback = callback as Callback<Gifts>) }
+                "getBonusGiftBuyHistory" -> { bonus.get().getBonusGiftButHistory(callback = callback as Callback<Gifts>) }
+                "getBonusAuctionItems" -> { bonus.get().getBonusAuctionItems(callback = callback as Callback<Auctions>) }
+                "getBonusAuctionBetHistory" -> { bonus.get().getBonusAuctionBetHistory(callback = callback as Callback<Auctions>) }
             }
         }
     }
@@ -137,6 +142,26 @@ object Server {
 
         fun getClientPayments(bundle: Bundle, callback: Callback<PaymentsResult>){
             rClient.getClientPayments(clientId = bundle.getString("clientId")!!).enqueue(callback)
+        }
+    }
+
+    class Bonus @Inject constructor(){
+        @Inject lateinit var rBonus: RBonus
+
+        fun getBonusGiftItems(callback: Callback<Gifts>){
+            rBonus.getBonusGiftItems().enqueue(callback)
+        }
+
+        fun getBonusGiftButHistory(callback: Callback<Gifts>){
+            rBonus.getBonusGiftBuyHistory().enqueue(callback)
+        }
+
+        fun getBonusAuctionItems(callback: Callback<Auctions>){
+            rBonus.getBonusAuctionItems().enqueue(callback)
+        }
+
+        fun getBonusAuctionBetHistory(callback: Callback<Auctions>){
+            rBonus.getBonusAuctionBetHistory().enqueue(callback)
         }
     }
 }

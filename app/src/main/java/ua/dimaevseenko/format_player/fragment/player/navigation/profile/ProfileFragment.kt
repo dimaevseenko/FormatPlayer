@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.databinding.FragmentProfileBinding
 import ua.dimaevseenko.format_player.base.AnimatedFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.BonusFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.payments.PaymentsFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.personal.PersonalFragment
 import javax.inject.Inject
@@ -23,6 +24,7 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(){
     @Inject lateinit var profileWaysFragment: ProfileWaysFragment
     @Inject lateinit var personalFragment: PersonalFragment
     @Inject lateinit var paymentsFragment: PaymentsFragment
+    @Inject lateinit var bonusFragment: BonusFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentProfileBinding.bind(inflater.inflate(R.layout.fragment_profile, container, false))
@@ -54,7 +56,15 @@ class ProfileFragment @Inject constructor(): AnimatedFragment(){
         replaceFragment(R.id.profileContainer, paymentsFragment, PaymentsFragment.TAG, true)
     }
 
+    fun bonusFragment(){
+        replaceFragment(R.id.profileContainer, bonusFragment, BonusFragment.TAG, true)
+    }
+
     fun onBackPressed(): Boolean{
+        getFragment<BonusFragment>(BonusFragment.TAG)?.let {
+            it.dismiss()
+            return true
+        }
         getFragment<PaymentsFragment>(PaymentsFragment.TAG)?.let {
             it.dismiss()
             return true

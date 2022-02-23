@@ -42,6 +42,9 @@
         <entry key="app/src/main/res/layout/dialog_fragment_progress.xml" value="0.165" />
         <entry key="app/src/main/res/layout/fragment.xml" value="0.16304347826086957" />
         <entry key="app/src/main/res/layout/fragment_auth.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_bonus.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/fragment_bonus_loader.xml" value="0.14855072463768115" />
+        <entry key="app/src/main/res/layout/fragment_bonus_ways.xml" value="0.14855072463768115" />
         <entry key="app/src/main/res/layout/fragment_cameras.xml" value="0.335" />
         <entry key="app/src/main/res/layout/fragment_catchup.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_channels.xml" value="0.45" />

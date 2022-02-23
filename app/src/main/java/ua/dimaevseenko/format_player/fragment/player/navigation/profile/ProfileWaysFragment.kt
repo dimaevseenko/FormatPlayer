@@ -10,10 +10,12 @@ import ua.dimaevseenko.format_player.*
 import ua.dimaevseenko.format_player.app.Config
 import ua.dimaevseenko.format_player.base.AnimatedFragment
 import ua.dimaevseenko.format_player.databinding.FragmentProfileWaysBinding
+import ua.dimaevseenko.format_player.model.Bonus
 import ua.dimaevseenko.format_player.model.FavouriteChannels
 import ua.dimaevseenko.format_player.model.LastWatchedChannels
 import ua.dimaevseenko.format_player.network.Server
 import ua.dimaevseenko.format_player.network.result.UnLoginResult
+import ua.dimaevseenko.format_player.viewmodel.BonusViewModel
 import ua.dimaevseenko.format_player.viewmodel.ClientViewModel
 import ua.dimaevseenko.format_player.viewmodel.RequestViewModel
 import javax.inject.Inject
@@ -53,10 +55,18 @@ class ProfileWaysFragment @Inject constructor(): AnimatedFragment(), Server.List
 
         binding.personalLayout.setOnClickListener { personal() }
         binding.paymentsLayout.setOnClickListener { payments() }
+        binding.mFamilyLayout.setOnClickListener { bonus() }
         binding.button.setOnClickListener { unLogin() }
 
         if(requireContext().isTV)
             binding.personalLayout.requestFocus()
+    }
+
+    private fun bonus(){
+        if(isAnimated){
+            dismiss()
+            (parentFragment as ProfileFragment).bonusFragment()
+        }
     }
 
     private fun personal(){

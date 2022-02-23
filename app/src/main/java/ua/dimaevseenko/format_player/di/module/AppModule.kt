@@ -6,10 +6,7 @@ import com.google.android.exoplayer2.upstream.DefaultDataSource
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import ua.dimaevseenko.format_player.network.request.RClient
-import ua.dimaevseenko.format_player.network.request.RPlaylist
-import ua.dimaevseenko.format_player.network.request.RPrograms
-import ua.dimaevseenko.format_player.network.request.RUser
+import ua.dimaevseenko.format_player.network.request.*
 
 @Module(includes = [PlayerModule::class, NetworkModule::class, AnimationModule::class])
 object AppModule
@@ -49,8 +46,15 @@ object NetworkModule{
             .create(RPrograms::class.java)
     }
 
-    @Provides fun provideRClient(@Format24 retrofit: Retrofit): RClient{
+    @Provides
+    fun provideRClient(@Format24 retrofit: Retrofit): RClient{
         return retrofit.
                 create(RClient::class.java)
+    }
+
+    @Provides
+    fun provideRBonus(@Format24 retrofit: Retrofit): RBonus{
+        return retrofit
+            .create(RBonus::class.java)
     }
 }
