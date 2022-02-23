@@ -58,4 +58,12 @@
     <string name="note">Примечание</string>
     <string name="favourite_empty">К сожалению список избранных пустой...</string>
     <string name="mariupol_family">Mariupol Family</string>
+    <string name="gifts">Подарки</string>
+    <string name="purchased_gifts">История покупок</string>
+    <string name="auctions">Аукционы</string>
+    <string name="bitAuctions">История аукционов</string>
+    <string name="cost">Стоимость</string>
+    <string name="count">Количество</string>
+    <string name="start_price">Начальная цена</string>
+    <string name="auction_time_end">Аукцион доступен до</string>
 </resources>

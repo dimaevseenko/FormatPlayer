@@ -29,7 +29,7 @@ data class Gift(
     val note: String,
 
     @SerializedName("description")
-    val description: String,
+    val descriptions: String,
 
     @SerializedName("buy_time")
     val buyTime: String? = null,
@@ -60,6 +60,12 @@ data class Auction(
 
     @SerializedName("start_price")
     val startPrice: String,
+
+    @SerializedName("description")
+    val descriptions: String,
+
+    @SerializedName("note")
+    val note: String,
 
     @SerializedName("timestamp_start")
     val timeStart: String,
