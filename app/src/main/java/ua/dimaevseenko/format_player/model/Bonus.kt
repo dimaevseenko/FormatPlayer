@@ -76,12 +76,29 @@ data class Auction(
     @SerializedName("current_price")
     val currentPrice: String? = null,
 
+    @SerializedName("bid_time")
+    val betTime: String? = null,
+
+    @SerializedName("status")
+    val status: Int? = null,
+
+    @SerializedName("client_last_bid")
+    val lastBet: ClientLastBet? = null,
+
     @SerializedName("issue")
     val issue: Issue? = null
 ){
     data class Issue(
+        @SerializedName("issue_code")
+        val code: String,
+
         @SerializedName("issue_date")
         val issueDate: String
+    )
+
+    data class ClientLastBet(
+        @SerializedName("bonuses")
+        val betAmount: String
     )
 }
 

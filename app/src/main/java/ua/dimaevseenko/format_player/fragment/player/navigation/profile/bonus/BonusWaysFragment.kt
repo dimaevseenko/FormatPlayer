@@ -10,7 +10,9 @@ import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.appComponent
 import ua.dimaevseenko.format_player.base.BaseFragment
 import ua.dimaevseenko.format_player.databinding.FragmentBonusWaysBinding
+import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.auction.AuctionBitHistoryFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.auction.AuctionsFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.gift.GiftBuyHistoryFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.gift.GiftsFragment
 import ua.dimaevseenko.format_player.replaceFragment
 import javax.inject.Inject
@@ -25,6 +27,8 @@ class BonusWaysFragment @Inject constructor(): Fragment(), TabLayout.OnTabSelect
 
     @Inject lateinit var giftsFragment: GiftsFragment
     @Inject lateinit var auctionsFragment: AuctionsFragment
+    @Inject lateinit var giftBuyHistoryFragment: GiftBuyHistoryFragment
+    @Inject lateinit var auctionBitHistoryFragment: AuctionBitHistoryFragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentBonusWaysBinding.bind(inflater.inflate(R.layout.fragment_bonus_ways, container, false))
@@ -43,6 +47,8 @@ class BonusWaysFragment @Inject constructor(): Fragment(), TabLayout.OnTabSelect
         when(tab.text){
             getString(R.string.gifts) -> onWayItemSelected(giftsFragment)
             getString(R.string.auctions) -> onWayItemSelected(auctionsFragment)
+            getString(R.string.purchased_gifts) -> onWayItemSelected(giftBuyHistoryFragment)
+            getString(R.string.bitAuctions) -> onWayItemSelected(auctionBitHistoryFragment)
         }
     }
 

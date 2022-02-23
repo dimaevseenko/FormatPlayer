@@ -66,4 +66,10 @@
     <string name="count">Количество</string>
     <string name="start_price">Начальная цена</string>
     <string name="auction_time_end">Аукцион доступен до</string>
+    <string name="more">Подробнее</string>
+    <string name="price">Цена</string>
+    <string name="code">Код</string>
+    <string name="issue_info">Информация о выдаче</string>
+    <string name="bit">Ставка</string>
+    <string name="status">Статус</string>
 </resources>

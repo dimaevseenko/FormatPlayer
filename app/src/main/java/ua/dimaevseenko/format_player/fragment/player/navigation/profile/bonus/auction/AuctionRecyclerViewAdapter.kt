@@ -13,6 +13,7 @@ import ua.dimaevseenko.format_player.R
 import ua.dimaevseenko.format_player.databinding.RecyclerViewBonusAuctionItemBinding
 import ua.dimaevseenko.format_player.model.Auction
 import ua.dimaevseenko.format_player.model.Auctions
+import java.text.SimpleDateFormat
 import java.util.*
 
 class AuctionRecyclerViewAdapter @AssistedInject constructor(
@@ -40,7 +41,7 @@ class AuctionRecyclerViewAdapter @AssistedInject constructor(
             binding.auctionTitleTextView.text = auction.title
             Glide.with(context).load(auction.img).into(binding.auctionImageView)
             binding.auctionStartPriceTextView.text = auction.startPrice
-            binding.auctionTimeEndTextView.text = Date(auction.timeEnd).toString()
+            binding.auctionTimeEndTextView.text = SimpleDateFormat("dd.MM.yyyy hh:mm").format(Date(auction.timeEnd*1000))
             binding.auctionDescriptionTextView.text = auction.note
             binding.imageView.setImageResource(R.drawable.ic_circle)
         }

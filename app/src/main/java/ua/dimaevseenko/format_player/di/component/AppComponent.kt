@@ -28,7 +28,9 @@ import ua.dimaevseenko.format_player.fragment.player.navigation.profile.ProfileW
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.BonusFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.BonusLoaderFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.BonusWaysFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.auction.AuctionBitHistoryFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.auction.AuctionsFragment
+import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.gift.GiftBuyHistoryFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.bonus.gift.GiftsFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.profile.payments.PaymentsFragment
 import ua.dimaevseenko.format_player.fragment.player.navigation.search.SearchFragment
@@ -75,6 +77,8 @@ interface AppComponent {
     fun inject(bonusWaysFragment: BonusWaysFragment)
     fun inject(giftsFragment: GiftsFragment)
     fun inject(auctionsFragment: AuctionsFragment)
+    fun inject(giftBuyHistoryFragment: GiftBuyHistoryFragment)
+    fun inject(auctionBitHistoryFragment: AuctionBitHistoryFragment)
 
     fun createChannelStreamFragment(): ChannelStreamFragment
     fun createCameraStreamFragment(): CameraStreamFragment
